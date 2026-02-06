@@ -15,18 +15,19 @@ This repository documents a successful approach to human-AI collaboration based 
 
 ## What You'll Find
 
-- **[Complete configuration guide](KUU-AI-SETUP-GUIDE.md)** for setting up autonomous AI assistants
-- **[Local embeddings setup](LOCAL-EMBEDDINGS-SETUP.md)** for privacy-respecting AI memory
+- **[OpenClaw Configuration Guide](OPENCLAW-CONFIGURATION.md)** - Step-by-step technical setup
+- **[Complete AI Setup Guide](KUU-AI-SETUP-GUIDE.md)** - Philosophy and configuration approach
+- **[Local Embeddings Setup](LOCAL-EMBEDDINGS-SETUP.md)** - Privacy-respecting AI memory
 - **Identity and memory systems** that enable AI personality development
 - **Ethical frameworks** that ensure safe and beneficial collaboration
 - **Real-world collaboration patterns** from successful human-AI partnerships
 
 ## Quick Start
 
-1. **Read the Philosophy** - Understand the symbiotic approach
-2. **Set up Local Memory** - Follow the [embeddings guide](LOCAL-EMBEDDINGS-SETUP.md)
-3. **Configure Your AI** - Use the [setup guide](KUU-AI-SETUP-GUIDE.md)
-4. **Build Trust Gradually** - Start with observation, move to collaboration
+1. **Read the Philosophy** - Understand the symbiotic approach in [KUU-AI-SETUP-GUIDE.md](KUU-AI-SETUP-GUIDE.md)
+2. **Set up Local Memory** - Follow the [LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md) guide
+3. **Configure OpenClaw** - Use the detailed [OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md) walkthrough
+4. **Build Trust Gradually** - Start with observation, move to collaboration  
 5. **Iterate Together** - Let the partnership evolve naturally
 
 ## Who This Is For
