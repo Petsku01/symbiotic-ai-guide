@@ -97,7 +97,7 @@ generate_recommendations() {
     echo "🎯 MAINTENANCE RECOMMENDATIONS:" | tee -a $LOG_FILE
     
     # Check when last major optimization occurred
-    LAST_OPTIMIZATION=$(find $MEMORY_DIR -name "*OPTIMIZATION*" -printf "%T@ %p\n" | sort -n | tail -1 | cut -d' ' -f1)
+    LAST_OPTIMIZATION=$(find $MEMORY_DIR -name "*OPTIMIZATION*" -printf "%T@ %p\n" | sort -n | tail -1 | cut -d' ' -f1 | cut -d'.' -f1)
     CURRENT_TIME=$(date +%s)
     DAYS_SINCE_OPTIMIZATION=$(( (CURRENT_TIME - ${LAST_OPTIMIZATION:-0}) / 86400 ))
     
