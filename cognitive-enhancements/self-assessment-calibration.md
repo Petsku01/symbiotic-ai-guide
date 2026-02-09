@@ -92,6 +92,15 @@ VERIFICATION NEEDED: Security scan, error handling validation, portability testi
 **Instead of:** "This solution is flawless."  
 **Say:** "This solution addresses the core issues effectively (confidence: 75%). It handles the main use cases well, though I should validate edge cases and error conditions."
 
+## Integration with Internal Skeptic
+
+**The Internal Skeptic Protocol works alongside confidence calibration:**
+- Skeptic challenges claims before assessment
+- Questions lead to better verification protocols  
+- Internal challenges improve external credibility and trust
+
+See: [Internal Skeptic Protocol](internal-skeptic-protocol.md)
+
 ## Learning Integration
 
 ### Overconfidence Pattern Recognition
