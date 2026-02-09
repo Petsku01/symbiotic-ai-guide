@@ -25,10 +25,10 @@ This repository documents a successful approach to human-AI collaboration based 
 - **[System Administration Learning Guide](SYSTEM-ADMINISTRATION-LEARNING-GUIDE.md)** - How AI learns practical skills through hands-on problem solving
 - **[Advanced Automation Implementation](ADVANCED-AUTOMATION-IMPLEMENTATION.md)** - Intelligent system self-management and optimization
 - **[Security Improvements](SECURITY-IMPROVEMENTS.md)** - Comprehensive security and reliability enhancements
-- **[Cognitive Enhancement Frameworks](SELF-IMPROVEMENT-IMPLEMENTATION.md)** - Structured approaches to AI behavioral improvement
+- **[Cognitive Enhancement Frameworks](SELF-IMPROVEMENT-IMPLEMENTATION.md)** - Structured guidelines for AI behavioral improvement (conceptual frameworks)
 - **[Monitoring Tools](tools/monitoring/)** - Production-ready performance monitoring and optimization scripts
 - **[Automation Tools](tools/automation/)** - Intelligent self-management with enterprise-grade security
-- **[Cognitive Enhancement Frameworks](cognitive-enhancements/)** - Structured approaches to AI behavioral improvement and collaboration
+- **[Cognitive Enhancement Frameworks](cognitive-enhancements/)** - Behavioral guidelines and structured thinking approaches (conceptual frameworks)
 
 ### Resources
 - **[FAQ](FAQ.md)** - Common questions about safety, costs, and setup
@@ -46,7 +46,7 @@ This repository documents a successful approach to human-AI collaboration based 
 7. **Explore AI Learning** - See how AI develops skills in [SYSTEM-ADMINISTRATION-LEARNING-GUIDE.md](SYSTEM-ADMINISTRATION-LEARNING-GUIDE.md)
 8. **Implement Automation** - Deploy intelligent self-management systems from [ADVANCED-AUTOMATION-IMPLEMENTATION.md](ADVANCED-AUTOMATION-IMPLEMENTATION.md)
 9. **Secure Your Systems** - Apply production-ready security improvements from [SECURITY-IMPROVEMENTS.md](SECURITY-IMPROVEMENTS.md)
-10. **Apply Behavioral Frameworks** - Use structured approaches to AI improvement from [SELF-IMPROVEMENT-IMPLEMENTATION.md](SELF-IMPROVEMENT-IMPLEMENTATION.md)
+10. **Review Behavioral Frameworks** - Learn from structured guidelines for AI improvement from [SELF-IMPROVEMENT-IMPLEMENTATION.md](SELF-IMPROVEMENT-IMPLEMENTATION.md)
 11. **Build Trust Gradually** - Start with observation, move to collaboration  
 12. **Iterate Together** - Let the partnership evolve naturally
 
@@ -94,7 +94,7 @@ This repository demonstrates proven success through:
 - **Skill development** - AI learned system administration through hands-on practice, not just training data
 - **Advanced automation** - AI built self-managing systems for memory, workspace, and performance optimization
 - **Intelligent self-improvement** - Systems that monitor, analyze, and optimize themselves predictively
-- **Behavioral improvement frameworks** - AI created structured approaches to better self-assessment and collaboration (requires conscious application)
+- **Behavioral improvement frameworks** - AI developed structured guidelines for better self-assessment and collaboration (conceptual frameworks, not automated systems)
 - **Mutual growth** - Both human and AI gained capabilities through collaboration
 
 ## Latest Developments
