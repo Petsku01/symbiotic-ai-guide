@@ -11,9 +11,9 @@ Documentation from a single human-AI partnership experiment running since Januar
 ## Quick Start
 
 1. **[OPENCLAW-INSTALLATION.md](OPENCLAW-INSTALLATION.md)** - Get OpenClaw running
-2. **[OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md)** - Configure it properly
-3. **[LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)** - Set up local memory (privacy-focused)
-4. **Copy templates from [examples/](examples/)** - Identity files, memory structure
+2. **Run `./scripts/quick-setup.sh`** - Creates workspace structure and templates
+3. **[OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md)** - Configure it properly
+4. **[LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)** - Set up local memory (privacy-focused)
 
 That's it. The rest is optional reading.
 
@@ -29,6 +29,23 @@ That's it. The rest is optional reading.
 | [SECURITY-IMPROVEMENTS.md](SECURITY-IMPROVEMENTS.md) | Security hardening notes |
 | [INTERNAL-SKEPTIC-COMPACT.md](INTERNAL-SKEPTIC-COMPACT.md) | Anti-overconfidence rules |
 | [EXTERNAL-LLM-SAFETY.md](EXTERNAL-LLM-SAFETY.md) | AI-to-AI safety guidelines |
+
+## Scripts
+
+Practical shell scripts in `scripts/`:
+
+| Script | Purpose |
+|--------|---------|
+| `quick-setup.sh` | Create workspace structure and identity templates |
+| `security-audit.sh` | Check file permissions and exposed secrets |
+| `backup-workspace.sh` | Backup workspace to external location |
+| `session-stats.sh` | Display session and token usage stats |
+| `memory-search-test.sh` | Test memory search quality |
+
+```bash
+cd scripts && chmod +x *.sh
+./quick-setup.sh
+```
 
 ## The Approach (Summary)
 
