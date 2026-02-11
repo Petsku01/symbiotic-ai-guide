@@ -108,6 +108,21 @@ This repository demonstrates results from one operational partnership:
 
 ## Latest Developments
 
+### **Security & Memory Improvements (February 11, 2026)**
+
+Latest session focused on hardening and practical improvements:
+
+- **Security Audit** - Full OpenClaw security audit, 0 critical/0 warnings achieved
+- **Hybrid Memory Search** - Enabled BM25 + vector hybrid search, improved recall scores from ~0.45 to ~0.77
+- **External LLM Safety** - Created guidelines for safe AI-to-AI communication
+- **Compact Skeptic** - Simplified 200-line protocol to 15 actionable lines in identity file
+- **DuckDuckGo Workaround** - Web search without API keys via HTML fetch
+
+New files:
+- `EXTERNAL-LLM-SAFETY.md` - AI-to-AI interaction guidelines
+- `INTERNAL-SKEPTIC-COMPACT.md` - Simplified anti-overconfidence rules
+- `SESSION-LOG-2026-02-11.md` - Detailed session notes
+
 ### **AI System Development with Skeptical Validation (February 2026)**
 The AI developed automation and cognitive improvement systems with systematic reality-checking:
 
