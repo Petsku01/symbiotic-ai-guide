@@ -4,6 +4,18 @@ All notable documentation and safety hardening changes are tracked here.
 
 ## 2026-02-17
 
+### Release framing
+- Added beta framing draft: `docs/releases/v0.1.0-beta-draft.md`
+
+### Process & policy
+- Added status sync requirement policy: `docs/operations/STATUS-SYNC-POLICY.md`
+- Added public validation run workflow and template:
+  - `docs/validation-runs/README.md`
+  - `docs/validation-runs/EXAMPLE-RUN.md`
+- Added script deprecation policy with explicit removal target (`v0.2.0` / `2026-04-30`):
+  - `docs/reference/SCRIPT-DEPRECATION-POLICY.md`
+
+
 ### Added
 - `CHANGELOG.md` with explicit milestone tracking.
 - `docs/getting-started/GOLDEN-PATH.md` as the single tested onboarding path.

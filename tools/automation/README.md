@@ -23,3 +23,10 @@ Use only the `*-improved.sh` scripts for active automation. Non-improved scripts
 2. Replace each reference with the matching `*-improved.sh` script.
 3. Run one manual execution of each canonical script to confirm behavior.
 4. Keep legacy scripts only for short-term rollback; do not add new dependencies on them.
+
+
+## Legacy removal target
+
+Legacy (non-improved) scripts are scheduled for removal by **v0.2.0 (2026-04-30)**.
+
+Track policy details in [docs/reference/SCRIPT-DEPRECATION-POLICY.md](../../docs/reference/SCRIPT-DEPRECATION-POLICY.md).
