@@ -11,6 +11,7 @@
 #   ./backup-workspace.sh /path/to/backup/dir --delete --confirm-delete
 
 set -euo pipefail
+umask 077
 
 OPENCLAW_DIR="${OPENCLAW_STATE_DIR:-$HOME/.openclaw}"
 WORKSPACE_RAW="$OPENCLAW_DIR/workspace"
@@ -18,16 +19,20 @@ DATE="$(date +%Y-%m-%d)"
 
 DELETE_MODE=false
 CONFIRM_DELETE=false
+VERBOSE=false
 BACKUP_DIR_INPUT=""
 
 usage() {
     cat <<'EOF'
 Usage:
-  backup-workspace.sh <destination> [--delete --confirm-delete]
+  backup-workspace.sh <destination> [--delete --confirm-delete] [--verbose]
 
 Modes:
   Default: Dry-run preview only (safe, no file changes)
   Delete mode: Real sync with destination deletions (requires --delete --confirm-delete)
+
+Options:
+  --verbose   Show detailed rsync output
 
 Examples:
   backup-workspace.sh ~/Dropbox/kuu-backup
@@ -39,6 +44,22 @@ error() {
     echo "ERROR: $*" >&2
 }
 
+check_private_directory_permissions() {
+    local dir="$1"
+    local mode
+
+    mode="$(stat -c '%a' "$dir")"
+    local mode_num=$((10#$mode))
+    local group_perm=$(((mode_num / 10) % 10))
+    local other_perm=$((mode_num % 10))
+
+    if (( group_perm != 0 || other_perm != 0 )); then
+        error "Destination directory permissions are too permissive (mode $mode)."
+        error "Use a private directory (e.g., chmod 700 <destination>)."
+        exit 2
+    fi
+}
+
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --delete)
@@ -46,6 +67,9 @@ while [[ $# -gt 0 ]]; do
             ;;
         --confirm-delete)
             CONFIRM_DELETE=true
+            ;;
+        --verbose)
+            VERBOSE=true
             ;;
         -h|--help)
             usage
@@ -106,7 +130,7 @@ if [[ "$BACKUP_DIR" == "/" ]]; then
 fi
 
 if [[ "$BACKUP_DIR" == "$HOME_REAL" ]]; then
-    error "Refusing to use HOME directory as backup destination: $HOME_REAL"
+    error "Refusing to use HOME directory as backup destination"
     exit 2
 fi
 
@@ -116,12 +140,13 @@ if [[ "$BACKUP_DIR" == "$WORKSPACE" ]]; then
 fi
 
 if [[ "$BACKUP_DIR" == "$WORKSPACE"/* ]]; then
-    error "Refusing to backup into a subpath of source workspace: $BACKUP_DIR"
+    error "Refusing to backup into a subpath of source workspace"
     exit 2
 fi
 
 # Ensure destination exists after safety checks
 mkdir -p "$BACKUP_DIR"
+check_private_directory_permissions "$BACKUP_DIR"
 
 MODE_LABEL="DRY-RUN"
 if [[ "$DELETE_MODE" == true ]]; then
@@ -130,15 +155,15 @@ fi
 
 echo "=== Workspace Backup ==="
 echo "Mode: $MODE_LABEL"
-echo "Source: $WORKSPACE"
-echo "Destination: $BACKUP_DIR"
+echo "Source: workspace"
+echo "Destination: configured path"
 echo ""
 
 if [[ "$DELETE_MODE" == true ]]; then
     echo "⚠️  DESTRUCTIVE SYNC ENABLED (--delete)."
-    echo "Type exactly: DELETE $BACKUP_DIR"
+    echo "Type exactly: DELETE"
     read -r typed_confirmation
-    if [[ "$typed_confirmation" != "DELETE $BACKUP_DIR" ]]; then
+    if [[ "$typed_confirmation" != "DELETE" ]]; then
         error "Confirmation mismatch. Aborting destructive sync."
         exit 2
     fi
@@ -151,16 +176,23 @@ if ! command -v rsync >/dev/null 2>&1; then
 fi
 
 RSYNC_ARGS=(
-    -av
+    -a
     --exclude='.git'
     --exclude='*.tmp'
     --exclude='node_modules'
 )
 
+if [[ "$VERBOSE" == true ]]; then
+    RSYNC_ARGS+=(--verbose)
+fi
+
 if [[ "$DELETE_MODE" == true ]]; then
     RSYNC_ARGS+=(--delete)
 else
-    RSYNC_ARGS+=(--dry-run --itemize-changes)
+    RSYNC_ARGS+=(--dry-run)
+    if [[ "$VERBOSE" == true ]]; then
+        RSYNC_ARGS+=(--itemize-changes)
+    fi
 fi
 
 echo "Running rsync..."
@@ -172,7 +204,7 @@ if [[ "$DELETE_MODE" == true ]]; then
         echo ""
         echo "Creating dated snapshot..."
         tar -czf "$SNAPSHOT" -C "$OPENCLAW_DIR" workspace
-        echo "Snapshot: $SNAPSHOT"
+        echo "Snapshot created."
     fi
 fi
 
