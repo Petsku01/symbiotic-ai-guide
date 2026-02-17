@@ -3,7 +3,11 @@
 
 echo "🛠️  Setting up OpenClaw monitoring automation..."
 
-TOOLS_DIR="/home/ette/.openclaw/workspace/tools/monitoring"
+# Prefer explicit workspace, then inferred repo root, then default OpenClaw workspace.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+WORKSPACE="${OPENCLAW_WORKSPACE:-$REPO_ROOT}"
+TOOLS_DIR="$WORKSPACE/tools/monitoring"
 
 # Create systemd user timer for performance monitoring
 mkdir -p ~/.config/systemd/user
