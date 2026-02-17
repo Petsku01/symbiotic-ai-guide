@@ -23,6 +23,11 @@ jobs:
           chmod +x scripts/validate-docs-safety.sh
           ./scripts/validate-docs-safety.sh
 
+      - name: Run onboarding command smoke test (non-destructive)
+        run: |
+          chmod +x scripts/smoke-test-onboarding-commands.sh
+          ./scripts/smoke-test-onboarding-commands.sh
+
       - name: ShellCheck (if available)
         run: |
           if command -v shellcheck >/dev/null 2>&1; then

@@ -25,6 +25,22 @@ for file in "${CORE_DOCS[@]}"; do
   grep -q "Validated against" "$file" || fail "$file is missing validation stamp marker ('Validated against')"
 done
 
+DENYLIST_PATTERNS=(
+  "openclaw config init"
+  "openclaw config patch"
+  "openclaw gateway logs"
+  "openclaw chat"
+  "openclaw gateway start --watch"
+  "openclaw config path"
+)
+
+for pattern in "${DENYLIST_PATTERNS[@]}"; do
+  if grep -nF "$pattern" "${CORE_DOCS[@]}" >/dev/null; then
+    matches="$(grep -nF "$pattern" "${CORE_DOCS[@]}")"
+    fail "Found denied onboarding command pattern '$pattern' in core docs:\n$matches"
+  fi
+done
+
 check_file_exists "docs/VALIDATION-BASIS.md"
 check_file_exists "scripts/quick-setup.sh"
 check_file_exists "scripts/backup-workspace.sh"

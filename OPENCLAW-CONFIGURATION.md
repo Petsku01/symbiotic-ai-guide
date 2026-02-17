@@ -375,11 +375,11 @@ nano ~/.openclaw/openclaw.json
 # Save and restart OpenClaw
 ```
 
-### Method 2: Use Config API
+### Method 2: Validate Config Commands
 
 ```bash
-# Apply configuration via OpenClaw API
-openclaw config patch '{"agents":{"defaults":{"memorySearch":{"enabled":true,"provider":"local","local":{"modelPath":"hf:mixedbread-ai/mxbai-embed-large-v1"},"fallback":"none"}}}}'
+# Inspect available config subcommands on your installed version
+openclaw config --help
 ```
 
 ### Method 3: Gateway Tool (if available)
