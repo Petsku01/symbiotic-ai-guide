@@ -16,17 +16,18 @@ Documentation from a single human-AI partnership experiment running since Januar
 
 ## Quick Start
 
- **Use the tested path first:** **[docs/getting-started/GOLDEN-PATH.md](docs/getting-started/GOLDEN-PATH.md)**
+### Primary onboarding (canonical)
+Follow **[docs/getting-started/GOLDEN-PATH.md](docs/getting-started/GOLDEN-PATH.md)** first.
 
-If you want detail behind each step:
-1. **[OPENCLAW-INSTALLATION.md](OPENCLAW-INSTALLATION.md)** - Get OpenClaw running
-2. **Run `./scripts/quick-setup.sh`** - Creates workspace structure and templates (no auto-commit by default; use `--auto-commit` to opt in)
-3. **[OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md)** - Configure it properly
-4. **[LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)** - Set up local memory (privacy-focused)
+### Supporting references (optional deep dives)
+1. **[OPENCLAW-INSTALLATION.md](OPENCLAW-INSTALLATION.md)** - installation details
+2. **Run `./scripts/quick-setup.sh`** - creates workspace structure and templates (no auto-commit by default; use `--auto-commit` to opt in)
+3. **[OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md)** - detailed configuration
+4. **[LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)** - local memory setup (privacy-focused)
 
 > Onboarding defaults are least-privilege. Full-access examples are documented separately in explicit advanced sections.
 
-That's it. The rest is optional reading.
+That's it. The rest is reference material.
 
 ## Core Files (root)
 

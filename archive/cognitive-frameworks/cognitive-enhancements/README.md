@@ -60,9 +60,10 @@ This directory contains behavioral frameworks and thinking approaches developed 
 
 **Status:** Proven effective in controlled conditions (confidence: 75% based on systematic testing)
 
-### **[Enhanced Skeptic v2.0](enhanced-skeptic-v2.md)** ⭐ **Latest Evolution**
+### **Enhanced Skeptic v2.0 (archived reference)** ⭐ **Latest Evolution**
 **Problem Addressed:** Original skeptic required conscious activation, allowing overconfident claims to slip through  
 **Approach:** Automatic trigger patterns and systematic evidence validation
+**Current canonical summary:** [docs/security/INTERNAL-SKEPTIC-COMPACT.md](../../../docs/security/INTERNAL-SKEPTIC-COMPACT.md)
 
 **Key Features:**
 - Automatic detection of high-risk language patterns (superlatives, absolutes, completion claims)
@@ -78,7 +79,7 @@ This directory contains behavioral frameworks and thinking approaches developed 
 
 **Status:** Shows significant promise (confidence: 75%) but requires long-term validation
 
-### **[Skeptic Testing Protocol](skeptic-testing-protocol.md)** 📊 **Validation Methodology**
+### **Skeptic Testing Protocol (archived reference)** 📊 **Validation Methodology**
 **Comprehensive testing framework** for validating internal skepticism effectiveness
 
 **Testing Categories:**

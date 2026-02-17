@@ -1,5 +1,7 @@
 # GOLDEN PATH (Tested Quickstart)
 
+> This is the **canonical onboarding path** for this repository. Use this first; treat installation/configuration docs as supporting reference.
+
 ## Validation scope
 
 - **Tested in this repo:** 2026-02-17 (non-destructive command/documentation validation)

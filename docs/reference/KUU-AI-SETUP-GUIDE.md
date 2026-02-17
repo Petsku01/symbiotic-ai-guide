@@ -4,7 +4,7 @@ This guide documents how to configure OpenClaw to create an AI assistant with pe
 
 ## Validated against
 
-- **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
+- **Validation basis:** [docs/VALIDATION-BASIS.md](../VALIDATION-BASIS.md)
 - **OpenClaw docs/config assumptions:** 2026-02 baseline
 - **Last validated:** 2026-02-17
 
