@@ -52,6 +52,7 @@ if ! grep -q -- '--auto-commit' scripts/quick-setup.sh; then
 fi
 
 if grep -q 'git commit -m "Initial workspace setup"' scripts/quick-setup.sh; then
+  # shellcheck disable=SC2016 # Intentional literal pattern match against script source
   if ! grep -q 'if \[\[ "\$AUTO_COMMIT" == true \]\]; then' scripts/quick-setup.sh; then
     fail "quick-setup.sh appears to commit without explicit --auto-commit gating"
   fi
