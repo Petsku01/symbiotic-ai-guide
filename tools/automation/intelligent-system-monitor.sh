@@ -1,4 +1,8 @@
 #!/bin/bash
+# DEPRECATION NOTICE: This is a legacy script. Use intelligent-system-monitor-improved.sh instead.
+# CANONICAL SCRIPT: tools/automation/intelligent-system-monitor-improved.sh
+# Migration: update any direct call/cron/systemd entry to the canonical script.
+
 # Intelligent System Monitor - Predictive Performance Analysis
 # Advanced monitoring with trend analysis and predictive alerts
 

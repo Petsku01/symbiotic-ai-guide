@@ -1,4 +1,8 @@
 #!/bin/bash
+# DEPRECATION NOTICE: This is a legacy script. Use workspace-health-monitor-improved.sh instead.
+# CANONICAL SCRIPT: tools/automation/workspace-health-monitor-improved.sh
+# Migration: update any direct call/cron/systemd entry to the canonical script.
+
 # Workspace Health Monitoring Automation
 # Maintains professional workspace organization
 

@@ -45,7 +45,7 @@ That's it. The rest is optional reading.
 - Runtime validation: [docs/VALIDATION-RUNTIME-PLAYBOOK.md](docs/VALIDATION-RUNTIME-PLAYBOOK.md)
 - Validation basis: [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
 - Reference: [docs/reference/KUU-AI-SETUP-GUIDE.md](docs/reference/KUU-AI-SETUP-GUIDE.md), [docs/reference/FAQ.md](docs/reference/FAQ.md)
-- Security notes: [docs/security/SECURITY-IMPROVEMENTS.md](docs/security/SECURITY-IMPROVEMENTS.md), [docs/security/INTERNAL-SKEPTIC-COMPACT.md](docs/security/INTERNAL-SKEPTIC-COMPACT.md), [docs/security/EXTERNAL-LLM-SAFETY.md](docs/security/EXTERNAL-LLM-SAFETY.md)
+- Security notes: [docs/security/SECURITY-IMPROVEMENTS.md](docs/security/SECURITY-IMPROVEMENTS.md), [docs/security/INTERNAL-SKEPTIC-COMPACT.md](docs/security/INTERNAL-SKEPTIC-COMPACT.md), [docs/security/EXTERNAL-LLM-SAFETY.md](docs/security/EXTERNAL-LLM-SAFETY.md), [docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md](docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md)
 - Roadmap tracker: [docs/roadmap/ISSUE-STACK.md](docs/roadmap/ISSUE-STACK.md)
 
 ## Scripts

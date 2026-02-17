@@ -87,4 +87,24 @@ fi
 grep -q '^umask 077$' scripts/backup-workspace.sh || fail "backup-workspace.sh must set umask 077"
 grep -q 'check_private_directory_permissions' scripts/backup-workspace.sh || fail "backup-workspace.sh missing destination permission enforcement"
 
+# External LLM approval workflow must exist and be linked from README + safety docs
+check_file_exists "docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md"
+grep -q "EXTERNAL-LLM-APPROVAL-WORKFLOW.md" README.md || fail "README.md must reference docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md"
+grep -q "EXTERNAL-LLM-APPROVAL-WORKFLOW.md" docs/security/EXTERNAL-LLM-SAFETY.md || fail "docs/security/EXTERNAL-LLM-SAFETY.md must reference EXTERNAL-LLM-APPROVAL-WORKFLOW.md"
+
+# Legacy automation scripts must carry explicit deprecation markers and canonical target references
+declare -A LEGACY_CANONICAL=(
+  ["tools/automation/automation-orchestrator.sh"]="automation-orchestrator-improved.sh"
+  ["tools/automation/memory-maintenance.sh"]="memory-maintenance-improved.sh"
+  ["tools/automation/workspace-health-monitor.sh"]="workspace-health-monitor-improved.sh"
+  ["tools/automation/intelligent-system-monitor.sh"]="intelligent-system-monitor-improved.sh"
+)
+
+for legacy in "${!LEGACY_CANONICAL[@]}"; do
+  check_file_exists "$legacy"
+  canonical="${LEGACY_CANONICAL[$legacy]}"
+  grep -q "DEPRECATION NOTICE" "$legacy" || fail "$legacy missing DEPRECATION NOTICE marker"
+  grep -q "$canonical" "$legacy" || fail "$legacy must reference canonical target $canonical"
+done
+
 echo "[OK] Documentation and script safety checks passed"

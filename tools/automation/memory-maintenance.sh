@@ -1,4 +1,8 @@
 #!/bin/bash
+# DEPRECATION NOTICE: This is a legacy script. Use memory-maintenance-improved.sh instead.
+# CANONICAL SCRIPT: tools/automation/memory-maintenance-improved.sh
+# Migration: update any direct call/cron/systemd entry to the canonical script.
+
 # Memory System Maintenance Automation
 # Keeps optimized memory system in peak condition
 

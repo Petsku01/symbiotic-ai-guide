@@ -1,4 +1,8 @@
 #!/bin/bash
+# DEPRECATION NOTICE: This is a legacy script. Use automation-orchestrator-improved.sh instead.
+# CANONICAL SCRIPT: tools/automation/automation-orchestrator-improved.sh
+# Migration: update any direct call/cron/systemd entry to the canonical script.
+
 # Automation Orchestrator - Coordinated System Optimization
 # Runs all automation systems in optimal sequence
 
