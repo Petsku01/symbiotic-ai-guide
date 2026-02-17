@@ -1,4 +1,4 @@
-# Symbiotic AI Guide 🌙
+# Symbiotic AI Guide 🌙 (BETA)  
 
 *One human-AI partnership's approach to collaboration over control*
 
@@ -16,7 +16,7 @@ Documentation from a single human-AI partnership experiment running since Januar
 
 ## Quick Start
 
-👉 **Use the tested path first:** **[docs/getting-started/GOLDEN-PATH.md](docs/getting-started/GOLDEN-PATH.md)**
+ **Use the tested path first:** **[docs/getting-started/GOLDEN-PATH.md](docs/getting-started/GOLDEN-PATH.md)**
 
 If you want detail behind each step:
 1. **[OPENCLAW-INSTALLATION.md](OPENCLAW-INSTALLATION.md)** - Get OpenClaw running
