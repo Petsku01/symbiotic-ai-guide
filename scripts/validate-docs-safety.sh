@@ -26,9 +26,11 @@ for file in "${CORE_DOCS[@]}"; do
 done
 
 check_file_exists "docs/VALIDATION-BASIS.md"
+check_file_exists "scripts/quick-setup.sh"
+check_file_exists "scripts/backup-workspace.sh"
 
 # Unsafe backup examples (must not encourage single-flag destructive mode)
-if grep -RInE "backup-workspace\.sh[^\n]*--delete(\s|$)" README.md OPENCLAW-CONFIGURATION.md KUU-AI-SETUP-GUIDE.md docs | grep -v -- "--confirm-delete" >/dev/null; then
+if grep -RInE "backup-workspace\.sh[^\n]*--delete(\s|$)" README.md OPENCLAW-CONFIGURATION.md KUU-AI-SETUP-GUIDE.md docs scripts/README.md | grep -v -- "--confirm-delete" >/dev/null; then
   fail "Found unsafe backup example using --delete without --confirm-delete"
 fi
 
@@ -44,4 +46,19 @@ for file in OPENCLAW-CONFIGURATION.md KUU-AI-SETUP-GUIDE.md; do
   fi
 done
 
-echo "[OK] Documentation safety checks passed"
+# quick-setup auto-commit must be opt-in only
+if ! grep -q -- '--auto-commit' scripts/quick-setup.sh; then
+  fail "quick-setup.sh must expose an explicit --auto-commit flag"
+fi
+
+if grep -q 'git commit -m "Initial workspace setup"' scripts/quick-setup.sh; then
+  if ! grep -q 'if \[\[ "\$AUTO_COMMIT" == true \]\]; then' scripts/quick-setup.sh; then
+    fail "quick-setup.sh appears to commit without explicit --auto-commit gating"
+  fi
+fi
+
+# backup hardening: private defaults + permission enforcement
+grep -q '^umask 077$' scripts/backup-workspace.sh || fail "backup-workspace.sh must set umask 077"
+grep -q 'check_private_directory_permissions' scripts/backup-workspace.sh || fail "backup-workspace.sh missing destination permission enforcement"
+
+echo "[OK] Documentation and script safety checks passed"

@@ -14,10 +14,29 @@ jobs:
 
       - name: Bash syntax checks
         run: |
-          bash -n scripts/backup-workspace.sh
-          bash -n scripts/validate-docs-safety.sh
+          while IFS= read -r -d '' file; do
+            bash -n "$file"
+          done < <(find scripts -type f -name '*.sh' -print0)
 
       - name: Run documentation safety validation
         run: |
           chmod +x scripts/validate-docs-safety.sh
           ./scripts/validate-docs-safety.sh
+
+      - name: ShellCheck (if available)
+        run: |
+          if command -v shellcheck >/dev/null 2>&1; then
+            find scripts -type f -name '*.sh' -print0 | xargs -0 shellcheck
+          else
+            echo "shellcheck not available on runner; skipping"
+          fi
+
+      - name: Secret scan (gitleaks or fallback)
+        run: |
+          if command -v gitleaks >/dev/null 2>&1; then
+            gitleaks detect --source . --no-banner --verbose
+          else
+            echo "gitleaks not available; running lightweight fallback scan"
+            ! grep -RInE --exclude-dir=.git \
+              '(AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z\-_]{35}|BEGIN (RSA|OPENSSH|EC) PRIVATE KEY)' .
+          fi
