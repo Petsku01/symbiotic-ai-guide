@@ -51,6 +51,11 @@ if grep -nRE "$BARE_CONFIG_GET_REGEX" "${CORE_DOCS[@]}" >/dev/null; then
 fi
 
 check_file_exists "docs/VALIDATION-BASIS.md"
+check_file_exists "docs/operations/STATUS-SYNC-POLICY.md"
+check_file_exists "docs/validation-runs/README.md"
+check_file_exists "docs/validation-runs/EXAMPLE-RUN.md"
+check_file_exists "docs/releases/v0.1.0-beta-draft.md"
+check_file_exists "docs/reference/SCRIPT-DEPRECATION-POLICY.md"
 check_file_exists "scripts/quick-setup.sh"
 check_file_exists "scripts/backup-workspace.sh"
 
@@ -106,5 +111,15 @@ for legacy in "${!LEGACY_CANONICAL[@]}"; do
   grep -q "DEPRECATION NOTICE" "$legacy" || fail "$legacy missing DEPRECATION NOTICE marker"
   grep -q "$canonical" "$legacy" || fail "$legacy must reference canonical target $canonical"
 done
+
+
+
+# Required cross-links for new docs/process controls
+grep -q "STATUS-SYNC-POLICY.md" .github/pull_request_template.md || fail "PR template must include STATUS-SYNC-POLICY checklist enforcement"
+grep -q "pilot-results.jsonl" .github/pull_request_template.md || fail "PR template must include artifact hygiene checklist"
+grep -q "validation-runs/README.md" docs/getting-started/GOLDEN-PATH.md || fail "GOLDEN-PATH must link docs/validation-runs/README.md"
+grep -q "validation-runs/README.md" docs/VALIDATION-RUNTIME-PLAYBOOK.md || fail "VALIDATION-RUNTIME-PLAYBOOK must link docs/validation-runs/README.md"
+grep -q "v0.1.0-beta-draft.md" README.md || fail "README.md must reference docs/releases/v0.1.0-beta-draft.md"
+grep -q "v0.1.0-beta-draft.md" CHANGELOG.md || fail "CHANGELOG.md must reference docs/releases/v0.1.0-beta-draft.md"
 
 echo "[OK] Documentation and script safety checks passed"

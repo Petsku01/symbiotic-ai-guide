@@ -1,0 +1,7 @@
+# Local runtime/research artifacts
+pilot-results.jsonl
+research/**/logs/*.jsonl
+
+# Optional local env files
+.env
+.env.local

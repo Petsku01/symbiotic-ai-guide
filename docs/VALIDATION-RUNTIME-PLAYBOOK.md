@@ -91,3 +91,11 @@ Any unchecked item. Capture failing command output and resolve by updating local
 
 - If your installed CLI differs from documented subcommands, treat docs as needing update and add a note in `docs/VALIDATION-BASIS.md` before broad rollout.
 - Keep this playbook non-destructive; do not add backup `--delete` or system-modifying commands here.
+
+
+## Publish evidence
+
+After completing a run, document results in `docs/validation-runs/` using:
+
+- [docs/validation-runs/README.md](validation-runs/README.md)
+- [docs/validation-runs/EXAMPLE-RUN.md](validation-runs/EXAMPLE-RUN.md)

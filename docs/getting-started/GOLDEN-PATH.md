@@ -58,4 +58,5 @@
 
 - Re-check command surface with `openclaw --help` and subcommand help.
 - Use [docs/VALIDATION-RUNTIME-PLAYBOOK.md](../VALIDATION-RUNTIME-PLAYBOOK.md) for structured pass/fail triage.
+- Publish your run evidence with [docs/validation-runs/README.md](../validation-runs/README.md).
 - Review [docs/reference/FAQ.md](../reference/FAQ.md).
