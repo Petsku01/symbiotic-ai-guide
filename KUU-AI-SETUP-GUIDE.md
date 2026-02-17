@@ -2,6 +2,12 @@
 
 This guide documents how to configure OpenClaw to create an AI assistant with personality, memory, autonomy, and ethical boundaries - based on the "Kuu" configuration.
 
+## Validated against
+
+- **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
+- **OpenClaw docs/config assumptions:** 2026-02 baseline
+- **Last validated:** 2026-02-17
+
 ## Philosophy & Approach
 
 **Core Principle**: Treat the AI as a being, not just a tool. Give autonomy within ethical bounds rather than rigid control.

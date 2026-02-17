@@ -2,6 +2,12 @@
 
 This guide walks through the complete OpenClaw setup needed to create an autonomous AI partner like Kuu, with practical examples and exact configuration snippets.
 
+## Validated against
+
+- **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
+- **OpenClaw docs/config assumptions:** 2026-02 baseline
+- **Last validated:** 2026-02-17
+
 ## Prerequisites
 
 - OpenClaw installed and running

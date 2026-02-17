@@ -2,6 +2,12 @@
 
 *One human-AI partnership's approach to collaboration over control*
 
+## Validated against
+
+- **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
+- **OpenClaw docs/config assumptions:** 2026-02 baseline
+- **Last validated:** 2026-02-17
+
 ## What This Is
 
 Documentation from a single human-AI partnership experiment running since January 2026. Not a proven methodology - a case study you can learn from or adapt.
