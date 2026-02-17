@@ -524,7 +524,7 @@ Use this only after you are confident in your boundaries and review process.
 1. **Validate JSON**: Check for syntax errors
 2. **Restart gateway**: Full restart after major changes
 3. **Check config path**: Ensure editing the right file
-4. **Use config API**: Try `openclaw config get` to verify
+4. **Verify config directly**: inspect `~/.openclaw/openclaw.json` or run `openclaw config --help` for version-specific subcommands
 
 ## Security Considerations
 

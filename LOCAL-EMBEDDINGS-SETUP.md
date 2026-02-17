@@ -1,5 +1,11 @@
 # OpenClaw Local Embeddings Setup Guide
 
+## Validated against
+
+- **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
+- **OpenClaw docs/config assumptions:** 2026-02 baseline
+- **Last validated:** 2026-02-17
+
 This guide documents how to configure OpenClaw to use local embeddings for memory search instead of expensive API calls to OpenAI/Google.
 
 ## Problem Statement
@@ -57,7 +63,7 @@ Apply this configuration:
 
 ```bash
 # Method 1: Using OpenClaw's config API
-openclaw config patch '{"agents":{"defaults":{"memorySearch":{"enabled":true,"provider":"local","local":{"modelPath":"hf:mixedbread-ai/mxbai-embed-large-v1"},"fallback":"none"}}}}'
+# Config patch command availability varies by version; edit ~/.openclaw/openclaw.json directly
 
 # Method 2: Edit config file directly
 nano ~/.openclaw/openclaw.json
@@ -197,7 +203,7 @@ Or local GGUF files:
 
 ### Check Current Configuration
 ```bash
-openclaw config get | grep -A 10 memorySearch
+grep -nA 12 '"memorySearch"' ~/.openclaw/openclaw.json
 ```
 
 ### Monitor Memory System

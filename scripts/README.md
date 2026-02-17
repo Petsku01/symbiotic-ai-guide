@@ -57,4 +57,4 @@ chmod +x *.sh
 
 - Scripts assume default OpenClaw paths (`~/.openclaw`)
 - Set `OPENCLAW_STATE_DIR` environment variable to override
-- All scripts are non-destructive (won't overwrite existing files)
+- Most scripts are non-destructive by default; `backup-workspace.sh` can run destructive sync only with explicit `--delete --confirm-delete` safeguards

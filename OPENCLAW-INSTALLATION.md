@@ -1,5 +1,11 @@
 # OpenClaw Installation Guide
 
+## Validated against
+
+- **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
+- **OpenClaw docs/config assumptions:** 2026-02 baseline
+- **Last validated:** 2026-02-17
+
 This guide walks through installing OpenClaw from scratch on different operating systems. OpenClaw is the foundation that enables symbiotic AI partnerships.
 
 ## What is OpenClaw?
@@ -32,7 +38,7 @@ npm install -g openclaw
 openclaw --version
 
 # Show available commands
-openclaw help
+openclaw --help
 ```
 
 **Pros:** Simple, automatic updates, clean uninstall  
@@ -162,7 +168,7 @@ mkdir -p ~/.openclaw/workspace
 
 ```bash
 # Generate default configuration
-openclaw config init
+# Create ~/.openclaw/openclaw.json manually (or from your own template)
 
 # This creates ~/.openclaw/openclaw.json
 ```
@@ -314,7 +320,7 @@ openclaw gateway start
 openclaw status
 
 # View logs
-openclaw gateway logs
+openclaw logs
 ```
 
 ### Method 2: System Service (Linux)
@@ -340,7 +346,7 @@ sudo systemctl status openclaw
 openclaw gateway start --verbose
 
 # Or with file watching for config changes
-openclaw gateway start --watch
+# Config watch mode may vary by version; run: openclaw gateway --help
 ```
 
 ## Verify Installation
@@ -360,7 +366,7 @@ Should show:
 
 ```bash
 # Send test message to agent
-openclaw chat "Hello, can you introduce yourself?"
+# CLI chat command varies by version; use your configured channel/UI for a first test message
 ```
 
 ### Web Interface (if enabled)
@@ -443,13 +449,13 @@ nvm use 18
 
 ```bash
 # Check config file location
-openclaw config path
+# Config file is typically ~/.openclaw/openclaw.json (verify via: openclaw config --help)
 
 # Validate JSON syntax
-cat ~/.openclaw/openclaw.json | python -m json.tool
+cat ~/.openclaw/openclaw.json | python3 -m json.tool
 
 # Reset to defaults
-openclaw config init --force
+# Reset manually: back up then replace your config file from a known-good template
 ```
 
 ### API Key Issues
@@ -461,7 +467,7 @@ curl -H "Authorization: Bearer your-api-key" \
      https://api.anthropic.com/v1/models
 
 # Check OpenClaw logs for API errors
-openclaw gateway logs | grep -i error
+openclaw logs --level error
 ```
 
 ## Updating OpenClaw
@@ -560,7 +566,7 @@ After successful installation:
 
 ## Getting Help
 
-- **OpenClaw Documentation**: Check built-in help with `openclaw help`
+- **OpenClaw Documentation**: Check built-in help with `openclaw --help` and `openclaw <subcommand> --help`
 - **GitHub Issues**: https://github.com/openclaw/openclaw/issues
 - **Community**: Join OpenClaw Discord or forums
 - **Configuration Problems**: Review [FAQ.md](FAQ.md)

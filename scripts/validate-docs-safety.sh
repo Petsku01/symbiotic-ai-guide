@@ -16,7 +16,9 @@ check_file_exists() {
 
 CORE_DOCS=(
   "README.md"
+  "OPENCLAW-INSTALLATION.md"
   "OPENCLAW-CONFIGURATION.md"
+  "LOCAL-EMBEDDINGS-SETUP.md"
   "KUU-AI-SETUP-GUIDE.md"
 )
 
@@ -34,12 +36,20 @@ DENYLIST_PATTERNS=(
   "openclaw config path"
 )
 
+# `openclaw config get` requires a path argument; block bare usage
+BARE_CONFIG_GET_REGEX="openclaw config get([[:space:]]*$|[[:space:]]*\|)"
+
 for pattern in "${DENYLIST_PATTERNS[@]}"; do
   if grep -nF "$pattern" "${CORE_DOCS[@]}" >/dev/null; then
     matches="$(grep -nF "$pattern" "${CORE_DOCS[@]}")"
     fail "Found denied onboarding command pattern '$pattern' in core docs:\n$matches"
   fi
 done
+
+if grep -nRE "$BARE_CONFIG_GET_REGEX" "${CORE_DOCS[@]}" >/dev/null; then
+  matches="$(grep -nRE "$BARE_CONFIG_GET_REGEX" "${CORE_DOCS[@]}")"
+  fail "Found bare 'openclaw config get' usage without required path in core docs:\n$matches"
+fi
 
 check_file_exists "docs/VALIDATION-BASIS.md"
 check_file_exists "scripts/quick-setup.sh"

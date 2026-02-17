@@ -19,6 +19,8 @@ Core onboarding docs must include a `Validated against` block:
 - `README.md`
 - `OPENCLAW-CONFIGURATION.md`
 - `KUU-AI-SETUP-GUIDE.md`
+- `OPENCLAW-INSTALLATION.md`
+- `LOCAL-EMBEDDINGS-SETUP.md`
 
 These markers are checked by CI.
 
@@ -31,6 +33,7 @@ These markers are checked by CI.
   - `openclaw chat`
   - `openclaw gateway start --watch`
   - `openclaw config path`
+  - `openclaw config get` (without a required path argument)
 - `scripts/smoke-test-onboarding-commands.sh` verifies non-destructive command help paths are available:
   - `openclaw --help`
   - `openclaw gateway --help`
