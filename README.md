@@ -17,7 +17,7 @@ Documentation from a single human-AI partnership experiment running since Januar
 ## Quick Start
 
 1. **[OPENCLAW-INSTALLATION.md](OPENCLAW-INSTALLATION.md)** - Get OpenClaw running
-2. **Run `./scripts/quick-setup.sh`** - Creates workspace structure and templates
+2. **Run `./scripts/quick-setup.sh`** - Creates workspace structure and templates (no auto-commit by default; use `--auto-commit` to opt in)
 3. **[OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md)** - Configure it properly
 4. **[LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)** - Set up local memory (privacy-focused)
 
@@ -44,15 +44,17 @@ Practical shell scripts in `scripts/`:
 
 | Script | Purpose |
 |--------|---------|
-| `quick-setup.sh` | Create workspace structure and identity templates |
+| `quick-setup.sh` | Create workspace structure and identity templates (optional `--auto-commit`) |
 | `security-audit.sh` | Check file permissions and exposed secrets |
-| `backup-workspace.sh` | Safe-by-default backup (dry-run unless explicit delete flags) |
+| `backup-workspace.sh` | Safe-by-default backup (dry-run unless explicit delete flags; private destination required) |
 | `session-stats.sh` | Display session and token usage stats |
 | `memory-search-test.sh` | Test memory search quality |
 
 ```bash
 cd scripts && chmod +x *.sh
 ./quick-setup.sh
+# Optional: create initial git commit during setup
+./quick-setup.sh --auto-commit
 ```
 
 ## Automation Scripts

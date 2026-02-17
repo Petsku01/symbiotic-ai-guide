@@ -6,6 +6,44 @@ set -euo pipefail
 
 OPENCLAW_DIR="${OPENCLAW_STATE_DIR:-$HOME/.openclaw}"
 WORKSPACE="$OPENCLAW_DIR/workspace"
+AUTO_COMMIT=false
+
+usage() {
+    cat <<'EOF'
+Usage:
+  quick-setup.sh [--auto-commit]
+
+Options:
+  --auto-commit   If a new workspace git repo is initialized, create the initial commit
+  -h, --help      Show this help
+
+Notes:
+  By default, quick-setup does NOT create commits automatically.
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --auto-commit)
+            AUTO_COMMIT=true
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        --*)
+            echo "ERROR: Unknown flag: $1" >&2
+            usage
+            exit 2
+            ;;
+        *)
+            echo "ERROR: Unexpected argument: $1" >&2
+            usage
+            exit 2
+            ;;
+    esac
+    shift
+done
 
 echo "=== OpenClaw Quick Setup ==="
 echo ""
@@ -113,7 +151,14 @@ if [[ ! -d "$WORKSPACE/.git" ]]; then
     cd "$WORKSPACE"
     git init
     git add -A
-    git commit -m "Initial workspace setup"
+
+    if [[ "$AUTO_COMMIT" == true ]]; then
+        git commit -m "Initial workspace setup"
+        echo "Initial commit created (--auto-commit enabled)."
+    else
+        echo "Skipping initial commit (default behavior)."
+        echo "Tip: run with --auto-commit to preserve previous auto-commit behavior."
+    fi
 fi
 
 echo ""
