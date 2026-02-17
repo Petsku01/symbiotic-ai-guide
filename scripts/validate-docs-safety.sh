@@ -19,7 +19,6 @@ CORE_DOCS=(
   "OPENCLAW-INSTALLATION.md"
   "OPENCLAW-CONFIGURATION.md"
   "LOCAL-EMBEDDINGS-SETUP.md"
-  "KUU-AI-SETUP-GUIDE.md"
 )
 
 for file in "${CORE_DOCS[@]}"; do
@@ -56,7 +55,7 @@ check_file_exists "scripts/quick-setup.sh"
 check_file_exists "scripts/backup-workspace.sh"
 
 # Unsafe backup examples (must not encourage single-flag destructive mode)
-if grep -RInE "backup-workspace\.sh[^\n]*--delete(\s|$)" README.md OPENCLAW-CONFIGURATION.md KUU-AI-SETUP-GUIDE.md docs scripts/README.md | grep -v -- "--confirm-delete" >/dev/null; then
+if grep -RInE "backup-workspace\.sh[^\n]*--delete(\s|$)" README.md OPENCLAW-CONFIGURATION.md docs scripts/README.md | grep -v -- "--confirm-delete" >/dev/null; then
   fail "Found unsafe backup example using --delete without --confirm-delete"
 fi
 
@@ -66,7 +65,7 @@ if grep -q '"profile"[[:space:]]*:[[:space:]]*"full"' README.md; then
 fi
 
 # Full profile is allowed in detailed docs only when explicitly marked advanced
-for file in OPENCLAW-CONFIGURATION.md KUU-AI-SETUP-GUIDE.md; do
+for file in OPENCLAW-CONFIGURATION.md docs/reference/KUU-AI-SETUP-GUIDE.md; do
   if grep -q '"profile"[[:space:]]*:[[:space:]]*"full"' "$file"; then
     grep -q "Advanced / Higher Risk" "$file" || fail "$file contains full profile but no explicit advanced risk marker"
   fi

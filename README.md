@@ -16,6 +16,9 @@ Documentation from a single human-AI partnership experiment running since Januar
 
 ## Quick Start
 
+👉 **Use the tested path first:** **[docs/getting-started/GOLDEN-PATH.md](docs/getting-started/GOLDEN-PATH.md)**
+
+If you want detail behind each step:
 1. **[OPENCLAW-INSTALLATION.md](OPENCLAW-INSTALLATION.md)** - Get OpenClaw running
 2. **Run `./scripts/quick-setup.sh`** - Creates workspace structure and templates (no auto-commit by default; use `--auto-commit` to opt in)
 3. **[OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md)** - Configure it properly
@@ -25,18 +28,25 @@ Documentation from a single human-AI partnership experiment running since Januar
 
 That's it. The rest is optional reading.
 
-## Core Files
+## Core Files (root)
 
 | File | What it is |
 |------|------------|
+| [README.md](README.md) | Entry point and navigation |
 | [OPENCLAW-INSTALLATION.md](OPENCLAW-INSTALLATION.md) | Step-by-step install guide |
 | [OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md) | Detailed config walkthrough |
 | [LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md) | Privacy-respecting AI memory |
-| [KUU-AI-SETUP-GUIDE.md](KUU-AI-SETUP-GUIDE.md) | Philosophy and approach |
-| [FAQ.md](FAQ.md) | Common questions |
-| [SECURITY-IMPROVEMENTS.md](SECURITY-IMPROVEMENTS.md) | Security hardening notes |
-| [INTERNAL-SKEPTIC-COMPACT.md](INTERNAL-SKEPTIC-COMPACT.md) | Anti-overconfidence rules |
-| [EXTERNAL-LLM-SAFETY.md](EXTERNAL-LLM-SAFETY.md) | AI-to-AI safety guidelines |
+| [CHANGELOG.md](CHANGELOG.md) | Concise change history |
+| [LICENSE](LICENSE) | MIT license |
+
+## Additional Docs
+
+- Getting started: [docs/getting-started/GOLDEN-PATH.md](docs/getting-started/GOLDEN-PATH.md)
+- Runtime validation: [docs/VALIDATION-RUNTIME-PLAYBOOK.md](docs/VALIDATION-RUNTIME-PLAYBOOK.md)
+- Validation basis: [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
+- Reference: [docs/reference/KUU-AI-SETUP-GUIDE.md](docs/reference/KUU-AI-SETUP-GUIDE.md), [docs/reference/FAQ.md](docs/reference/FAQ.md)
+- Security notes: [docs/security/SECURITY-IMPROVEMENTS.md](docs/security/SECURITY-IMPROVEMENTS.md), [docs/security/INTERNAL-SKEPTIC-COMPACT.md](docs/security/INTERNAL-SKEPTIC-COMPACT.md), [docs/security/EXTERNAL-LLM-SAFETY.md](docs/security/EXTERNAL-LLM-SAFETY.md)
+- Roadmap tracker: [docs/roadmap/ISSUE-STACK.md](docs/roadmap/ISSUE-STACK.md)
 
 ## Scripts
 

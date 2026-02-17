@@ -560,7 +560,7 @@ After successful installation:
 
 1. **Follow Configuration Guide** - [OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md)
 2. **Set Up Local Memory** - [LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)  
-3. **Read Philosophy Guide** - [KUU-AI-SETUP-GUIDE.md](KUU-AI-SETUP-GUIDE.md)
+3. **Read Philosophy Guide** - [docs/reference/KUU-AI-SETUP-GUIDE.md](docs/reference/KUU-AI-SETUP-GUIDE.md)
 4. **Customize Identity** - Use [examples/](examples/) templates
 5. **Test Interaction** - Start building your AI partnership!
 
@@ -569,7 +569,7 @@ After successful installation:
 - **OpenClaw Documentation**: Check built-in help with `openclaw --help` and `openclaw <subcommand> --help`
 - **GitHub Issues**: https://github.com/openclaw/openclaw/issues
 - **Community**: Join OpenClaw Discord or forums
-- **Configuration Problems**: Review [FAQ.md](FAQ.md)
+- **Configuration Problems**: Review [docs/reference/FAQ.md](docs/reference/FAQ.md)
 
 ---
 

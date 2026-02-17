@@ -18,7 +18,7 @@ Core onboarding docs must include a `Validated against` block:
 
 - `README.md`
 - `OPENCLAW-CONFIGURATION.md`
-- `KUU-AI-SETUP-GUIDE.md`
+- `docs/reference/KUU-AI-SETUP-GUIDE.md`
 - `OPENCLAW-INSTALLATION.md`
 - `LOCAL-EMBEDDINGS-SETUP.md`
 
