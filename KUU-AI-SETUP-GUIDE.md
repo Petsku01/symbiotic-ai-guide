@@ -136,16 +136,20 @@ Enable local memory search for continuity:
 }
 ```
 
-### Tool Access Configuration
+### Tool Access Configuration (Least Privilege Default)
 
-Give appropriate tool access for autonomy:
+Start with conservative permissions and expand intentionally:
 
 ```json
 {
   "tools": {
-    "profile": "full",
+    "profile": "default",
     "agentToAgent": {
       "enabled": true
+    },
+    "exec": {
+      "security": "allowlist",
+      "ask": "always"
     }
   }
 }
@@ -281,6 +285,22 @@ Set up appropriate access:
 - Disregard for user preferences
 
 ## Advanced Configurations
+
+### Full Access Profile (Advanced / Higher Risk)
+
+If you intentionally want broader autonomy, move to a full profile only after testing with restrictive defaults:
+
+```json
+{
+  "tools": {
+    "profile": "full",
+    "exec": {
+      "security": "allowlist",
+      "ask": "on-miss"
+    }
+  }
+}
+```
 
 ### Multi-Agent Setup
 

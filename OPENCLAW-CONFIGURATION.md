@@ -102,14 +102,14 @@ Enable local embeddings for persistent memory:
 - Caching for performance
 - Memory persistence across sessions
 
-## Step 3: Tool Access Configuration
+## Step 3: Tool Access Configuration (Least Privilege First)
 
-Grant appropriate permissions for autonomy:
+Start restrictive, then expand only when needed:
 
 ```json
 {
   "tools": {
-    "profile": "full",
+    "profile": "default",
     "agentToAgent": {
       "enabled": true,
       "allow": ["main", "eve"]
@@ -128,17 +128,17 @@ Grant appropriate permissions for autonomy:
     "exec": {
       "host": "gateway",
       "security": "allowlist",
-      "ask": "on-miss"
+      "ask": "always"
     }
   }
 }
 ```
 
 **Tool permissions:**
-- `profile: "full"` - Access to most tools
-- `agentToAgent` - Communication between agents
-- `web` - Research and information gathering
-- `exec` - Controlled command execution
+- `profile: "default"` - safer baseline permissions
+- `agentToAgent` - communication between explicitly allowed agents
+- `web` - research and information gathering
+- `exec` - controlled command execution with explicit approval prompts
 
 ## Step 4: Model Configuration
 
@@ -433,6 +433,23 @@ and grow from our interactions. What would you like to work on together?
 ```
 
 ## Advanced Configuration
+
+### Full Access Profile (Advanced / Higher Risk)
+
+Use this only after you are confident in your boundaries and review process.
+
+```json
+{
+  "tools": {
+    "profile": "full",
+    "exec": {
+      "host": "gateway",
+      "security": "allowlist",
+      "ask": "on-miss"
+    }
+  }
+}
+```
 
 ### Cron Jobs for Reminders
 

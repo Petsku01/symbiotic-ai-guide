@@ -15,6 +15,8 @@ Documentation from a single human-AI partnership experiment running since Januar
 3. **[OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md)** - Configure it properly
 4. **[LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)** - Set up local memory (privacy-focused)
 
+> Onboarding defaults are least-privilege. Full-access examples are documented separately in explicit advanced sections.
+
 That's it. The rest is optional reading.
 
 ## Core Files
@@ -38,7 +40,7 @@ Practical shell scripts in `scripts/`:
 |--------|---------|
 | `quick-setup.sh` | Create workspace structure and identity templates |
 | `security-audit.sh` | Check file permissions and exposed secrets |
-| `backup-workspace.sh` | Backup workspace to external location |
+| `backup-workspace.sh` | Safe-by-default backup (dry-run unless explicit delete flags) |
 | `session-stats.sh` | Display session and token usage stats |
 | `memory-search-test.sh` | Test memory search quality |
 
@@ -46,6 +48,12 @@ Practical shell scripts in `scripts/`:
 cd scripts && chmod +x *.sh
 ./quick-setup.sh
 ```
+
+## Automation Scripts
+
+Automation tooling lives under `tools/automation/`.
+Use `*-improved.sh` as canonical and treat non-improved variants as legacy/deprecated.
+See [tools/automation/README.md](tools/automation/README.md).
 
 ## The Approach (Summary)
 
