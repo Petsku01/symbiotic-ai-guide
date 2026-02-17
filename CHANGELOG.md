@@ -25,6 +25,34 @@ All notable documentation and safety hardening changes are tracked here.
   - `scripts/validate-docs-safety.sh`
   - `scripts/smoke-test-onboarding-commands.sh`
 - Uncertainty-method reference kept in `docs/DECISION_GRADE_UNCERTAINTY.md` and linked from organized docs flow.
+- Added uncertainty toolkit implementation under `tools/uncertainty/`:
+  - `score-task.js`
+  - `decide-action.js`
+  - `log-result.js`
+  - `review-week.js`
+  - `README.md`
+- Upgraded uncertainty toolkit with MVE/quick mode and calibration reporting.
+
+### Additional hardening completed
+- Backup hardening updates:
+  - dry-run default
+  - destructive sync gated by `--delete --confirm-delete` + typed confirmation
+  - destination safety checks and private permission defaults (`umask 077`)
+- `quick-setup.sh` auto-commit changed to opt-in (`--auto-commit`).
+- Expanded CI/validation coverage:
+  - command denylist checks for known-invalid OpenClaw examples
+  - onboarding command smoke tests
+  - shellcheck-if-available and lightweight secret-scan flow
+- Added CI-safe behavior for onboarding smoke tests when `openclaw` CLI is unavailable in CI runners.
+
+### External LLM safety + deprecation enforcement
+- Added explicit outbound safety workflow:
+  - `docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md`
+- Updated references from `README.md` and `docs/security/EXTERNAL-LLM-SAFETY.md`.
+- Finalized legacy automation deprecation controls:
+  - canonical-vs-legacy matrix + migration notes in `tools/automation/README.md`
+  - deprecation notices in legacy automation scripts
+  - validator checks enforcing deprecation markers and canonical target references
 
 ### Honesty / scope notes
 - Runtime validation playbook is validated for **non-destructive command checks only**.
