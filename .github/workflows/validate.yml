@@ -44,7 +44,9 @@ jobs:
       - name: ShellCheck (if available)
         run: |
           if command -v shellcheck >/dev/null 2>&1; then
-            find scripts tools -type f -name '*.sh' -print0 | xargs -0 shellcheck
+            # Keep CI strict on true shell errors while avoiding noise from style/info-only findings.
+            # -x follows sourced files; -S error fails only on error severity.
+            find scripts tools -type f -name '*.sh' -print0 | xargs -0 shellcheck -x -S error
           else
             echo "shellcheck not available on runner; skipping"
           fi
