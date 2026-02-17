@@ -1,0 +1,23 @@
+name: Validate Docs and Scripts
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bash syntax checks
+        run: |
+          bash -n scripts/backup-workspace.sh
+          bash -n scripts/validate-docs-safety.sh
+
+      - name: Run documentation safety validation
+        run: |
+          chmod +x scripts/validate-docs-safety.sh
+          ./scripts/validate-docs-safety.sh
