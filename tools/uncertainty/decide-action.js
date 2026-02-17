@@ -11,16 +11,60 @@ function parse(arg) {
   return JSON.parse(arg);
 }
 
-function decide({ risk, severity, tLow = 0.35, tHigh = 0.60, highSeverityEscalate = 0.8 }) {
-  const r = clamp01(risk);
-  const s = clamp01(severity);
+function bandFromRisk(risk) {
+  if (risk >= 0.6) return 'high';
+  if (risk >= 0.35) return 'mid';
+  return 'low';
+}
 
-  if (s >= highSeverityEscalate && r >= tLow) {
-    return { action: 'ESCALATE', reason: 'high_severity_gate', risk: r, severity: s };
+function normalizeInput(input) {
+  const risk = clamp01(input.risk);
+  const severity = clamp01(input.severity ?? (input.signals && input.signals.severity));
+  const scoreBand = input.scoreBand || bandFromRisk(risk);
+
+  return {
+    ...input,
+    risk,
+    severity,
+    scoreBand,
+    tLow: clamp01(input.tLow ?? 0.35),
+    tHigh: clamp01(input.tHigh ?? 0.6),
+    highSeverityEscalate: clamp01(input.highSeverityEscalate ?? 0.8),
+  };
+}
+
+function decide(raw) {
+  const ctx = normalizeInput(raw);
+  const { risk, severity, tLow, tHigh, highSeverityEscalate } = ctx;
+
+  let action = 'AUTO_ACT';
+  let decisionReason = `risk ${risk.toFixed(2)} < low threshold ${tLow.toFixed(2)}`;
+  let reason = 'risk_low';
+
+  if (severity >= highSeverityEscalate && risk >= tLow) {
+    action = 'ESCALATE';
+    reason = 'high_severity_gate';
+    decisionReason = `severity ${severity.toFixed(2)} >= ${highSeverityEscalate.toFixed(2)} and risk ${risk.toFixed(2)} >= ${tLow.toFixed(2)}`;
+  } else if (risk >= tHigh) {
+    action = 'ESCALATE';
+    reason = 'risk_high';
+    decisionReason = `risk ${risk.toFixed(2)} >= high threshold ${tHigh.toFixed(2)}`;
+  } else if (risk >= tLow) {
+    action = 'AUTO_ACT_WITH_CAUTION';
+    reason = 'risk_medium';
+    decisionReason = `risk ${risk.toFixed(2)} in caution range [${tLow.toFixed(2)}, ${tHigh.toFixed(2)})`;
   }
-  if (r >= tHigh) return { action: 'ESCALATE', reason: 'risk_high', risk: r, severity: s };
-  if (r >= tLow) return { action: 'AUTO_ACT_WITH_CAUTION', reason: 'risk_medium', risk: r, severity: s };
-  return { action: 'AUTO_ACT', reason: 'risk_low', risk: r, severity: s };
+
+  return {
+    action,
+    reason,
+    decisionReason,
+    risk,
+    severity,
+    scoreBand: ctx.scoreBand,
+    mode: ctx.mode || 'full',
+    thresholds: { tLow, tHigh, highSeverityEscalate },
+  };
 }
 
 try {

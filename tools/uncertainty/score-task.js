@@ -14,6 +14,18 @@ function clamp01(n) {
   return Math.max(0, Math.min(1, x));
 }
 
+function clamp100(n) {
+  const x = Number(n);
+  if (!Number.isFinite(x)) return 0;
+  return Math.max(0, Math.min(100, x));
+}
+
+function scoreBandFromRisk(risk) {
+  if (risk >= 0.6) return 'high';
+  if (risk >= 0.35) return 'mid';
+  return 'low';
+}
+
 function computeRisk(signals, weights) {
   const s = {
     evidence: clamp01(signals.evidence),
@@ -42,17 +54,80 @@ function computeRisk(signals, weights) {
     s.severity * w.severity;
 
   const risk = clamp01(riskRaw / norm);
-  return { signals: s, weights: w, risk: Number(risk.toFixed(4)) };
+  const roundedRisk = Number(risk.toFixed(4));
+  return {
+    mode: 'full',
+    signals: s,
+    weights: w,
+    risk: roundedRisk,
+    scoreBand: scoreBandFromRisk(roundedRisk),
+    severity: s.severity,
+  };
+}
+
+function parseFlags(argv) {
+  const args = argv.slice(2);
+  const flags = { mve: false, inputArg: null };
+  for (const arg of args) {
+    if (arg === '--mve' || arg === '--quick') {
+      flags.mve = true;
+    } else if (!flags.inputArg) {
+      flags.inputArg = arg;
+    }
+  }
+  return flags;
+}
+
+function impactToSeverity(impact) {
+  const norm = String(impact || '').trim().toLowerCase();
+  if (norm === 'low') return 0.25;
+  if (norm === 'med' || norm === 'medium') return 0.55;
+  if (norm === 'high') return 0.85;
+  throw new Error('MVE mode requires impact: low|med|high');
+}
+
+function computeMve(input) {
+  const task = input.task || input.taskLabel || input.label;
+  const confidence = clamp100(input.confidence);
+  const severity = impactToSeverity(input.impact);
+
+  if (!task || typeof task !== 'string') {
+    throw new Error('MVE mode requires task label via task, taskLabel, or label');
+  }
+  if (!Number.isFinite(Number(input.confidence))) {
+    throw new Error('MVE mode requires numeric confidence in range 0-100');
+  }
+
+  const uncertainty = 1 - confidence / 100;
+  const risk = clamp01((uncertainty * 0.75) + (severity * 0.25));
+  const roundedRisk = Number(risk.toFixed(4));
+
+  return {
+    mode: 'mve',
+    task,
+    confidence,
+    impact: String(input.impact).toLowerCase() === 'medium' ? 'med' : String(input.impact).toLowerCase(),
+    severity,
+    risk: roundedRisk,
+    scoreBand: scoreBandFromRisk(roundedRisk),
+  };
 }
 
 function main() {
   try {
-    const input = loadInput(process.argv[2]);
-    const result = computeRisk(input.signals || input, input.weights || {});
+    const { mve, inputArg } = parseFlags(process.argv);
+    const input = loadInput(inputArg);
+
+    const forceMve = mve || String(input.mode || '').toLowerCase() === 'mve';
+    const result = forceMve
+      ? computeMve(input)
+      : computeRisk(input.signals || input, input.weights || {});
+
     console.log(JSON.stringify(result, null, 2));
   } catch (err) {
     console.error(`Error: ${err.message}`);
-    console.error('Usage: node tools/uncertainty/score-task.js <json-file-or-json-string>');
+    console.error('Usage (full): node tools/uncertainty/score-task.js <json-file-or-json-string>');
+    console.error('Usage (mve): node tools/uncertainty/score-task.js --mve "{\"task\":\"...\",\"confidence\":72,\"impact\":\"med\"}"');
     process.exit(1);
   }
 }

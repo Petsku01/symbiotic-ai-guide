@@ -1,37 +1,46 @@
-# Uncertainty Toolkit (v1)
+# Uncertainty Toolkit
 
-Minimal scripts to operationalize decision-grade uncertainty.
+Minimal scripts to operationalize decision-grade uncertainty with both full scoring and quick MVE mode.
 
 ## Scripts
 
 - `score-task.js`  
-  Compute risk score from 5 signals (evidence, consistency, policy, tool_integrity, severity).
+  Compute risk score in either:
+  - **full mode** from 5 signals (`evidence`, `consistency`, `policy`, `tool_integrity`, `severity`)
+  - **MVE mode** (`--mve` / `--quick`) from minimal inputs: `task`, `confidence` (0-100), `impact` (`low|med|high`)
 
 - `decide-action.js`  
-  Choose `AUTO_ACT`, `AUTO_ACT_WITH_CAUTION`, or `ESCALATE` from risk + severity gates.
+  Choose `AUTO_ACT`, `AUTO_ACT_WITH_CAUTION`, or `ESCALATE` using deterministic thresholds. Accepts output from either full or MVE scoring. Includes `decisionReason`.
 
 - `log-result.js`  
-  Append task outcomes to JSONL.
+  Append task outcomes to JSONL. Adds calibration fields while preserving backward compatibility:
+  `predictedRisk`, `scoreBand`, `actualOutcome`, `mode`.
 
 - `review-week.js`  
-  Summarize weekly metrics and calibration buckets from JSONL.
+  Summarize weekly metrics and calibration by `scoreBand` with:
+  `count`, `meanPredictedRisk`, `observedFailureRate`, `gap`.
+  Warns on low sample (`n < 5`) and prints a simple threshold adjustment hint.
 
-## Quick example
+## Quick examples
 
 ```bash
-# 1) Score a task
+# 1) Score a task (full mode)
 node tools/uncertainty/score-task.js '{"signals":{"evidence":0.2,"consistency":0.1,"policy":0.5,"tool_integrity":0.2,"severity":0.8}}'
 
-# 2) Decide action (paste risk from step 1)
-node tools/uncertainty/decide-action.js '{"risk":0.34,"severity":0.8,"tLow":0.35,"tHigh":0.60}'
+# 1b) Score a task (MVE/quick mode)
+node tools/uncertainty/score-task.js --mve '{"task":"Send customer update","confidence":72,"impact":"med"}'
 
-# 3) Log outcome
-node tools/uncertainty/log-result.js '{"task_id":"PILOT-001","risk":0.34,"severity":0.8,"action":"ESCALATE","outcome":"escalated_human_confirmed","error_severity":"correct"}'
+# 2) Decide action from either scorer output
+node tools/uncertainty/decide-action.js '{"mode":"mve","risk":0.34,"severity":0.55,"scoreBand":"low"}'
 
-# 4) Weekly review
+# 3) Log outcome (calibration-friendly)
+node tools/uncertainty/log-result.js '{"task_id":"PILOT-001","mode":"mve","predictedRisk":0.34,"scoreBand":"low","severity":0.55,"action":"AUTO_ACT","actualOutcome":"success"}'
+
+# 4) Weekly review + calibration
 node tools/uncertainty/review-week.js
 ```
 
 ## Notes
 - Keep thresholds conservative for high-severity workflows.
 - Treat this as a pilot baseline, then tune from observed outcomes.
+- No external dependencies are required.
