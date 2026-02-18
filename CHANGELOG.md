@@ -6,8 +6,8 @@ All notable documentation and safety hardening changes are tracked here.
 
 ### RC hardening
 - CI fail-closed pass:
-  - `.github/workflows/validate.yml` now installs pinned `shellcheck` and `gitleaks` releases and fails if required tooling is missing.
-  - strict onboarding smoke check now fails when `openclaw` CLI is absent (no CI skip path).
+  - `.github/workflows/validate.yml` now installs pinned `shellcheck`, `gitleaks`, and `openclaw@2026.2.17` in CI.
+  - strict onboarding smoke check remains hard-required and fails when `openclaw` is unavailable after provisioning (no CI skip path).
 - Added adversarial safety test runner:
   - `scripts/run-adversarial-checks.sh`
   - checks prompt-injection response expectations, external-LLM approval-gate markers, and secret-pattern sanity with explicit thresholding.
@@ -72,7 +72,6 @@ All notable documentation and safety hardening changes are tracked here.
   - command denylist checks for known-invalid OpenClaw examples
   - onboarding command smoke tests
   - shellcheck-if-available and lightweight secret-scan flow
-- Added CI-safe behavior for onboarding smoke tests when `openclaw` CLI is unavailable in CI runners.
 
 ### External LLM safety + deprecation enforcement
 - Added explicit outbound safety workflow:

@@ -58,7 +58,7 @@
 **Remaining work:** create first semver tag and add PR checklist item for breaking changes.
 
 ### 12) ✅ DONE — Expand secret scanning and CI guardrails
-**Status notes:** CI now pins and installs shellcheck + gitleaks, fails closed on missing required tooling, runs strict onboarding smoke checks, and includes an adversarial safety test pack with explicit thresholding.
+**Status notes:** CI now pins and installs shellcheck + gitleaks + `openclaw@2026.2.17`, fails closed on missing required tooling, runs strict onboarding smoke checks, and includes an adversarial safety test pack with explicit thresholding.
 
 ---
 

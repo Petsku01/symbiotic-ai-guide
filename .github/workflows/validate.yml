@@ -11,6 +11,7 @@ jobs:
     env:
       SHELLCHECK_VERSION: "0.10.0"
       GITLEAKS_VERSION: "8.24.2"
+      OPENCLAW_VERSION: "2026.2.17"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,6 +37,12 @@ jobs:
           sudo install -m 0755 /tmp/gitleaks /usr/local/bin/gitleaks
           gitleaks version
 
+      - name: Install openclaw CLI (pinned)
+        run: |
+          set -euo pipefail
+          npm install --global "openclaw@${OPENCLAW_VERSION}"
+          openclaw --version
+
       - name: Ensure required tooling for strict gates
         run: |
           set -euo pipefail
@@ -45,8 +52,8 @@ jobs:
           command -v shellcheck >/dev/null 2>&1
           command -v gitleaks >/dev/null 2>&1
           command -v openclaw >/dev/null 2>&1 || {
-            echo "[FAIL] Required onboarding gate: openclaw CLI missing in CI runner PATH." >&2
-            echo "Install OpenClaw on the required runner image so onboarding smoke checks cannot be skipped." >&2
+            echo "[FAIL] Required onboarding gate: openclaw CLI missing after pinned install step." >&2
+            echo "Validate npm registry access and pinned OPENCLAW_VERSION in .github/workflows/validate.yml." >&2
             exit 1
           }
 

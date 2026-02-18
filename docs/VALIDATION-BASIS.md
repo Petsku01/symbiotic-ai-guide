@@ -11,6 +11,7 @@ This repository's onboarding and safety documentation is validated against the f
   - denylist enforcement for known-invalid OpenClaw command patterns in core onboarding docs
   - lightweight docs safety checks in CI (`scripts/validate-docs-safety.sh`)
   - non-destructive onboarding command smoke tests (`scripts/smoke-test-onboarding-commands.sh`)
+  - fail-closed CI provisioning of pinned `openclaw@2026.2.17` before onboarding smoke checks
 
 ## Validation markers
 
