@@ -2,6 +2,23 @@
 
 All notable documentation and safety hardening changes are tracked here.
 
+## 2026-02-18
+
+### RC hardening
+- CI fail-closed pass:
+  - `.github/workflows/validate.yml` now installs pinned `shellcheck` and `gitleaks` releases and fails if required tooling is missing.
+  - strict onboarding smoke check now fails when `openclaw` CLI is absent (no CI skip path).
+- Added adversarial safety test runner:
+  - `scripts/run-adversarial-checks.sh`
+  - checks prompt-injection response expectations, external-LLM approval-gate markers, and secret-pattern sanity with explicit thresholding.
+- Script reliability hardening:
+  - improved permission-stat handling in `scripts/security-audit.sh` with safer fallback behavior.
+- Governance sync:
+  - updated status reality in `docs/roadmap/ISSUE-STACK.md` (issues 9 and 12 now marked done).
+- RC release gate documentation:
+  - added `docs/releases/RC-GATE-CHECKLIST.md`
+  - linked from `README.md` and beta draft release notes.
+
 ## 2026-02-17
 
 ### Release framing

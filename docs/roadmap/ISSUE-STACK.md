@@ -43,8 +43,8 @@
 ### 8) 🟡 OPEN — Resolve legacy vs improved script ambiguity
 **Remaining work:** publish a script status matrix and deprecation timeline for non-canonical variants.
 
-### 9) 🟡 OPEN — Add explicit external-LLM outbound approval gate
-**Remaining work:** add concrete, testable pre-send checklist + sensitive-data approval flow to `docs/security/EXTERNAL-LLM-SAFETY.md`.
+### 9) ✅ DONE — Add explicit external-LLM outbound approval gate
+**Status notes:** mandatory approval workflow published in `docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md`, linked from safety guidance, and covered by adversarial gate checks.
 
 ---
 
@@ -57,8 +57,8 @@
 **Status notes:** `CHANGELOG.md` added.  
 **Remaining work:** create first semver tag and add PR checklist item for breaking changes.
 
-### 12) 🟡 OPEN — Expand secret scanning and CI guardrails
-**Remaining work:** broaden secret scan/file coverage and add shell lint checks for risky patterns.
+### 12) ✅ DONE — Expand secret scanning and CI guardrails
+**Status notes:** CI now pins and installs shellcheck + gitleaks, fails closed on missing required tooling, runs strict onboarding smoke checks, and includes an adversarial safety test pack with explicit thresholding.
 
 ---
 
@@ -68,7 +68,7 @@
 **State:** ✅ Complete (Issues 1–5)
 
 ### Milestone B — "Clarity & Consistency"
-**State:** 🟡 In progress (Issue 6 complete; 7–9 open)
+**State:** 🟡 In progress (Issues 6 and 9 complete; 7–8 open)
 
 ### Milestone C — "Scale & Governance"
-**State:** 🟡 In progress (Issues 10–11 complete; 12 open + tagging follow-up)
+**State:** 🟡 In progress (Issues 10–12 complete; release tagging follow-up remains)
