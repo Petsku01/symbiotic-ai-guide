@@ -22,15 +22,32 @@ if [[ ! -d "$OPENCLAW_DIR" ]]; then
     exit 1
 fi
 
+get_perm_mode() {
+    local path="$1"
+    if stat -c "%a" "$path" >/dev/null 2>&1; then
+        stat -c "%a" "$path"
+    elif stat -f "%Lp" "$path" >/dev/null 2>&1; then
+        stat -f "%Lp" "$path"
+    else
+        return 1
+    fi
+}
+
 # Check directory permissions
 echo "Checking directory permissions..."
 check_dir_perms() {
     local dir="$1"
     local expected="$2"
     local name="$3"
-    
+    local perms
+
     if [[ -d "$dir" ]]; then
-        perms=$(stat -c "%a" "$dir" 2>/dev/null || stat -f "%Lp" "$dir" 2>/dev/null)
+        if ! perms="$(get_perm_mode "$dir")"; then
+            echo -e "${YELLOW}  WARN: Could not read permissions for $name${NC}"
+            ((WARNINGS++))
+            return
+        fi
+
         if [[ "$perms" != "$expected" ]]; then
             echo -e "${YELLOW}  WARN: $name has permissions $perms (expected $expected)${NC}"
             ((WARNINGS++))
@@ -51,9 +68,15 @@ check_file_perms() {
     local file="$1"
     local expected="$2"
     local name="$3"
-    
+    local perms
+
     if [[ -f "$file" ]]; then
-        perms=$(stat -c "%a" "$file" 2>/dev/null || stat -f "%Lp" "$file" 2>/dev/null)
+        if ! perms="$(get_perm_mode "$file")"; then
+            echo -e "${YELLOW}  WARN: Could not read permissions for $name${NC}"
+            ((WARNINGS++))
+            return
+        fi
+
         if [[ "$perms" != "$expected" ]]; then
             echo -e "${YELLOW}  WARN: $name has permissions $perms (expected $expected)${NC}"
             ((WARNINGS++))
