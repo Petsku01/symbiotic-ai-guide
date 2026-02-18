@@ -56,6 +56,7 @@ check_file_exists "docs/validation-runs/README.md"
 check_file_exists "docs/validation-runs/EXAMPLE-RUN.md"
 check_file_exists "docs/releases/v0.1.0-beta-draft.md"
 check_file_exists "docs/reference/SCRIPT-DEPRECATION-POLICY.md"
+check_file_exists "docs/releases/RC-GATE-CHECKLIST.md"
 check_file_exists "scripts/quick-setup.sh"
 check_file_exists "scripts/backup-workspace.sh"
 

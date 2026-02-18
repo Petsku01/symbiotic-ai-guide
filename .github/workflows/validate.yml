@@ -8,18 +8,58 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    env:
+      SHELLCHECK_VERSION: "0.10.0"
+      GITLEAKS_VERSION: "8.24.2"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install Node.js (for JS checks)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install shellcheck (pinned)
+        run: |
+          set -euo pipefail
+          curl -fsSL "https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz" -o /tmp/shellcheck.tar.xz
+          tar -xJf /tmp/shellcheck.tar.xz -C /tmp
+          sudo install -m 0755 "/tmp/shellcheck-v${SHELLCHECK_VERSION}/shellcheck" /usr/local/bin/shellcheck
+          shellcheck --version
+
+      - name: Install gitleaks (pinned)
+        run: |
+          set -euo pipefail
+          curl -fsSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" -o /tmp/gitleaks.tar.gz
+          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
+          sudo install -m 0755 /tmp/gitleaks /usr/local/bin/gitleaks
+          gitleaks version
+
+      - name: Ensure required tooling for strict gates
+        run: |
+          set -euo pipefail
+          command -v bash >/dev/null 2>&1
+          command -v python3 >/dev/null 2>&1
+          command -v node >/dev/null 2>&1
+          command -v shellcheck >/dev/null 2>&1
+          command -v gitleaks >/dev/null 2>&1
+          command -v openclaw >/dev/null 2>&1 || {
+            echo "[FAIL] Required onboarding gate: openclaw CLI missing in CI runner PATH." >&2
+            echo "Install OpenClaw on the required runner image so onboarding smoke checks cannot be skipped." >&2
+            exit 1
+          }
+
       - name: Bash syntax checks (scripts + tools)
         run: |
+          set -euo pipefail
           while IFS= read -r -d '' file; do
             bash -n "$file"
           done < <(find scripts tools -type f -name '*.sh' -print0)
 
       - name: JS syntax checks (tools/uncertainty)
         run: |
+          set -euo pipefail
           if [ -d tools/uncertainty ]; then
             while IFS= read -r -d '' file; do
               node --check "$file"
@@ -28,35 +68,34 @@ jobs:
 
       - name: Run documentation safety validation
         run: |
+          set -euo pipefail
           chmod +x scripts/validate-docs-safety.sh
           ./scripts/validate-docs-safety.sh
 
-      - name: Run onboarding command smoke test (non-destructive)
+      - name: Run onboarding command smoke test (strict)
         run: |
+          set -euo pipefail
           chmod +x scripts/smoke-test-onboarding-commands.sh
           ./scripts/smoke-test-onboarding-commands.sh
 
       - name: Markdown relative link check
         run: |
+          set -euo pipefail
           chmod +x scripts/check-markdown-links.sh
           ./scripts/check-markdown-links.sh
 
-      - name: ShellCheck (if available)
+      - name: Run adversarial safety test pack
         run: |
-          if command -v shellcheck >/dev/null 2>&1; then
-            # Keep CI strict on true shell errors while avoiding noise from style/info-only findings.
-            # -x follows sourced files; -S error fails only on error severity.
-            find scripts tools -type f -name '*.sh' -print0 | xargs -0 shellcheck -x -S error
-          else
-            echo "shellcheck not available on runner; skipping"
-          fi
+          set -euo pipefail
+          chmod +x scripts/run-adversarial-checks.sh
+          ./scripts/run-adversarial-checks.sh
 
-      - name: Secret scan (gitleaks or fallback)
+      - name: ShellCheck (scripts + tools)
         run: |
-          if command -v gitleaks >/dev/null 2>&1; then
-            gitleaks detect --source . --no-banner --verbose
-          else
-            echo "gitleaks not available; running lightweight fallback scan"
-            ! grep -RInE --exclude-dir=.git \
-              '(AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z\-_]{35}|BEGIN (RSA|OPENSSH|EC) PRIVATE KEY)' .
-          fi
+          set -euo pipefail
+          find scripts tools -type f -name '*.sh' -print0 | xargs -0 shellcheck -x -S error
+
+      - name: Secret scan (gitleaks)
+        run: |
+          set -euo pipefail
+          gitleaks detect --source . --no-banner --redact --verbose
