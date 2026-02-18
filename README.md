@@ -47,6 +47,7 @@ That's it. The rest is reference material.
 - Public validation runs: [docs/validation-runs/README.md](docs/validation-runs/README.md)
 - Status sync policy: [docs/operations/STATUS-SYNC-POLICY.md](docs/operations/STATUS-SYNC-POLICY.md)
 - Beta release draft: [docs/releases/v0.1.0-beta-draft.md](docs/releases/v0.1.0-beta-draft.md)
+- RC release gate checklist: [docs/releases/RC-GATE-CHECKLIST.md](docs/releases/RC-GATE-CHECKLIST.md)
 - Validation basis: [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
 - Reference: [docs/reference/KUU-AI-SETUP-GUIDE.md](docs/reference/KUU-AI-SETUP-GUIDE.md), [docs/reference/FAQ.md](docs/reference/FAQ.md)
 - Security notes: [docs/security/SECURITY-IMPROVEMENTS.md](docs/security/SECURITY-IMPROVEMENTS.md), [docs/security/INTERNAL-SKEPTIC-COMPACT.md](docs/security/INTERNAL-SKEPTIC-COMPACT.md), [docs/security/EXTERNAL-LLM-SAFETY.md](docs/security/EXTERNAL-LLM-SAFETY.md), [docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md](docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md)
