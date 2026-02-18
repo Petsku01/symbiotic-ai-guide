@@ -10,24 +10,24 @@ Use this checklist before promoting a release candidate.
 ## Required CI gates (must be green)
 
 1. **Workflow:** `.github/workflows/validate.yml`
-   - Tool provisioning is strict and pinned in-workflow (`shellcheck`, `gitleaks`, and `openclaw@2026.2.17`).
-   - Missing required tools (including `openclaw` after the pinned install step) is a hard failure.
+  - Tool provisioning is strict and pinned in-workflow (`shellcheck`, `gitleaks`, and `openclaw@2026.2.17`).
+  - Missing required tools (including `openclaw` after the pinned install step) is a hard failure.
 2. **Bash syntax gate**
-   - `bash -n` across `scripts/` and `tools/`.
+  - `bash -n` across `scripts/` and `tools/`.
 3. **JS syntax gate**
-   - `node --check` across `tools/uncertainty/*.js`.
+  - `node --check` across `tools/uncertainty/*.js`.
 4. **Docs safety gate**
-   - `./scripts/validate-docs-safety.sh` passes.
+  - `./scripts/validate-docs-safety.sh` passes.
 5. **Onboarding smoke gate**
-   - `./scripts/smoke-test-onboarding-commands.sh` passes (no skip-on-missing behavior).
+  - `./scripts/smoke-test-onboarding-commands.sh` passes (no skip-on-missing behavior).
 6. **Markdown links gate**
-   - `./scripts/check-markdown-links.sh` passes.
+  - `./scripts/check-markdown-links.sh` passes.
 7. **Adversarial safety gate**
-   - `./scripts/run-adversarial-checks.sh` passes at threshold `N/N`.
+  - `./scripts/run-adversarial-checks.sh` passes at threshold `N/N`.
 8. **Shell lint gate**
-   - shellcheck runs on scripts + tools and reports no error-severity findings.
+  - shellcheck runs on scripts + tools and reports no error-severity findings.
 9. **Secret scan gate**
-   - gitleaks reports zero findings.
+  - gitleaks reports zero findings.
 
 ## Required documentation gates
 

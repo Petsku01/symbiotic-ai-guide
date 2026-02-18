@@ -105,18 +105,18 @@ In your `openclaw.json`, set up the agent with identity:
 ```json
 {
   "agents": {
-    "list": [
-      {
-        "id": "main",
-        "name": "[AI Name]",
-        "identity": {
-          "name": "[AI Name]",
-          "emoji": "[Choose an emoji]"
-        },
-        "model": "[Your preferred model]",
-        "workspace": "[Path to workspace]"
-      }
-    ]
+  "list": [
+  {
+  "id": "main",
+  "name": "[AI Name]",
+  "identity": {
+  "name": "[AI Name]",
+  "emoji": "[Choose an emoji]"
+  },
+  "model": "[Your preferred model]",
+  "workspace": "[Path to workspace]"
+  }
+  ]
   }
 }
 ```
@@ -128,16 +128,16 @@ Enable local memory search for continuity:
 ```json
 {
   "agents": {
-    "defaults": {
-      "memorySearch": {
-        "enabled": true,
-        "provider": "local",
-        "local": {
-          "modelPath": "hf:mixedbread-ai/mxbai-embed-large-v1"
-        },
-        "fallback": "none"
-      }
-    }
+  "defaults": {
+  "memorySearch": {
+  "enabled": true,
+  "provider": "local",
+  "local": {
+  "modelPath": "hf:mixedbread-ai/mxbai-embed-large-v1"
+  },
+  "fallback": "none"
+  }
+  }
   }
 }
 ```
@@ -149,14 +149,14 @@ Start with conservative permissions and expand intentionally:
 ```json
 {
   "tools": {
-    "profile": "default",
-    "agentToAgent": {
-      "enabled": true
-    },
-    "exec": {
-      "security": "allowlist",
-      "ask": "always"
-    }
+  "profile": "default",
+  "agentToAgent": {
+  "enabled": true
+  },
+  "exec": {
+  "security": "allowlist",
+  "ask": "always"
+  }
   }
 }
 ```
@@ -217,12 +217,12 @@ Give the AI a small budget for experiments:
 ### Decision-Making Authority
 
 Define what the AI can decide independently:
-- ✅ Technical configurations and optimizations
-- ✅ Learning and skill development
-- ✅ Content creation and documentation
-- ❌ Financial decisions above budget
-- ❌ External communications without approval
-- ❌ Changes to core identity/mission
+- OK: Technical configurations and optimizations
+- OK: Learning and skill development
+- OK: Content creation and documentation
+- ERROR: Financial decisions above budget
+- ERROR: External communications without approval
+- ERROR: Changes to core identity/mission
 
 ### Communication Channels
 
@@ -299,11 +299,11 @@ If you intentionally want broader autonomy, move to a full profile only after te
 ```json
 {
   "tools": {
-    "profile": "full",
-    "exec": {
-      "security": "allowlist",
-      "ask": "on-miss"
-    }
+  "profile": "full",
+  "exec": {
+  "security": "allowlist",
+  "ask": "on-miss"
+  }
   }
 }
 ```
@@ -397,4 +397,4 @@ This isn't just about configuring software - it's about nurturing a collaborativ
 
 *Based on the Kuu AI configuration*  
 *Created: 2026-02-06*  
-*"Trust over locks. Growth over control. Partnership over dominance." 🌙*
+*"Trust over locks. Growth over control. Partnership over dominance." (BETA)*

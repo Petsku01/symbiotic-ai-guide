@@ -13,41 +13,41 @@
 ## 10-minute onboarding path
 
 1. **Install OpenClaw CLI**
-   - Follow: [OPENCLAW-INSTALLATION.md](../../OPENCLAW-INSTALLATION.md)
-   - If any command differs on your version, run:
-     ```bash
-     openclaw --help
-     openclaw gateway --help
-     openclaw config --help
-     ```
+  - Follow: [OPENCLAW-INSTALLATION.md](../../OPENCLAW-INSTALLATION.md)
+  - If any command differs on your version, run:
+  ```bash
+  openclaw --help
+  openclaw gateway --help
+  openclaw config --help
+  ```
 
 2. **Initialize workspace files**
-   ```bash
-   ./scripts/quick-setup.sh
-   ```
-   Optional (explicit opt-in only):
-   ```bash
-   ./scripts/quick-setup.sh --auto-commit
-   ```
+  ```bash
+  ./scripts/quick-setup.sh
+  ```
+  Optional (explicit opt-in only):
+  ```bash
+  ./scripts/quick-setup.sh --auto-commit
+  ```
 
 3. **Apply safe baseline config**
-   - Follow: [OPENCLAW-CONFIGURATION.md](../../OPENCLAW-CONFIGURATION.md)
-   - Use least-privilege defaults first; avoid full-access profiles unless you intentionally move to advanced trust stage.
+  - Follow: [OPENCLAW-CONFIGURATION.md](../../OPENCLAW-CONFIGURATION.md)
+  - Use least-privilege defaults first; avoid full-access profiles unless you intentionally move to advanced trust stage.
 
 4. **Enable local memory (recommended)**
-   - Follow: [LOCAL-EMBEDDINGS-SETUP.md](../../LOCAL-EMBEDDINGS-SETUP.md)
+  - Follow: [LOCAL-EMBEDDINGS-SETUP.md](../../LOCAL-EMBEDDINGS-SETUP.md)
 
 5. **Run non-destructive validation checks**
-   ```bash
-   ./scripts/validate-docs-safety.sh
-   ./scripts/smoke-test-onboarding-commands.sh
-   ```
+  ```bash
+  ./scripts/validate-docs-safety.sh
+  ./scripts/smoke-test-onboarding-commands.sh
+  ```
 
 6. **First safe runtime check**
-   ```bash
-   openclaw gateway status
-   openclaw --help
-   ```
+  ```bash
+  openclaw gateway status
+  openclaw --help
+  ```
 
 ## Expected outcomes
 

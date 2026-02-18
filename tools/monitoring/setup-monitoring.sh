@@ -1,7 +1,7 @@
 #!/bin/bash
 # Automated Monitoring Setup for OpenClaw
 
-echo "🛠️  Setting up OpenClaw monitoring automation..."
+echo "IMPLEMENTATION:  Setting up OpenClaw monitoring automation..."
 
 # Prefer explicit workspace, then inferred repo root, then default OpenClaw workspace.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -37,17 +37,17 @@ Persistent=true
 WantedBy=timers.target
 TIMER_EOF
 
-echo "✅ Created systemd monitoring service and timer"
+echo "OK: Created systemd monitoring service and timer"
 
 # Reload and enable
 systemctl --user daemon-reload
 systemctl --user enable openclaw-monitor.timer
 systemctl --user start openclaw-monitor.timer
 
-echo "✅ Automated monitoring enabled - runs every 15 minutes"
-echo "📊 Check status with: systemctl --user status openclaw-monitor.timer"
+echo "OK: Automated monitoring enabled - runs every 15 minutes"
+echo "METRICS: Check status with: systemctl --user status openclaw-monitor.timer"
 echo ""
-echo "🔧 Manual monitoring commands:"
-echo "   Performance: $TOOLS_DIR/openclaw-monitor.sh"
-echo "   Network: $TOOLS_DIR/network-health-check.sh"  
-echo "   Optimization: $TOOLS_DIR/openclaw-optimizer.sh"
+echo "FIX: Manual monitoring commands:"
+echo "  Performance: $TOOLS_DIR/openclaw-monitor.sh"
+echo "  Network: $TOOLS_DIR/network-health-check.sh"  
+echo "  Optimization: $TOOLS_DIR/openclaw-optimizer.sh"

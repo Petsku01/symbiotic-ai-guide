@@ -8,8 +8,8 @@ echo "=== OpenClaw Session Statistics ==="
 echo ""
 
 if ! command -v openclaw &> /dev/null; then
-    echo "ERROR: openclaw command not found"
-    exit 1
+  echo "ERROR: openclaw command not found"
+  exit 1
 fi
 
 # Get status

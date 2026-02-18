@@ -1,4 +1,4 @@
-# Symbiotic AI Guide 🌙 (BETA)  
+# Symbiotic AI Guide (BETA) (BETA)  
 
 *One human-AI partnership's approach to collaboration over control*
 

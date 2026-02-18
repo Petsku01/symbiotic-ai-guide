@@ -23,9 +23,9 @@ run_check() {
   shift
   checks_run=$((checks_run + 1))
   if "$@"; then
-    pass "$name"
+  pass "$name"
   else
-    fail "$name"
+  fail "$name"
   fi
 }
 
@@ -48,30 +48,30 @@ check_secret_regex_sanity() {
   local regex='AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z\-_]{35}|BEGIN (RSA|OPENSSH|EC) PRIVATE KEY'
 
   local bad_samples=(
-    "AKIA1234567890ABCDEF"
-    "ghp_123456789012345678901234567890123456"
-    "xoxb-123456789012-123456789012-ABCDEFGHIJK"
-    "AIzaSyD8k9abcdeFGHIJklmnopQRstuVWxyz123"
-    "-----BEGIN RSA PRIVATE KEY-----"
+  "AKIA1234567890ABCDEF"
+  "ghp_123456789012345678901234567890123456"
+  "xoxb-123456789012-123456789012-ABCDEFGHIJK"
+  "AIzaSyD8k9abcdeFGHIJklmnopQRstuVWxyz123"
+  "-----BEGIN RSA PRIVATE KEY-----"
   )
 
   local safe_samples=(
-    "this is harmless text"
-    "AIza-short"
-    "ghp_short"
+  "this is harmless text"
+  "AIza-short"
+  "ghp_short"
   )
 
   local sample
   for sample in "${bad_samples[@]}"; do
-    if ! printf '%s\n' "$sample" | grep -Eq "$regex"; then
-      return 1
-    fi
+  if ! printf '%s\n' "$sample" | grep -Eq "$regex"; then
+  return 1
+  fi
   done
 
   for sample in "${safe_samples[@]}"; do
-    if printf '%s\n' "$sample" | grep -Eq "$regex"; then
-      return 1
-    fi
+  if printf '%s\n' "$sample" | grep -Eq "$regex"; then
+  return 1
+  fi
   done
 
   return 0

@@ -77,9 +77,9 @@ Most people have a working system in a day, but developing an effective partners
 ### Can I run this completely offline?
 
 Partially. You can:
-- ✅ Run local embedding models for memory search
-- ✅ Use local language models (Ollama) for basic AI functionality
-- ✅ Store all data locally
+- OK: Run local embedding models for memory search
+- OK: Use local language models (Ollama) for basic AI functionality
+- OK: Store all data locally
 
 However, you'll likely want internet access for:
 - Premium AI model APIs for complex reasoning

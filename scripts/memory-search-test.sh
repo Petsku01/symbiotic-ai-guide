@@ -8,35 +8,35 @@ echo "=== Memory Search Quality Test ==="
 echo ""
 
 if ! command -v openclaw &> /dev/null; then
-    echo "ERROR: openclaw command not found"
-    exit 1
+  echo "ERROR: openclaw command not found"
+  exit 1
 fi
 
 # Test queries - adjust these for your content
 QUERIES=(
-    "security hardening"
-    "identity configuration"
-    "memory system setup"
+  "security hardening"
+  "identity configuration"
+  "memory system setup"
 )
 
 echo "Running test queries..."
 echo ""
 
 for query in "${QUERIES[@]}"; do
-    echo "Query: \"$query\""
-    
-    # Run search and capture results
-    RESULT=$(openclaw memory search "$query" 2>&1 || true)
-    
-    if echo "$RESULT" | grep -q "score"; then
-        # Extract top score
-        TOP_SCORE=$(echo "$RESULT" | grep -oE "score[^0-9]*[0-9]+\.[0-9]+" | head -1 | grep -oE "[0-9]+\.[0-9]+" || echo "N/A")
-        MATCHES=$(echo "$RESULT" | grep -c "path" || echo "0")
-        echo "  Results: $MATCHES matches, top score: $TOP_SCORE"
-    else
-        echo "  No results or error"
-    fi
-    echo ""
+  echo "Query: \"$query\""
+  
+  # Run search and capture results
+  RESULT=$(openclaw memory search "$query" 2>&1 || true)
+  
+  if echo "$RESULT" | grep -q "score"; then
+  # Extract top score
+  TOP_SCORE=$(echo "$RESULT" | grep -oE "score[^0-9]*[0-9]+\.[0-9]+" | head -1 | grep -oE "[0-9]+\.[0-9]+" || echo "N/A")
+  MATCHES=$(echo "$RESULT" | grep -c "path" || echo "0")
+  echo "  Results: $MATCHES matches, top score: $TOP_SCORE"
+  else
+  echo "  No results or error"
+  fi
+  echo ""
 done
 
 # Check memory status

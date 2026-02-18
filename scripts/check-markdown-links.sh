@@ -38,10 +38,10 @@ for md in root.rglob('*.md'):
             broken.append((md.relative_to(root), m.group(1)))
 
 if broken:
-    print('❌ Broken markdown links found:')
+    print('ERROR: Broken markdown links found:')
     for src, dst in broken:
         print(f'  - {src}: {dst}')
     sys.exit(1)
 
-print('✅ Markdown relative links OK')
+print('OK: Markdown relative links OK')
 PY

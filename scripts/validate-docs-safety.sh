@@ -40,8 +40,8 @@ BARE_CONFIG_GET_REGEX="openclaw config get([[:space:]]*$|[[:space:]]*\|)"
 
 for pattern in "${DENYLIST_PATTERNS[@]}"; do
   if grep -nF "$pattern" "${CORE_DOCS[@]}" >/dev/null; then
-    matches="$(grep -nF "$pattern" "${CORE_DOCS[@]}")"
-    fail "Found denied onboarding command pattern '$pattern' in core docs:\n$matches"
+  matches="$(grep -nF "$pattern" "${CORE_DOCS[@]}")"
+  fail "Found denied onboarding command pattern '$pattern' in core docs:\n$matches"
   fi
 done
 
@@ -73,7 +73,7 @@ fi
 # Full profile is allowed in detailed docs only when explicitly marked advanced
 for file in OPENCLAW-CONFIGURATION.md docs/reference/KUU-AI-SETUP-GUIDE.md; do
   if grep -q '"profile"[[:space:]]*:[[:space:]]*"full"' "$file"; then
-    grep -q "Advanced / Higher Risk" "$file" || fail "$file contains full profile but no explicit advanced risk marker"
+  grep -q "Advanced / Higher Risk" "$file" || fail "$file contains full profile but no explicit advanced risk marker"
   fi
 done
 
@@ -85,7 +85,7 @@ fi
 if grep -q 'git commit -m "Initial workspace setup"' scripts/quick-setup.sh; then
   # shellcheck disable=SC2016 # Intentional literal pattern match against script source
   if ! grep -q 'if \[\[ "\$AUTO_COMMIT" == true \]\]; then' scripts/quick-setup.sh; then
-    fail "quick-setup.sh appears to commit without explicit --auto-commit gating"
+  fail "quick-setup.sh appears to commit without explicit --auto-commit gating"
   fi
 fi
 

@@ -20,24 +20,24 @@ Keep `EXAMPLE-RUN.md` as the reference template.
 ## Required fields (must be present)
 
 1. Run metadata
-   - Date/time (timezone)
-   - Runner
-   - Environment (OS, shell, OpenClaw version)
-   - Repo commit hash
+  - Date/time (timezone)
+  - Runner
+  - Environment (OS, shell, OpenClaw version)
+  - Repo commit hash
 2. Scope
-   - What was validated
-   - What was explicitly out of scope
+  - What was validated
+  - What was explicitly out of scope
 3. Commands executed
-   - Exact commands (copy/paste-able)
+  - Exact commands (copy/paste-able)
 4. Results
-   - Command-by-command pass/fail
-   - Exit codes when available
+  - Command-by-command pass/fail
+  - Exit codes when available
 5. Evidence
-   - Relevant output excerpts
-   - Failure traces (if any)
+  - Relevant output excerpts
+  - Failure traces (if any)
 6. Final verdict
-   - PASS / PARTIAL / FAIL
-   - Follow-up actions
+  - PASS / PARTIAL / FAIL
+  - Follow-up actions
 
 ## Minimal template
 

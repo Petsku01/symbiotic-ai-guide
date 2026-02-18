@@ -22,11 +22,11 @@ check_help() {
   local output
 
   if ! output="$(bash -lc "$cmd" 2>&1)"; then
-    fail "Command failed: $cmd\n$output"
+  fail "Command failed: $cmd\n$output"
   fi
 
   if [[ -z "${output//[[:space:]]/}" ]]; then
-    fail "Command returned empty output (unexpected): $cmd"
+  fail "Command returned empty output (unexpected): $cmd"
   fi
 
   pass "$cmd"
