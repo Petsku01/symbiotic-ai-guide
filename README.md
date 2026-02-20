@@ -2,6 +2,17 @@
 
 *One human-AI partnership's approach to collaboration over control*
 
+## 🚀 New to AI Partnerships? Start Here!
+
+**[→ Beginner Setup Guide](BEGINNER-SETUP.md)**  
+*From "Never used Linux" to "Working AI Assistant" in 20-30 minutes*
+
+Perfect if you're on Windows and want to try AI symbiosis without getting lost in technical complexity.
+
+**Alternative guides:** [Comprehensive](guides/BEGINNER-COMPREHENSIVE.md) • [Minimal WSL2](guides/BEGINNER-WSL2-MINIMAL.md)
+
+---
+
 ## Validated against
 
 - **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
