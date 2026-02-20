@@ -145,9 +145,26 @@ openclaw --version
 
 **Recommended: Anthropic Claude (best OpenClaw compatibility)**
 
-### Option A: API Key (Reliable - Recommended)
+### Option A: OAuth (Recommended - Easy Setup)
 
-**Get Anthropic API key:**
+```bash
+openclaw configure
+```
+
+**Follow the prompts:**
+1. Choose **Anthropic Claude** (recommended)
+2. Choose **OAuth Login**
+3. Browser opens → Sign in with Google
+4. Click "Allow OpenClaw to access Claude"
+5. Return to terminal → Should show "✓ Authentication successful"
+
+**If browser doesn't open:** Copy the URL from terminal, paste into your Windows browser manually.
+
+**OAuth is free to start** — you get generous daily limits before any charges.
+
+### Option B: API Key (Fallback - if OAuth doesn't work)
+
+**Only if OAuth fails, get Anthropic API key:**
 1. Go to https://console.anthropic.com
 2. Sign up, verify email, add phone number  
 3. Add payment method (credit/debit card)
@@ -166,16 +183,6 @@ source ~/.bashrc
 echo $ANTHROPIC_API_KEY
 ```
 Should show your key starting with `sk-ant-`.
-
-### Option B: OAuth (Advanced - if you prefer browser login)
-
-**Note:** OAuth setup is more complex and may not work in all configurations. Most beginners should use API keys (Option A) instead.
-
-If you want to try OAuth:
-```bash
-openclaw configure
-```
-Follow prompts to set up browser-based authentication. If this fails or seems confusing, use the API key method above.
 
 **STOP:** Don't continue until authentication is configured (either API key OR OAuth working).
 
