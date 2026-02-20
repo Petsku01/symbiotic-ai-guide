@@ -145,16 +145,7 @@ openclaw --version
 
 **Recommended: Anthropic Claude (best OpenClaw compatibility)**
 
-### Option A: OAuth (Easier - if available)
-
-*Note: OAuth availability varies. Try this first, fall back to API key if needed.*
-
-```bash
-openclaw gateway start
-# Try OAuth configuration if supported
-```
-
-### Option B: API Key (Reliable)
+### Option A: API Key (Reliable - Recommended)
 
 **Get Anthropic API key:**
 1. Go to https://console.anthropic.com
@@ -176,7 +167,17 @@ echo $ANTHROPIC_API_KEY
 ```
 Should show your key starting with `sk-ant-`.
 
-**STOP:** Don't continue until API key is configured.
+### Option B: OAuth (Advanced - if you prefer browser login)
+
+**Note:** OAuth setup is more complex and may not work in all configurations. Most beginners should use API keys (Option A) instead.
+
+If you want to try OAuth:
+```bash
+openclaw configure
+```
+Follow prompts to set up browser-based authentication. If this fails or seems confusing, use the API key method above.
+
+**STOP:** Don't continue until authentication is configured (either API key OR OAuth working).
 
 ---
 
