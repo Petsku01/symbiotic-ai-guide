@@ -1,6 +1,6 @@
 ## Summary
 
-- 
+-
 
 ## Validation Checklist
 
@@ -13,4 +13,4 @@
 
 ## Additional Notes
 
-- 
+-

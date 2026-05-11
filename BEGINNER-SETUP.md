@@ -7,7 +7,7 @@
 
 If you're on Windows, **WSL2 (Windows Subsystem for Linux) is the best way to run Hermes**:
 
-- **Better compatibility** — Hermes is designed for Unix-like systems  
+- **Better compatibility** — Hermes is designed for Unix-like systems
 - **Faster** — Native Linux performance, not emulation
 - **Cleaner** — Isolated from Windows, easy to reset if needed
 - **Real Linux skills** — Commands work on any Linux server/cloud
@@ -51,7 +51,7 @@ Understanding the architecture helps avoid confusion:
 
 **You need:**
 - Windows 10 (version 2004+) or Windows 11
-- Admin access to your computer  
+- Admin access to your computer
 - Stable internet (~500MB download)
 - Credit card for API provider (or OAuth account)
 - 20-30 minutes focused time
@@ -88,7 +88,7 @@ Should show: `Ubuntu 24.04 LTS`
 
 ---
 
-## Step 2: Install Node.js 
+## Step 2: Install Node.js
 
 **In Ubuntu terminal, run these commands:**
 
@@ -110,7 +110,7 @@ node --version
 **Expected:** `v20.x.x` or `v22.x.x` (any v18+ works)
 
 ```bash
-npm --version  
+npm --version
 ```
 **Expected:** `10.x.x` or similar
 
@@ -166,14 +166,14 @@ hermes configure
 
 **Only if OAuth fails, get Ollama Cloud API key:**
 1. Go to https://ollama.com/cloud
-2. Sign up, verify email, add phone number  
+2. Sign up, verify email, add phone number
 3. Add payment method (credit/debit card)
 4. Navigate to "API Keys" → "Create Key"
 5. Name it "Hermes", copy the key (starts with `sk-ant-`)
 
 **Set your API key:**
 ```bash
-# Add to shell configuration  
+# Add to shell configuration
 echo 'export ANTHROPIC_API_KEY="sk-ant-your-actual-key-here"' >> ~/.bashrc
 
 # Reload configuration
@@ -208,7 +208,7 @@ hermes tui
 
 **Good test messages:**
 - "Hello! What can you help me with?"
-- "Explain quantum computing simply"  
+- "Explain quantum computing simply"
 - "Write a haiku about Linux"
 
 **To exit:** Press `Ctrl+C` or type `/exit`
@@ -219,7 +219,7 @@ hermes tui
 
 **If you got a coherent response, you now have:**
 - ✓ Ubuntu Linux environment (WSL2)
-- ✓ Working AI assistant  
+- ✓ Working AI assistant
 - ✓ Private conversations on your computer
 - ✓ Foundation for Discord bots, integrations, etc.
 
@@ -230,7 +230,7 @@ hermes tui
 | Task | Command |
 |------|---------|
 | Start Gateway | `hermes gateway start` |
-| Stop Gateway | `hermes gateway stop` |  
+| Stop Gateway | `hermes gateway stop` |
 | Gateway Status | `hermes gateway status` |
 | Interactive Chat | `hermes tui` |
 | Get Help | `hermes --help` |
@@ -297,7 +297,7 @@ Close and reopen Ubuntu terminal.
 **WSL2 won't start:**
 ```powershell
 wsl --update
-wsl --shutdown  
+wsl --shutdown
 wsl --install -d Ubuntu-24.04
 ```
 
@@ -317,11 +317,11 @@ sudo npm update -g hermes
 ```
 
 **More help:**
-- Full docs: https://docs.hermes.ai
-- Community: https://discord.gg/hermes  
-- Issues: https://github.com/hermes/hermes
+- Full docs: https://hermes-agent.nousresearch.com/docs
+- Community: https://discord.gg/nousresearch
+- Issues: https://github.com/nousresearch/hermes-agent
 
 ---
 
-*Final version combining structure + technical accuracy*  
+*Final version combining structure + technical accuracy*
 *Target: Ubuntu 24.04 LTS on WSL2 • February 2026*

@@ -43,7 +43,7 @@ Hermes has two main parts:
 - **Gateway**: A daemon (background service) that must be running for Hermes to work
 - **CLI Tools**: Commands like `hermes tui` that you use to interact with the AI
 
-**Realistic time:** 20-40 minutes  
+**Realistic time:** 20-40 minutes
 **Realistic cost:** Light usage ~$3-8/month, Heavy usage ~$15-25/month (pay-per-use)
 
 ---
@@ -70,7 +70,7 @@ Then restart Windows and set up your Ubuntu username/password.
 
 **From Windows:**
 1. Press `Windows key`
-2. Type `Ubuntu` 
+2. Type `Ubuntu`
 3. Click "Ubuntu 24.04 LTS"
 
 **Or from any terminal:**
@@ -349,7 +349,7 @@ hermes gateway start  # if not running
 
 **If you got a coherent response, congratulations!** You now have:
 - ✓ A working AI assistant
-- ✓ Private conversations on your machine  
+- ✓ Private conversations on your machine
 - ✓ Control over your costs
 - ✓ Foundation for advanced features
 
@@ -368,7 +368,7 @@ hermes gateway status
 # Start the Gateway
 hermes gateway start
 
-# Stop the Gateway  
+# Stop the Gateway
 hermes gateway stop
 
 # Restart (useful after configuration changes)
@@ -487,5 +487,5 @@ rm -rf ~/.hermes
 
 ---
 
-*Last updated: February 19, 2026*  
+*Last updated: February 19, 2026*
 *Target environment: Ubuntu 24.04 LTS on WSL2*

@@ -9,7 +9,7 @@ echo "================================================" | tee -a $LOG_FILE
 
 for IP in "${DISCORD_IPS[@]}"; do
   echo "Testing connectivity to $IP..." | tee -a $LOG_FILE
-  
+
   # Ping test
   PING_RESULT=$(ping -c 3 -W 2 $IP 2>/dev/null | grep "packet loss")
   if [ $? -eq 0 ]; then
@@ -28,7 +28,7 @@ HERMES_PID=$(pgrep -f hermes-gateway)
 if [ ! -z "$HERMES_PID" ]; then
   ESTABLISHED=$(lsof -p $HERMES_PID -a -i | grep ESTABLISHED | wc -l)
   echo "  Active connections: $ESTABLISHED" | tee -a $LOG_FILE
-  
+
   # Recent WebSocket issues
   RECENT_DROPS=$(journalctl --user -u hermes-gateway --since="1 hour ago" --no-pager | grep "WebSocket connection closed" | wc -l)
   echo "  WebSocket drops (1h): $RECENT_DROPS" | tee -a $LOG_FILE

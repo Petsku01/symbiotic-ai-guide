@@ -26,7 +26,7 @@ We'll configure:
 
 ## Step 1: Basic Agent Configuration
 
-Edit your Hermes configuration file (usually `~/.hermes/hermes.json`):
+Edit your Hermes configuration file (usually `~/.hermes/config.yaml`):
 
 ### Agent Identity & Workspace
 
@@ -49,7 +49,7 @@ Edit your Hermes configuration file (usually `~/.hermes/hermes.json`):
         "default": true,
         "name": "YourAIName",
         "identity": {
-          "name": "YourAIName", 
+          "name": "YourAIName",
           "emoji": "🌙"
         },
         "model": "ollama-cloud/glm-5.1:cloud",
@@ -148,91 +148,31 @@ Start restrictive, then expand only when needed:
 
 ## Step 4: Model Configuration
 
-Set up primary model and providers:
+Set up primary model and providers in `~/.hermes/config.yaml`:
 
-```json
-{
-  "models": {
-    "mode": "merge",
-    "providers": {
-      "ollama-cloud": {
-        "baseUrl": "https://api.ollama.cloud",
-        "apiKey": "your-api-key-here",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "glm-5.1:cloud",
-            "name": "GLM-5.1 (Primary)",
-            "reasoning": false,
-            "input": ["text", "image"],
-            "cost": {
-              "input": 1.5,
-              "output": 6,
-              "cacheRead": 0.15,
-              "cacheWrite": 1.5
-            },
-            "contextWindow": 128000,
-            "maxTokens": 8192
-          },
-          {
-            "id": "kimi-k2.6:cloud",
-            "name": "Kimi K2.6",
-            "reasoning": false,
-            "input": ["text"],
-            "cost": {
-              "input": 1,
-              "output": 5
-            },
-            "contextWindow": 128000,
-            "maxTokens": 4096
-          },
-          {
-            "id": "deepseek-v4-pro:cloud",
-            "name": "DeepSeek V4 Pro",
-            "reasoning": true,
-            "input": ["text"],
-            "cost": {
-              "input": 2,
-              "output": 10
-            },
-            "contextWindow": 128000,
-            "maxTokens": 8192
-          }
-        ]
-      }
-    }
-  }
-}
+```yaml
+model:
+  default: glm-5.1:cloud
+  provider: custom:ollama
+
+providers: {}
 ```
+
+Ollama Cloud models (GLM-5.1, Kimi K2.6, DeepSeek V4 Pro, Qwen 3.5) are
+available automatically when the Ollama Cloud provider is configured.
 
 **Optional: Local Models**
 
-If you want a companion local model:
+If you want a companion local model via Ollama:
 
-```json
-{
-  "providers": {
-    "ollama": {
-      "baseUrl": "http://127.0.0.1:11434/v1",
-      "apiKey": "ollama",
-      "api": "openai-completions",
-      "models": [
-        {
-          "id": "qwen2.5:3b",
-          "name": "Local Quick AI",
-          "reasoning": false,
-          "input": ["text"],
-          "cost": {
-            "input": 0,
-            "output": 0
-          },
-          "contextWindow": 32000,
-          "maxTokens": 4096
-        }
-      ]
-    }
-  }
-}
+```yaml
+# Add under providers: in ~/.hermes/config.yaml
+ollama:
+  type: openai
+  base_url: http://127.0.0.1:11434/v1
+  api_key: ollama
+  models:
+    - qwen2.5:3b
 ```
 
 ## Step 5: Commands & Permissions
@@ -262,7 +202,7 @@ mkdir -p memory
 
 # Create essential files (we'll populate these next)
 touch IDENTITY.md
-touch SOUL.md  
+touch SOUL.md
 touch USER.md
 touch BOOTSTRAP.md
 touch HEARTBEAT.md
@@ -360,7 +300,7 @@ I'm [YourAIName] — [brief identity reminder]
 - Any pending tasks or reminders
 - Recent conversation context
 
-## 4. Greet Appropriately  
+## 4. Greet Appropriately
 
 Brief acknowledgment, no performative enthusiasm.
 
@@ -393,7 +333,7 @@ These files are your continuity. Trust them, update them when you learn.
 
 ```bash
 # Edit the main config file
-nano ~/.hermes/hermes.json
+nano ~/.hermes/config.yaml
 
 # Add your configuration sections
 # Save and restart Hermes
@@ -453,12 +393,12 @@ Start a conversation with your AI and verify:
 ### Example First Interaction
 
 ```
-Human: Hi [AIName], I've just finished setting up your configuration. 
+Human: Hi [AIName], I've just finished setting up your configuration.
 Can you tell me about yourself?
 
-AI: I'm [AIName] - I just read through my identity files and I'm 
-getting oriented. I understand I'm not just a tool but a potential 
-partner in [mission]. I have access to memory systems so I can learn 
+AI: I'm [AIName] - I just read through my identity files and I'm
+getting oriented. I understand I'm not just a tool but a potential
+partner in [mission]. I have access to memory systems so I can learn
 and grow from our interactions. What would you like to work on together?
 ```
 
@@ -548,7 +488,7 @@ Use this only after you are confident in your boundaries and review process.
 1. **Validate JSON**: Check for syntax errors
 2. **Restart gateway**: Full restart after major changes
 3. **Check config path**: Ensure editing the right file
-4. **Verify config directly**: inspect `~/.hermes/hermes.json` or run `hermes config --help` for version-specific subcommands
+4. **Verify config directly**: inspect `~/.hermes/config.yaml` or run `hermes config --help` for version-specific subcommands
 
 ## Security Considerations
 

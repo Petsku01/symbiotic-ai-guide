@@ -4,19 +4,19 @@ Minimal scripts to operationalize decision-grade uncertainty with both full scor
 
 ## Scripts
 
-- `score-task.js`  
+- `score-task.js`
   Compute risk score in either:
   - **full mode** from 5 signals (`evidence`, `consistency`, `policy`, `tool_integrity`, `severity`)
   - **MVE mode** (`--mve` / `--quick`) from minimal inputs: `task`, `confidence` (0-100), `impact` (`low|med|high`)
 
-- `decide-action.js`  
+- `decide-action.js`
   Choose `AUTO_ACT`, `AUTO_ACT_WITH_CAUTION`, or `ESCALATE` using deterministic thresholds. Accepts output from either full or MVE scoring. Includes `decisionReason`.
 
-- `log-result.js`  
+- `log-result.js`
   Append task outcomes to JSONL. Adds calibration fields while preserving backward compatibility:
   `predictedRisk`, `scoreBand`, `actualOutcome`, `mode`.
 
-- `review-week.js`  
+- `review-week.js`
   Summarize weekly metrics and calibration by `scoreBand` with:
   `count`, `meanPredictedRisk`, `observedFailureRate`, `gap`.
   Warns on low sample (`n < 5`) and prints a simple threshold adjustment hint.

@@ -143,7 +143,7 @@ fi
 # Set permissions
 echo "Setting secure permissions..."
 chmod 700 "$HERMES_DIR" 2>/dev/null || true
-chmod 600 "$HERMES_DIR/hermes.json" 2>/dev/null || true
+chmod 600 "$HERMES_DIR/config.yaml" 2>/dev/null || true
 
 # Initialize git if not exists
 if [[ ! -d "$WORKSPACE/.git" ]]; then

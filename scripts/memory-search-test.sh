@@ -24,10 +24,10 @@ echo ""
 
 for query in "${QUERIES[@]}"; do
   echo "Query: \"$query\""
-  
+
   # Run search and capture results
   RESULT=$(hermes memory search "$query" 2>&1 || true)
-  
+
   if echo "$RESULT" | grep -q "score"; then
   # Extract top score
   TOP_SCORE=$(echo "$RESULT" | grep -oE "score[^0-9]*[0-9]+\.[0-9]+" | head -1 | grep -oE "[0-9]+\.[0-9]+" || echo "N/A")

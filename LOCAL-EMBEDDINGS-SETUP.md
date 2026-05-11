@@ -19,7 +19,7 @@ Hermes's memory search functionality was disabled due to missing API keys:
 
 Configure Hermes to use local embeddings via HuggingFace models, eliminating:
 - ❌ API costs for memory search
-- ❌ External API dependencies 
+- ❌ External API dependencies
 - ❌ Privacy concerns with memory content
 - ✅ Fast, offline memory search functionality
 
@@ -63,10 +63,10 @@ Apply this configuration:
 
 ```bash
 # Method 1: Using Hermes's config API
-# Config patch command availability varies by version; edit ~/.hermes/hermes.json directly
+# Config patch command availability varies by version; edit ~/.hermes/config.yaml directly
 
 # Method 2: Edit config file directly
-nano ~/.hermes/hermes.json
+nano ~/.hermes/config.yaml
 # Add the memorySearch section under agents.defaults
 ```
 
@@ -203,7 +203,7 @@ Or local GGUF files:
 
 ### Check Current Configuration
 ```bash
-grep -nA 12 '"memorySearch"' ~/.hermes/hermes.json
+grep -nA 12 '"memorySearch"' ~/.hermes/config.yaml
 ```
 
 ### Monitor Memory System
@@ -231,5 +231,5 @@ This configuration provides a fully functional, cost-free, privacy-respecting me
 
 ---
 
-*Created: 2026-02-06*  
+*Created: 2026-02-06*
 *Environment: WSL2, Hermes 2026.2.3-1*

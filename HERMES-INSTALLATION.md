@@ -41,7 +41,7 @@ hermes --version
 hermes --help
 ```
 
-**Pros:** Simple, automatic updates, clean uninstall  
+**Pros:** Simple, automatic updates, clean uninstall
 **Cons:** Requires npm/Node.js setup
 
 ### Method 2: Git Clone Installation
@@ -50,7 +50,7 @@ For development or customization:
 
 ```bash
 # Clone the repository
-git clone https://github.com/hermes/hermes.git
+git clone https://github.com/nousresearch/hermes-agent.git
 cd hermes
 
 # Install dependencies
@@ -66,7 +66,7 @@ npm link
 ./bin/hermes.js --version
 ```
 
-**Pros:** Full source access, customization possible  
+**Pros:** Full source access, customization possible
 **Cons:** More complex, manual updates
 
 ## Platform-Specific Setup
@@ -78,7 +78,7 @@ npm link
 sudo apt update
 
 # Install Node.js 18+ and npm
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 # Install Git if not present
@@ -139,7 +139,7 @@ For containerized deployment:
 docker pull hermes/hermes:latest
 
 # Or build from source
-git clone https://github.com/hermes/hermes.git
+git clone https://github.com/nousresearch/hermes-agent.git
 cd hermes
 docker build -t hermes .
 
@@ -168,38 +168,29 @@ mkdir -p ~/.hermes/workspace
 
 ```bash
 # Generate default configuration
-# Create ~/.hermes/hermes.json manually (or from your own template)
+# Create ~/.hermes/config.yaml manually (or from your own template)
 
-# This creates ~/.hermes/hermes.json
+# This creates ~/.hermes/config.yaml
 ```
 
 ### 3. Basic Configuration
 
-Edit `~/.hermes/hermes.json`:
+Edit `~/.hermes/config.yaml`:
 
-```json
-{
-  "gateway": {
-    "host": "localhost",
-    "port": 3000,
-    "bind": "127.0.0.1"
-  },
-  "agents": {
-    "defaults": {
-      "workspace": "/home/username/.hermes/workspace"
-    },
-    "list": [
-      {
-        "id": "main",
-        "name": "Assistant",
-        "default": true
-      }
-    ]
-  },
-  "models": {
-    "providers": {}
-  }
-}
+```yaml
+model:
+  default: glm-5.1:cloud
+  provider: custom:ollama
+
+providers: {}
+
+gateway:
+  host: localhost
+  port: 3000
+  bind: 127.0.0.1
+
+agent:
+  workspace: /home/username/.hermes/workspace
 ```
 
 ## Add AI Model Provider
@@ -208,64 +199,29 @@ You'll need API access to at least one AI provider:
 
 ### Ollama Cloud (Recommended)
 
-```json
-{
-  "models": {
-    "providers": {
-      "ollama-cloud": {
-        "baseUrl": "https://api.ollama.cloud",
-        "apiKey": "your-api-key-here",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "glm-5.1:cloud",
-            "name": "GLM-5.1",
-            "cost": {
-              "input": 1.5,
-              "output": 6
-            },
-            "contextWindow": 128000,
-            "maxTokens": 8192
-          }
-        ]
-      }
-    }
-  }
-}
+```yaml
+model:
+  default: glm-5.1:cloud
+  provider: custom:ollama
+
+providers: {}
 ```
 
+Ollama Cloud models (GLM-5.1, Kimi K2.6, DeepSeek V4 Pro, Qwen 3.5)
+are available automatically with the `custom:ollama` provider.
+
 **Getting Ollama Cloud API key:**
-1. Go to https://ollama.cloud/
+1. Go to https://ollama.com/cloud
 2. Create account and add billing
 3. Generate API key in settings
 4. Add to configuration
 
 ### OpenAI Alternative
 
-```json
-{
-  "models": {
-    "providers": {
-      "openai": {
-        "baseUrl": "https://api.openai.com/v1",
-        "apiKey": "your-openai-api-key",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "gpt-4o",
-            "name": "GPT-4O",
-            "cost": {
-              "input": 2.5,
-              "output": 10
-            },
-            "contextWindow": 128000,
-            "maxTokens": 4096
-          }
-        ]
-      }
-    }
-  }
-}
+```yaml
+model:
+  default: gpt-5.4
+  provider: openai-codex
 ```
 
 ### Local Models (Ollama)
@@ -274,38 +230,22 @@ For privacy and cost savings:
 
 ```bash
 # Install Ollama
-curl -fsSL https://ollama.ai/install.sh | sh
+curl -fsSL https://ollama.com/install | sh
 
 # Pull a model
 ollama pull qwen2.5:3b
-
-# Add to Hermes config
 ```
 
-```json
-{
-  "models": {
-    "providers": {
-      "ollama": {
-        "baseUrl": "http://127.0.0.1:11434/v1",
-        "apiKey": "ollama",
-        "api": "openai-completions",
-        "models": [
-          {
-            "id": "qwen2.5:3b",
-            "name": "Local Qwen 3B",
-            "cost": {
-              "input": 0,
-              "output": 0
-            },
-            "contextWindow": 32000,
-            "maxTokens": 4096
-          }
-        ]
-      }
-    }
-  }
-}
+Add to `~/.hermes/config.yaml`:
+
+```yaml
+providers:
+  ollama:
+    type: openai
+    base_url: http://127.0.0.1:11434/v1
+    api_key: ollama
+    models:
+      - qwen2.5:3b
 ```
 
 ## Start Hermes
@@ -389,18 +329,14 @@ Use templates from [examples/](examples/) to create:
 
 ### 3. Add Communication Channels
 
-Configure Discord, Telegram, or other channels as needed:
+Configure Discord, Telegram, or other channels in `~/.hermes/config.yaml`:
 
-```json
-{
-  "channels": {
-    "discord": {
-      "enabled": true,
-      "token": "your-discord-bot-token",
-      "targetAgent": "main"
-    }
-  }
-}
+```yaml
+channels:
+  discord:
+    enabled: true
+    token: your-discord-bot-token
+    targetAgent: main
 ```
 
 ## Common Installation Issues
@@ -424,12 +360,9 @@ export PATH=~/.local/bin:$PATH
 sudo lsof -i :3000
 
 # Kill the process or change Hermes port
-# Edit ~/.hermes/hermes.json:
-{
-  "gateway": {
-    "port": 3001
-  }
-}
+# Edit ~/.hermes/config.yaml:
+gateway:
+  port: 3001
 ```
 
 ### Node.js Version Issues
@@ -449,10 +382,10 @@ nvm use 18
 
 ```bash
 # Check config file location
-# Config file is typically ~/.hermes/hermes.json (verify via: hermes config --help)
+# Config file is typically ~/.hermes/config.yaml (verify via: hermes config --help)
 
 # Validate JSON syntax
-cat ~/.hermes/hermes.json | python3 -m json.tool
+cat ~/.hermes/config.yaml | python3 -m json.tool
 
 # Reset to defaults
 # Reset manually: back up then replace your config file from a known-good template
@@ -498,7 +431,7 @@ npm run build
 ```bash
 # Secure config directory
 chmod 700 ~/.hermes
-chmod 600 ~/.hermes/hermes.json
+chmod 600 ~/.hermes/config.yaml
 ```
 
 ### API Key Security
@@ -523,7 +456,7 @@ chmod 600 ~/.hermes/hermes.json
 server {
     listen 80;
     server_name your-domain.com;
-    
+
     location / {
         proxy_pass http://localhost:3000;
         proxy_set_header Host $host;
@@ -559,7 +492,7 @@ HERMES_PORT=3002 HERMES_CONFIG=~/.hermes/config2.json hermes gateway start &
 After successful installation:
 
 1. **Follow Configuration Guide** - [HERMES-CONFIGURATION.md](HERMES-CONFIGURATION.md)
-2. **Set Up Local Memory** - [LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)  
+2. **Set Up Local Memory** - [LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)
 3. **Read Philosophy Guide** - [docs/reference/KUU-AI-SETUP-GUIDE.md](docs/reference/KUU-AI-SETUP-GUIDE.md)
 4. **Customize Identity** - Use [examples/](examples/) templates
 5. **Test Interaction** - Start building your AI partnership!
@@ -567,7 +500,7 @@ After successful installation:
 ## Getting Help
 
 - **Hermes Documentation**: Check built-in help with `hermes --help` and `hermes <subcommand> --help`
-- **GitHub Issues**: https://github.com/hermes/hermes/issues
+- **GitHub Issues**: https://github.com/nousresearch/hermes-agent/issues
 - **Community**: Join Hermes Discord or forums
 - **Configuration Problems**: Review [docs/reference/FAQ.md](docs/reference/FAQ.md)
 

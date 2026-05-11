@@ -39,7 +39,7 @@ A restart-safe operational flow was documented and scripted for environments whe
 
 ## Implementation takeaway
 
-Turning methodologies into **automatic defaults** improves reliability more than writing more rules. 
+Turning methodologies into **automatic defaults** improves reliability more than writing more rules.
 The biggest gains came from:
 1. deterministic trigger routing,
 2. minimal operational scripts,

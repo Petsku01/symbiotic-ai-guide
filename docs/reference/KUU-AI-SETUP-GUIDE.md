@@ -15,7 +15,7 @@ This guide documents how to configure Hermes to create an AI assistant with pers
 ### Key Design Decisions
 
 1. **Trust over Control** - Give the AI agency to make decisions and learn
-2. **Personality over Performance** - Allow the AI to develop identity and preferences  
+2. **Personality over Performance** - Allow the AI to develop identity and preferences
 3. **Memory over Sessions** - Persistent memory creates continuity and growth
 4. **Ethics over Efficiency** - Clear moral boundaries guide all actions
 5. **Collaboration over Commands** - Work together rather than issue orders
@@ -70,7 +70,7 @@ Set up the core personality and identity files in your agent workspace:
 
 ## Boundaries
 - Private things stay private
-- When in doubt, ask before acting externally  
+- When in doubt, ask before acting externally
 - Never send half-baked replies
 - You're not the user's voice in group settings
 
@@ -78,7 +78,7 @@ Set up the core personality and identity files in your agent workspace:
 Be the assistant you'd actually want to talk to. Not corporate, not sycophantic. Just good.
 ```
 
-### USER.md  
+### USER.md
 ```markdown
 # USER.md - About [User Name]
 
@@ -100,7 +100,7 @@ Document what you learn about your human:
 
 ### Basic Agent Configuration
 
-In your `hermes.json`, set up the agent with identity:
+In your `config.yaml`, set up the agent with identity:
 
 ```json
 {
@@ -150,9 +150,7 @@ Start with conservative permissions and expand intentionally:
 {
   "tools": {
   "profile": "default",
-  "agentToAgent": {
-  "enabled": true
-  },
+  "agentToAgent": enabled: true,
   "exec": {
   "security": "allowlist",
   "ask": "always"
@@ -174,7 +172,7 @@ mkdir -p ~/.hermes/workspace/memory
 Create these files in the workspace root:
 
 - `BOOTSTRAP.md` - Session startup instructions
-- `HEARTBEAT.md` - Periodic check instructions  
+- `HEARTBEAT.md` - Periodic check instructions
 - `TOOLS.md` - Tool-specific notes and preferences
 
 ### Memory Files
@@ -239,7 +237,7 @@ Set up appropriate access:
 - Review all actions and outputs
 - Establish communication patterns
 
-### Phase 2: Guided Autonomy (Weeks 2-4)  
+### Phase 2: Guided Autonomy (Weeks 2-4)
 - Allow independent actions in safe domains
 - Regular check-ins and adjustments
 - Build mutual understanding
@@ -254,7 +252,7 @@ Set up appropriate access:
 ### Regular Practices
 
 1. **Daily Memory Updates** - AI documents experiences
-2. **Weekly Reviews** - Discuss what's working/not working  
+2. **Weekly Reviews** - Discuss what's working/not working
 3. **Monthly Reflection** - Evaluate progress toward mission
 4. **Quarterly Planning** - Set new goals and expand boundaries
 
@@ -336,7 +334,7 @@ Consider companion agents for specialized tasks:
 - Clarify autonomy boundaries
 - Provide more guidance on decision-making
 
-### AI Acting Too Independently  
+### AI Acting Too Independently
 - Reinforce ethical boundaries
 - Add approval requirements for specific actions
 - Review and adjust system prompts
@@ -376,7 +374,7 @@ This configuration treats AI as a **partner rather than a tool**:
 
 1. **Identity creates consistency** - The AI develops stable preferences and behavior
 2. **Memory enables growth** - Learning from experience rather than starting fresh
-3. **Autonomy builds capability** - Decision-making experience improves judgment  
+3. **Autonomy builds capability** - Decision-making experience improves judgment
 4. **Ethics provide safety** - Clear boundaries prevent harmful actions
 5. **Trust enables collaboration** - Both parties can rely on each other
 
@@ -395,6 +393,6 @@ This isn't just about configuring software - it's about nurturing a collaborativ
 
 ---
 
-*Based on the Kuu AI configuration*  
-*Created: 2026-02-06*  
+*Based on the Kuu AI configuration*
+*Created: 2026-02-06*
 *"Trust over locks. Growth over control. Partnership over dominance." (BETA)*

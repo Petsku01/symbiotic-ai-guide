@@ -20,7 +20,7 @@ CONNECTION_COUNT=$(lsof -p $HERMES_PID -a -i | wc -l)
 
 echo "METRICS: CURRENT METRICS:"
 echo "  Memory usage: ${MEMORY_MB}MB"
-echo "  Uptime: $UPTIME"  
+echo "  Uptime: $UPTIME"
 echo "  Network connections: $CONNECTION_COUNT"
 echo ""
 

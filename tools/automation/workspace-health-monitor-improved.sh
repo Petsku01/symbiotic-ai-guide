@@ -33,28 +33,28 @@ setup_cleanup_trap cleanup_and_exit
 # Initialize secure environment
 initialize_environment() {
   echo "WORKSPACE: Workspace Health Monitor - $(date)"
-  
+
   # Validate configuration
   if ! validate_config "$WORKSPACE"; then
   echo "ERROR: Environment validation failed" >&2
   return 1
   fi
-  
+
   # Create secure log file
   if ! create_secure_log "$LOG_FILE"; then
   echo "ERROR: Failed to create secure log file" >&2
   return 1
   fi
-  
+
   # Acquire lock to prevent concurrent execution
   if ! acquire_lock "$LOCK_FILE" 30; then
   echo "ERROR: Another workspace health monitor is already running" >&2
   return 1
   fi
-  
+
   echo "================================================" | tee "$LOG_FILE"
   echo "Starting workspace health monitoring..." | tee -a "$LOG_FILE"
-  
+
   return 0
 }
 
@@ -62,26 +62,26 @@ initialize_environment() {
 check_root_directory_health() {
   echo "" | tee -a "$LOG_FILE"
   echo "DIR: ROOT DIRECTORY HEALTH:" | tee -a "$LOG_FILE"
-  
+
   local root_files config_files unexpected_files
-  
+
   # Safely count files with error handling
   if ! root_files=$(find "$WORKSPACE" -maxdepth 1 -type f 2>/dev/null); then
   echo "  ERROR: Cannot access workspace root directory" | tee -a "$LOG_FILE"
   return 1
   fi
-  
+
   local total_files=0
   local -a config_patterns=("*.md" "*.yaml" "*.yml" "*.json" "*.toml")
   local -a unexpected_list=()
-  
+
   while IFS= read -r file; do
   [[ -z "$file" ]] && continue
   ((total_files++))
-  
+
   local basename_file
   basename_file=$(basename "$file")
-  
+
   # Check if it's a known config file pattern
   local is_config=false
   for pattern in "${config_patterns[@]}"; do
@@ -91,19 +91,19 @@ check_root_directory_health() {
   break
   fi
   done
-  
+
   # Special cases for expected files
   case "$basename_file" in
   AGENTS.md|SOUL.md|TOOLS.md|IDENTITY.md|USER.md|BOOTSTRAP.md|MEMORY.md|HEARTBEAT.md)
   is_config=true
   ;;
   esac
-  
+
   if [[ "$is_config" == false ]]; then
   unexpected_list+=("$basename_file")
   fi
   done <<< "$root_files"
-  
+
   # Report results safely
   if (( total_files <= 8 )) && (( ${#unexpected_list[@]} == 0 )); then
   echo "  OK: Root directory optimal ($total_files config files)" | tee -a "$LOG_FILE"
@@ -118,7 +118,7 @@ check_root_directory_health() {
   echo "  OK: Root directory clean but has $total_files files" | tee -a "$LOG_FILE"
   fi
   fi
-  
+
   return 0
 }
 
@@ -126,47 +126,47 @@ check_root_directory_health() {
 analyze_project_organization() {
   echo "" | tee -a "$LOG_FILE"
   echo "METRICS: PROJECT ORGANIZATION STATUS:" | tee -a "$LOG_FILE"
-  
+
   local projects_dir="$WORKSPACE/projects"
-  
+
   if [[ ! -d "$projects_dir" ]]; then
   echo "  WARNING:  Projects directory not found: $projects_dir" | tee -a "$LOG_FILE"
   echo "  TIP: Consider creating project organization structure" | tee -a "$LOG_FILE"
   return 1
   fi
-  
+
   local project_categories project_files
-  
+
   # Safely count project structure
   if ! project_categories=$(find "$projects_dir" -mindepth 1 -maxdepth 1 -type d 2>/dev/null); then
   echo "  WARNING:  Cannot analyze project structure" | tee -a "$LOG_FILE"
   return 1
   fi
-  
+
   if ! project_files=$(find "$projects_dir" -type f 2>/dev/null); then
   echo "  WARNING:  Cannot count project files" | tee -a "$LOG_FILE"
   return 1
   fi
-  
+
   local category_count file_count
   category_count=$(echo "$project_categories" | grep -c . || echo 0)
   file_count=$(echo "$project_files" | grep -c . || echo 0)
-  
+
   echo "  TREND: Project metrics:" | tee -a "$LOG_FILE"
   echo "  Project categories: $category_count" | tee -a "$LOG_FILE"
   echo "  Total project files: $file_count" | tee -a "$LOG_FILE"
-  
+
   # Analyze each category with error handling
   while IFS= read -r category_dir; do
   [[ -z "$category_dir" ]] && continue
-  
+
   local category_name
   category_name=$(basename "$category_dir")
-  
+
   local category_file_count
   if category_file_count=$(find "$category_dir" -type f 2>/dev/null | wc -l); then
   echo "  DIR: $category_name: $category_file_count files" | tee -a "$LOG_FILE"
-  
+
   # Check for README
   if [[ ! -f "$category_dir/README.md" ]]; then
   echo "  TIP: Consider adding README.md for navigation" | tee -a "$LOG_FILE"
@@ -175,7 +175,7 @@ analyze_project_organization() {
   echo "  DIR: $category_name: Cannot analyze" | tee -a "$LOG_FILE"
   fi
   done <<< "$project_categories"
-  
+
   return 0
 }
 
@@ -183,14 +183,14 @@ analyze_project_organization() {
 check_archive_status() {
   echo "" | tee -a "$LOG_FILE"
   echo "ARCHIVE: ARCHIVE SYSTEM STATUS:" | tee -a "$LOG_FILE"
-  
+
   local archive_dir="$WORKSPACE/archive"
-  
+
   if [[ -d "$archive_dir" ]]; then
   local archive_size
   if archive_size=$(du -sh "$archive_dir" 2>/dev/null | cut -f1); then
   echo "  OK: Archive system active (size: $archive_size)" | tee -a "$LOG_FILE"
-  
+
   # Check for old content that should be archived
   local old_content
   if old_content=$(find "$WORKSPACE" -name "*.md" -type f -mtime +60 2>/dev/null | grep -v archive | wc -l); then
@@ -204,7 +204,7 @@ check_archive_status() {
   else
   echo "  TIP: No archive system - consider creating for historical content" | tee -a "$LOG_FILE"
   fi
-  
+
   return 0
 }
 
@@ -212,10 +212,10 @@ check_archive_status() {
 verify_documentation_completeness() {
   echo "" | tee -a "$LOG_FILE"
   echo "DOCS: DOCUMENTATION COMPLETENESS:" | tee -a "$LOG_FILE"
-  
+
   local -a critical_docs=("README.md" "BOOTSTRAP.md" "IDENTITY.md" "USER.md")
   local missing_docs=0
-  
+
   for doc in "${critical_docs[@]}"; do
   local doc_path="$WORKSPACE/$doc"
   if [[ ! -f "$doc_path" ]]; then
@@ -226,13 +226,13 @@ verify_documentation_completeness() {
   ((missing_docs++))
   fi
   done
-  
+
   if (( missing_docs == 0 )); then
   echo "  OK: All critical documentation present" | tee -a "$LOG_FILE"
   else
   echo "  CRITICAL: $missing_docs critical documentation files missing or unreadable" | tee -a "$LOG_FILE"
   fi
-  
+
   return 0
 }
 
@@ -240,25 +240,25 @@ verify_documentation_completeness() {
 check_memory_integration() {
   echo "" | tee -a "$LOG_FILE"
   echo "ANALYSIS: MEMORY-WORKSPACE INTEGRATION:" | tee -a "$LOG_FILE"
-  
+
   local memory_dir="$WORKSPACE/memory"
-  
+
   if [[ ! -d "$memory_dir" ]]; then
   echo "  ERROR: Memory system not found" | tee -a "$LOG_FILE"
   return 1
   fi
-  
+
   # Check if projects are documented in memory
   local projects_dir="$WORKSPACE/projects"
   if [[ -d "$projects_dir" ]]; then
   local undocumented_projects=0
-  
+
   while IFS= read -r project_dir; do
   [[ -z "$project_dir" ]] && continue
-  
+
   local project_name
   project_name=$(basename "$project_dir")
-  
+
   # Check if project is mentioned in memory files
   local mentioned_count
   if mentioned_count=$(grep -l -i "$project_name" "$memory_dir"/*.md 2>/dev/null | wc -l); then
@@ -268,14 +268,14 @@ check_memory_integration() {
   fi
   fi
   done <<< "$(find "$projects_dir" -mindepth 1 -maxdepth 1 -type d 2>/dev/null)"
-  
+
   if (( undocumented_projects == 0 )); then
   echo "  OK: All projects have memory documentation" | tee -a "$LOG_FILE"
   else
   echo "  TIP: $undocumented_projects projects could benefit from memory documentation" | tee -a "$LOG_FILE"
   fi
   fi
-  
+
   return 0
 }
 
@@ -283,14 +283,14 @@ check_memory_integration() {
 generate_health_recommendations() {
   echo "" | tee -a "$LOG_FILE"
   echo "STRATEGY: HEALTH MAINTENANCE RECOMMENDATIONS:" | tee -a "$LOG_FILE"
-  
+
   echo "  Regular workspace health tasks:" | tee -a "$LOG_FILE"
   echo "  • Keep root directory to 8 configuration files" | tee -a "$LOG_FILE"
   echo "  • Move project files to appropriate categories" | tee -a "$LOG_FILE"
   echo "  • Create README.md files for project navigation" | tee -a "$LOG_FILE"
   echo "  • Archive content >60 days old" | tee -a "$LOG_FILE"
   echo "  • Update memory documentation for active projects" | tee -a "$LOG_FILE"
-  
+
   return 0
 }
 
@@ -301,7 +301,7 @@ main() {
   echo "ERROR: Failed to initialize environment" >&2
   cleanup_and_exit 1
   fi
-  
+
   # Execute health check functions
   local -a health_functions=(
   "check_root_directory_health"
@@ -311,7 +311,7 @@ main() {
   "check_memory_integration"
   "generate_health_recommendations"
   )
-  
+
   local failed_functions=0
   for func in "${health_functions[@]}"; do
   echo "  Executing: $func..." >&2
@@ -320,7 +320,7 @@ main() {
   ((failed_functions++))
   fi
   done
-  
+
   # Final status
   echo "" | tee -a "$LOG_FILE"
   if (( failed_functions == 0 )); then
@@ -330,7 +330,7 @@ main() {
   fi
   echo "LOG: Full log available at: $LOG_FILE" | tee -a "$LOG_FILE"
   echo "================================================" | tee -a "$LOG_FILE"
-  
+
   cleanup_and_exit 0
 }
 

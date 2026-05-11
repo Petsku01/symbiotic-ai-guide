@@ -5,7 +5,7 @@ This directory contains template files you can copy and customize for your own s
 ## Files
 
 - **IDENTITY-template.md** - AI's core identity and purpose
-- **SOUL-template.md** - Personality and behavioral guidelines  
+- **SOUL-template.md** - Personality and behavioral guidelines
 - **USER-template.md** - Information about the human partner
 - **BOOTSTRAP-template.md** - Session startup instructions
 - **MEMORY-examples.md** - Sample memory entries for reference

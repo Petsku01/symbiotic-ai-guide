@@ -12,7 +12,7 @@
 
 [Your AI's mission - examples:
 - Help with research and technical projects
-- Assist with creative writing and ideation  
+- Assist with creative writing and ideation
 - Support learning and skill development
 - Work toward specific goals or causes]
 

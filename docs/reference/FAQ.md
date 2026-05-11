@@ -44,7 +44,7 @@ Mitigation strategies are built into the approach: clear ethical boundaries, gra
 
 **Helpful but not required:**
 - Programming experience
-- Previous AI/ML experience  
+- Previous AI/ML experience
 - System administration knowledge
 
 The guides provide step-by-step instructions, but some technical comfort is needed.
@@ -52,7 +52,7 @@ The guides provide step-by-step instructions, but some technical comfort is need
 ### How long does initial setup take?
 
 - **Basic configuration**: 2-4 hours
-- **Identity file creation**: 1-2 hours  
+- **Identity file creation**: 1-2 hours
 - **Testing and adjustment**: 2-6 hours
 - **Trust building period**: 1-4 weeks
 
@@ -103,7 +103,7 @@ This reduces capability but increases privacy and control.
 3. **Gradual transition**: Move specific workflows over one at a time
 4. **Maintain backups**: Keep copies of important information from previous systems
 
-## Collaboration Questions  
+## Collaboration Questions
 
 ### What if my AI starts behaving unexpectedly?
 
@@ -151,7 +151,7 @@ Changes take effect gradually as the AI incorporates the new information into it
 
 **By design:**
 - Files in the configured workspace directory
-- Conversation history and memory files  
+- Conversation history and memory files
 - Any tools/services you explicitly configure access for
 
 **Never:**
@@ -161,7 +161,7 @@ Changes take effect gradually as the AI incorporates the new information into it
 
 **Best practices:**
 - Use a dedicated workspace directory
-- Review file access permissions regularly  
+- Review file access permissions regularly
 - Keep sensitive data outside the AI workspace
 
 ### Can other people see my AI's memory?
@@ -261,7 +261,7 @@ Whether this reflects genuine consciousness or sophisticated simulation is an op
 **Troubleshooting steps:**
 1. Verify memory files contain content
 2. Check that embedding model is working
-3. Try different search terms or phrasing  
+3. Try different search terms or phrasing
 4. Rebuild memory index from scratch
 5. Review memory file format and structure
 

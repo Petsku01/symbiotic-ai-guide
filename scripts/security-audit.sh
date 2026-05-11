@@ -86,7 +86,7 @@ check_file_perms() {
   fi
 }
 
-check_file_perms "$HERMES_DIR/hermes.json" "600" "Main config"
+check_file_perms "$HERMES_DIR/config.yaml" "600" "Main config"
 check_file_perms "$HERMES_DIR/exec-approvals.json" "600" "Exec approvals"
 
 # Check for exposed secrets in workspace
@@ -98,7 +98,7 @@ if [[ -d "$WORKSPACE" ]]; then
   SECRETS_FOUND=$(grep -r --include="*.md" --include="*.json" --include="*.sh" \
   -E "(sk-ant-api|sk-proj-|ghp_[a-zA-Z0-9]{36}|[a-f0-9]{64})" \
   "$WORKSPACE" 2>/dev/null | grep -v ".git" | grep -v "example" | grep -v "placeholder" | head -5 || true)
-  
+
   if [[ -n "$SECRETS_FOUND" ]]; then
   echo -e "${RED}  CRITICAL: Possible secrets found in workspace:${NC}"
   echo "$SECRETS_FOUND" | head -3

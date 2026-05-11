@@ -54,7 +54,7 @@
 **Status notes:** non-core root docs moved under `docs/` with updated references.
 
 ### 11) OK: DONE — Add release hygiene (CHANGELOG + tags)
-**Status notes:** `CHANGELOG.md` added.  
+**Status notes:** `CHANGELOG.md` added.
 **Remaining work:** create first semver tag and add PR checklist item for breaking changes.
 
 ### 12) OK: DONE — Expand secret scanning and CI guardrails
