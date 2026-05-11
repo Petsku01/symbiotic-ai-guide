@@ -1,13 +1,13 @@
-# OpenClaw Setup Guide for WSL2/Ubuntu
+# Hermes Setup Guide for WSL2/Ubuntu
 *From "Never used Linux" to "Working AI Assistant" in 20-30 minutes*
 
 ---
 
 ## Why WSL2?
 
-If you're on Windows, **WSL2 (Windows Subsystem for Linux) is the best way to run OpenClaw**:
+If you're on Windows, **WSL2 (Windows Subsystem for Linux) is the best way to run Hermes**:
 
-- **Better compatibility** — OpenClaw is designed for Unix-like systems
+- **Better compatibility** — Hermes is designed for Unix-like systems
 - **Faster** — Native Linux performance, not emulation
 - **Cleaner** — Isolated from your Windows setup, easy to reset if needed
 - **Real Linux skills** — Commands you learn work on any Linux server
@@ -77,17 +77,17 @@ node --version
 
 ---
 
-## Step 3: Install OpenClaw
+## Step 3: Install Hermes
 
 ```bash
-npm install -g openclaw
+npm install -g hermes
 ```
 
 **Takes 2-5 minutes.** You'll see packages downloading.
 
 **Verify:**
 ```bash
-openclaw --version
+hermes --version
 ```
 
 **Expected output:** `2026.x.x`
@@ -97,14 +97,14 @@ openclaw --version
 ## Step 4: Connect to AI (OAuth — Easy Path)
 
 ```bash
-openclaw configure
+hermes configure
 ```
 
 **Follow the prompts:**
-1. Choose **Anthropic Claude** (recommended)
+1. Choose **Ollama Cloud** (recommended)
 2. Choose **OAuth Login**
 3. Browser opens → Sign in with Google
-4. Click "Allow OpenClaw to access Claude"
+4. Click "Allow Hermes to access Ollama Cloud"
 5. Return to terminal → Should show "✓ Authentication successful"
 
 **If browser doesn't open:** Copy the URL from terminal, paste into your Windows browser manually.
@@ -117,14 +117,14 @@ openclaw configure
 
 **Run the health check:**
 ```bash
-openclaw doctor
+hermes doctor
 ```
 
 **Expected:** All checkmarks (✓)
 
 **Test a conversation:**
 ```bash
-openclaw chat
+hermes chat
 ```
 
 Try: "Hello! What can you help me with?"
@@ -147,10 +147,10 @@ You now have:
 
 | Command | What it does |
 |---------|-------------|
-| `openclaw chat` | Start conversation |
-| `openclaw doctor` | Check if everything works |
-| `openclaw configure` | Change AI provider/settings |
-| `openclaw --help` | See all commands |
+| `hermes chat` | Start conversation |
+| `hermes doctor` | Check if everything works |
+| `hermes configure` | Change AI provider/settings |
+| `hermes --help` | See all commands |
 
 **Access Ubuntu anytime:** Open "Ubuntu" from Start menu or type `wsl` in any terminal.
 
@@ -181,17 +181,17 @@ wsl --install -d Ubuntu-24.04
 
 **"Permission denied" during npm install**
 ```bash
-sudo npm install -g openclaw
+sudo npm install -g hermes
 ```
 
 **"Command not found" after install**
 Close and reopen Ubuntu terminal, then try again.
 
-### OpenClaw Issues
+### Hermes Issues
 
 **"Invalid API key" or "Connection failed"**
 ```bash
-openclaw configure
+hermes configure
 ```
 Redo the OAuth flow — make sure to complete the browser authorization.
 
@@ -203,8 +203,8 @@ Wait 1 minute and try again. Free tiers have per-minute limits.
 
 ### Still Stuck?
 
-1. Run `openclaw doctor` and read the specific error
-2. Check the OpenClaw Discord community
+1. Run `hermes doctor` and read the specific error
+2. Check the Hermes Discord community
 3. Search GitHub Issues for your error message
 
 ---

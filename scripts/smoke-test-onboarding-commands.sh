@@ -13,8 +13,8 @@ pass() {
   echo "[OK] $*"
 }
 
-if ! command -v openclaw >/dev/null 2>&1; then
-  fail "openclaw CLI not found in PATH. Install it before running onboarding smoke tests."
+if ! command -v hermes >/dev/null 2>&1; then
+  fail "hermes CLI not found in PATH. Install it before running onboarding smoke tests."
 fi
 
 check_help() {
@@ -32,9 +32,9 @@ check_help() {
   pass "$cmd"
 }
 
-check_help "openclaw --help"
-check_help "openclaw gateway --help"
-check_help "openclaw config --help"
-check_help "openclaw logs --help"
+check_help "hermes --help"
+check_help "hermes gateway --help"
+check_help "hermes config --help"
+check_help "hermes logs --help"
 
 echo "[OK] Onboarding command smoke tests passed"

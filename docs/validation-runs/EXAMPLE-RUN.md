@@ -4,7 +4,7 @@
 - Date: 2026-02-17 19:00 Europe/Helsinki
 - Runner: <name-or-handle>
 - Environment: <OS / distro / shell>
-- OpenClaw version: <version>
+- Hermes version: <version>
 - Commit: `<git-sha>`
 
 ## Scope

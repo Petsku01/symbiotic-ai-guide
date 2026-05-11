@@ -1,17 +1,17 @@
-# OpenClaw Installation Guide
+# Hermes Installation Guide
 
 ## Validated against
 
 - **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
-- **OpenClaw docs/config assumptions:** 2026-02 baseline
-- **Last validated:** 2026-02-17
+- **Hermes docs/config assumptions:** 2026-05 baseline
+- **Last validated:** 2026-05-11
 
-This guide walks through installing OpenClaw from scratch on different operating systems. OpenClaw is the foundation that enables symbiotic AI partnerships.
+This guide walks through installing Hermes from scratch on different operating systems. Hermes is the foundation that enables symbiotic AI partnerships.
 
-## What is OpenClaw?
+## What is Hermes?
 
-OpenClaw is an AI gateway that provides:
-- Multi-model AI access (Anthropic, OpenAI, local models)
+Hermes is an AI gateway that provides:
+- Multi-model AI access (Ollama Cloud, OpenAI, local models)
 - Persistent memory and identity systems
 - Tool access for file operations, web browsing, system commands
 - Multi-channel communication (Discord, Telegram, etc.)
@@ -28,17 +28,17 @@ OpenClaw is an AI gateway that provides:
 
 ### Method 1: NPM Installation (Recommended)
 
-This installs OpenClaw globally via npm:
+This installs Hermes globally via npm:
 
 ```bash
-# Install OpenClaw globally
-npm install -g openclaw
+# Install Hermes globally
+npm install -g hermes
 
 # Verify installation
-openclaw --version
+hermes --version
 
 # Show available commands
-openclaw --help
+hermes --help
 ```
 
 **Pros:** Simple, automatic updates, clean uninstall  
@@ -50,8 +50,8 @@ For development or customization:
 
 ```bash
 # Clone the repository
-git clone https://github.com/openclaw/openclaw.git
-cd openclaw
+git clone https://github.com/hermes/hermes.git
+cd hermes
 
 # Install dependencies
 npm install
@@ -63,7 +63,7 @@ npm run build
 npm link
 
 # Verify installation
-./bin/openclaw.js --version
+./bin/hermes.js --version
 ```
 
 **Pros:** Full source access, customization possible  
@@ -84,11 +84,11 @@ sudo apt-get install -y nodejs
 # Install Git if not present
 sudo apt-get install -y git
 
-# Install OpenClaw
-npm install -g openclaw
+# Install Hermes
+npm install -g hermes
 
 # Verify installation
-openclaw --version
+hermes --version
 ```
 
 ### macOS
@@ -103,11 +103,11 @@ brew install node
 # Install Git if not present
 brew install git
 
-# Install OpenClaw
-npm install -g openclaw
+# Install Hermes
+npm install -g hermes
 
 # Verify installation
-openclaw --version
+hermes --version
 ```
 
 ### Windows
@@ -117,8 +117,8 @@ openclaw --version
 1. Download Node.js from https://nodejs.org/ (LTS version)
 2. Run the installer (includes npm automatically)
 3. Open Command Prompt or PowerShell as Administrator
-4. Run: `npm install -g openclaw`
-5. Verify: `openclaw --version`
+4. Run: `npm install -g hermes`
+5. Verify: `hermes --version`
 
 **Option B: Using Windows Subsystem for Linux (WSL)**
 
@@ -135,21 +135,21 @@ wsl --install
 For containerized deployment:
 
 ```bash
-# Pull OpenClaw Docker image (if available)
-docker pull openclaw/openclaw:latest
+# Pull Hermes Docker image (if available)
+docker pull hermes/hermes:latest
 
 # Or build from source
-git clone https://github.com/openclaw/openclaw.git
-cd openclaw
-docker build -t openclaw .
+git clone https://github.com/hermes/hermes.git
+cd hermes
+docker build -t hermes .
 
-# Run OpenClaw in container
+# Run Hermes in container
 docker run -d \
-  --name openclaw \
+  --name hermes \
   -p 3000:3000 \
   -v $(pwd)/config:/app/config \
   -v $(pwd)/workspace:/app/workspace \
-  openclaw
+  hermes
 ```
 
 ## Initial Configuration
@@ -157,25 +157,25 @@ docker run -d \
 ### 1. Create Configuration Directory
 
 ```bash
-# Create OpenClaw config directory
-mkdir -p ~/.openclaw
+# Create Hermes config directory
+mkdir -p ~/.hermes
 
 # Create initial workspace
-mkdir -p ~/.openclaw/workspace
+mkdir -p ~/.hermes/workspace
 ```
 
 ### 2. Generate Initial Config
 
 ```bash
 # Generate default configuration
-# Create ~/.openclaw/openclaw.json manually (or from your own template)
+# Create ~/.hermes/hermes.json manually (or from your own template)
 
-# This creates ~/.openclaw/openclaw.json
+# This creates ~/.hermes/hermes.json
 ```
 
 ### 3. Basic Configuration
 
-Edit `~/.openclaw/openclaw.json`:
+Edit `~/.hermes/hermes.json`:
 
 ```json
 {
@@ -186,7 +186,7 @@ Edit `~/.openclaw/openclaw.json`:
   },
   "agents": {
     "defaults": {
-      "workspace": "/home/username/.openclaw/workspace"
+      "workspace": "/home/username/.hermes/workspace"
     },
     "list": [
       {
@@ -206,25 +206,25 @@ Edit `~/.openclaw/openclaw.json`:
 
 You'll need API access to at least one AI provider:
 
-### Anthropic (Recommended)
+### Ollama Cloud (Recommended)
 
 ```json
 {
   "models": {
     "providers": {
-      "anthropic": {
-        "baseUrl": "https://api.anthropic.com",
+      "ollama-cloud": {
+        "baseUrl": "https://api.ollama.cloud",
         "apiKey": "your-api-key-here",
-        "api": "anthropic-messages",
+        "api": "openai-completions",
         "models": [
           {
-            "id": "claude-sonnet-4-20250514",
-            "name": "Claude Sonnet 4",
+            "id": "glm-5.1:cloud",
+            "name": "GLM-5.1",
             "cost": {
-              "input": 3,
-              "output": 15
+              "input": 1.5,
+              "output": 6
             },
-            "contextWindow": 200000,
+            "contextWindow": 128000,
             "maxTokens": 8192
           }
         ]
@@ -234,8 +234,8 @@ You'll need API access to at least one AI provider:
 }
 ```
 
-**Getting Anthropic API key:**
-1. Go to https://console.anthropic.com/
+**Getting Ollama Cloud API key:**
+1. Go to https://ollama.cloud/
 2. Create account and add billing
 3. Generate API key in settings
 4. Add to configuration
@@ -279,7 +279,7 @@ curl -fsSL https://ollama.ai/install.sh | sh
 # Pull a model
 ollama pull qwen2.5:3b
 
-# Add to OpenClaw config
+# Add to Hermes config
 ```
 
 ```json
@@ -308,45 +308,45 @@ ollama pull qwen2.5:3b
 }
 ```
 
-## Start OpenClaw
+## Start Hermes
 
 ### Method 1: Direct Run
 
 ```bash
-# Start OpenClaw gateway
-openclaw gateway start
+# Start Hermes gateway
+hermes gateway start
 
 # Check status
-openclaw status
+hermes status
 
 # View logs
-openclaw logs
+hermes logs
 ```
 
 ### Method 2: System Service (Linux)
 
 ```bash
 # Install as systemd service
-sudo openclaw gateway install
+sudo hermes gateway install
 
 # Enable auto-start
-sudo systemctl enable openclaw
+sudo systemctl enable hermes
 
 # Start service
-sudo systemctl start openclaw
+sudo systemctl start hermes
 
 # Check status
-sudo systemctl status openclaw
+sudo systemctl status hermes
 ```
 
 ### Method 3: Development Mode
 
 ```bash
 # Start with verbose logging
-openclaw gateway start --verbose
+hermes gateway start --verbose
 
 # Or with file watching for config changes
-# Config watch mode may vary by version; run: openclaw gateway --help
+# Config watch mode may vary by version; run: hermes gateway --help
 ```
 
 ## Verify Installation
@@ -354,7 +354,7 @@ openclaw gateway start --verbose
 ### Check Gateway Status
 
 ```bash
-openclaw status
+hermes status
 ```
 
 Should show:
@@ -382,10 +382,10 @@ Follow the [LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md) guide to enabl
 ### 2. Configure Identity Files
 
 Use templates from [examples/](examples/) to create:
-- `~/.openclaw/workspace/IDENTITY.md`
-- `~/.openclaw/workspace/SOUL.md`
-- `~/.openclaw/workspace/USER.md`
-- `~/.openclaw/workspace/BOOTSTRAP.md`
+- `~/.hermes/workspace/IDENTITY.md`
+- `~/.hermes/workspace/SOUL.md`
+- `~/.hermes/workspace/USER.md`
+- `~/.hermes/workspace/BOOTSTRAP.md`
 
 ### 3. Add Communication Channels
 
@@ -423,8 +423,8 @@ export PATH=~/.local/bin:$PATH
 # Find what's using port 3000
 sudo lsof -i :3000
 
-# Kill the process or change OpenClaw port
-# Edit ~/.openclaw/openclaw.json:
+# Kill the process or change Hermes port
+# Edit ~/.hermes/hermes.json:
 {
   "gateway": {
     "port": 3001
@@ -449,10 +449,10 @@ nvm use 18
 
 ```bash
 # Check config file location
-# Config file is typically ~/.openclaw/openclaw.json (verify via: openclaw config --help)
+# Config file is typically ~/.hermes/hermes.json (verify via: hermes config --help)
 
 # Validate JSON syntax
-cat ~/.openclaw/openclaw.json | python3 -m json.tool
+cat ~/.hermes/hermes.json | python3 -m json.tool
 
 # Reset to defaults
 # Reset manually: back up then replace your config file from a known-good template
@@ -464,28 +464,28 @@ cat ~/.openclaw/openclaw.json | python3 -m json.tool
 # Test API key manually
 curl -H "Authorization: Bearer your-api-key" \
      -H "Content-Type: application/json" \
-     https://api.anthropic.com/v1/models
+     https://api.openai.com/v1/models (or Ollama Cloud)
 
-# Check OpenClaw logs for API errors
-openclaw logs --level error
+# Check Hermes logs for API errors
+hermes logs --level error
 ```
 
-## Updating OpenClaw
+## Updating Hermes
 
 ### NPM Installation
 
 ```bash
 # Update to latest version
-npm update -g openclaw
+npm update -g hermes
 
 # Check version
-openclaw --version
+hermes --version
 ```
 
 ### Git Installation
 
 ```bash
-cd openclaw
+cd hermes
 git pull origin main
 npm install
 npm run build
@@ -497,8 +497,8 @@ npm run build
 
 ```bash
 # Secure config directory
-chmod 700 ~/.openclaw
-chmod 600 ~/.openclaw/openclaw.json
+chmod 700 ~/.hermes
+chmod 600 ~/.hermes/hermes.json
 ```
 
 ### API Key Security
@@ -510,7 +510,7 @@ chmod 600 ~/.openclaw/openclaw.json
 
 ### Network Security
 
-- Keep OpenClaw behind firewall if running on server
+- Keep Hermes behind firewall if running on server
 - Use HTTPS in production environments
 - Consider VPN access for remote management
 - Regular security updates for Node.js and dependencies
@@ -538,27 +538,27 @@ server {
 
 ```bash
 # Set via environment instead of config file
-export OPENCLAW_PORT=3000
-export OPENCLAW_HOST=localhost
+export HERMES_PORT=3000
+export HERMES_HOST=localhost
 export ANTHROPIC_API_KEY=your-key
-export OPENCLAW_WORKSPACE=/path/to/workspace
+export HERMES_WORKSPACE=/path/to/workspace
 
-openclaw gateway start
+hermes gateway start
 ```
 
 ### Multiple Instances
 
 ```bash
-# Run multiple OpenClaw instances
-OPENCLAW_PORT=3001 OPENCLAW_CONFIG=~/.openclaw/config1.json openclaw gateway start &
-OPENCLAW_PORT=3002 OPENCLAW_CONFIG=~/.openclaw/config2.json openclaw gateway start &
+# Run multiple Hermes instances
+HERMES_PORT=3001 HERMES_CONFIG=~/.hermes/config1.json hermes gateway start &
+HERMES_PORT=3002 HERMES_CONFIG=~/.hermes/config2.json hermes gateway start &
 ```
 
 ## Next Steps
 
 After successful installation:
 
-1. **Follow Configuration Guide** - [OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md)
+1. **Follow Configuration Guide** - [HERMES-CONFIGURATION.md](HERMES-CONFIGURATION.md)
 2. **Set Up Local Memory** - [LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)  
 3. **Read Philosophy Guide** - [docs/reference/KUU-AI-SETUP-GUIDE.md](docs/reference/KUU-AI-SETUP-GUIDE.md)
 4. **Customize Identity** - Use [examples/](examples/) templates
@@ -566,11 +566,11 @@ After successful installation:
 
 ## Getting Help
 
-- **OpenClaw Documentation**: Check built-in help with `openclaw --help` and `openclaw <subcommand> --help`
-- **GitHub Issues**: https://github.com/openclaw/openclaw/issues
-- **Community**: Join OpenClaw Discord or forums
+- **Hermes Documentation**: Check built-in help with `hermes --help` and `hermes <subcommand> --help`
+- **GitHub Issues**: https://github.com/hermes/hermes/issues
+- **Community**: Join Hermes Discord or forums
 - **Configuration Problems**: Review [docs/reference/FAQ.md](docs/reference/FAQ.md)
 
 ---
 
-*Once OpenClaw is running, you're ready to build a symbiotic AI partnership! The technical foundation enables the relationship magic.* 🌙
+*Once Hermes is running, you're ready to build a symbiotic AI partnership! The technical foundation enables the relationship magic.* 🌙

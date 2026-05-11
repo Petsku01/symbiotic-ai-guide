@@ -1,11 +1,11 @@
 #!/bin/bash
-# Quick setup helper for OpenClaw
+# Quick setup helper for Hermes
 # Creates basic workspace structure and identity files
 
 set -euo pipefail
 
-OPENCLAW_DIR="${OPENCLAW_STATE_DIR:-$HOME/.openclaw}"
-WORKSPACE="$OPENCLAW_DIR/workspace"
+HERMES_DIR="${HERMES_STATE_DIR:-$HOME/.hermes}"
+WORKSPACE="$HERMES_DIR/workspace"
 AUTO_COMMIT=false
 
 usage() {
@@ -45,15 +45,15 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-echo "=== OpenClaw Quick Setup ==="
+echo "=== Hermes Quick Setup ==="
 echo ""
 
-# Check if OpenClaw is installed
-if ! command -v openclaw &> /dev/null; then
-  echo "OpenClaw not found. Install with:"
-  echo "  npm install -g openclaw"
+# Check if Hermes is installed
+if ! command -v hermes &> /dev/null; then
+  echo "Hermes not found. Install with:"
+  echo "  npm install -g hermes"
   echo "  # or"
-  echo "  pnpm install -g openclaw"
+  echo "  pnpm install -g hermes"
   exit 1
 fi
 
@@ -108,7 +108,7 @@ if [[ ! -f "$WORKSPACE/MEMORY.md" ]]; then
 ## About This Setup
 
 - **Created:** [date]
-- **Platform:** OpenClaw
+- **Platform:** Hermes
 - **Human partner:** [name]
 
 ## Key Information
@@ -142,8 +142,8 @@ fi
 
 # Set permissions
 echo "Setting secure permissions..."
-chmod 700 "$OPENCLAW_DIR" 2>/dev/null || true
-chmod 600 "$OPENCLAW_DIR/openclaw.json" 2>/dev/null || true
+chmod 700 "$HERMES_DIR" 2>/dev/null || true
+chmod 600 "$HERMES_DIR/hermes.json" 2>/dev/null || true
 
 # Initialize git if not exists
 if [[ ! -d "$WORKSPACE/.git" ]]; then
@@ -169,5 +169,5 @@ echo ""
 echo "Next steps:"
 echo "1. Edit $WORKSPACE/IDENTITY.md with your AI's personality"
 echo "2. Edit $WORKSPACE/MEMORY.md with key information"
-echo "3. Run: openclaw gateway start"
+echo "3. Run: hermes gateway start"
 echo "4. Connect via webchat or messaging platform"

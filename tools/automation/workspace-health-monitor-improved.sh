@@ -15,7 +15,7 @@ set -euo pipefail
 trap 'echo "ERROR: Error on line $LINENO. Exit code: $?" >&2; cleanup_and_exit 1' ERR
 
 # Configuration with portable defaults
-WORKSPACE="${OPENCLAW_WORKSPACE:-${HOME}/.openclaw/workspace}"
+WORKSPACE="${HERMES_WORKSPACE:-${HOME}/.hermes/workspace}"
 TMPDIR=$(get_secure_tmpdir)
 LOG_FILE="$TMPDIR/workspace-health.log"
 LOCK_FILE="$TMPDIR/workspace-health.lock"

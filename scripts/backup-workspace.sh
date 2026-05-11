@@ -1,5 +1,5 @@
 #!/bin/bash
-# Backup OpenClaw workspace to a specified location (safe by default)
+# Backup Hermes workspace to a specified location (safe by default)
 #
 # Default behavior is DRY-RUN (non-destructive preview).
 # Destructive sync requires BOTH:
@@ -13,8 +13,8 @@
 set -euo pipefail
 umask 077
 
-OPENCLAW_DIR="${OPENCLAW_STATE_DIR:-$HOME/.openclaw}"
-WORKSPACE_RAW="$OPENCLAW_DIR/workspace"
+HERMES_DIR="${HERMES_STATE_DIR:-$HOME/.hermes}"
+WORKSPACE_RAW="$HERMES_DIR/workspace"
 DATE="$(date +%Y-%m-%d)"
 
 DELETE_MODE=false
@@ -203,7 +203,7 @@ if [[ "$DELETE_MODE" == true ]]; then
   if [[ ! -f "$SNAPSHOT" ]]; then
   echo ""
   echo "Creating dated snapshot..."
-  tar -czf "$SNAPSHOT" -C "$OPENCLAW_DIR" workspace
+  tar -czf "$SNAPSHOT" -C "$HERMES_DIR" workspace
   echo "Snapshot created."
   fi
 fi

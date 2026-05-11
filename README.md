@@ -1,4 +1,4 @@
-# Symbiotic AI Guide (BETA) (BETA)  
+# Symbiotic AI Guide (BETA)  
 
 *One human-AI partnership's approach to collaboration over control*
 
@@ -16,14 +16,14 @@ Perfect if you're on Windows and want to try AI symbiosis without getting lost i
 ## Validated against
 
 - **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
-- **OpenClaw docs/config assumptions:** 2026-02 baseline
-- **Last validated:** 2026-02-17
+- **Hermes docs/config assumptions:** 2026-05 baseline
+- **Last validated:** 2026-05-11
 
 ## What This Is
 
 Documentation from a single human-AI partnership experiment running since January 2026. Not a proven methodology - a case study you can learn from or adapt.
 
-**Scope:** One person, one AI (Kuu/Claude on OpenClaw), ~2 weeks of active development. Your results may differ.
+**Scope:** One person, one AI (Kuu on Hermes), ~2 weeks of active development. Your results may differ.
 
 ## Quick Start
 
@@ -31,9 +31,9 @@ Documentation from a single human-AI partnership experiment running since Januar
 Follow **[docs/getting-started/GOLDEN-PATH.md](docs/getting-started/GOLDEN-PATH.md)** first.
 
 ### Supporting references (optional deep dives)
-1. **[OPENCLAW-INSTALLATION.md](OPENCLAW-INSTALLATION.md)** - installation details
+1. **[HERMES-INSTALLATION.md](HERMES-INSTALLATION.md)** - installation details
 2. **Run `./scripts/quick-setup.sh`** - creates workspace structure and templates (no auto-commit by default; use `--auto-commit` to opt in)
-3. **[OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md)** - detailed configuration
+3. **[HERMES-CONFIGURATION.md](HERMES-CONFIGURATION.md)** - detailed configuration
 4. **[LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)** - local memory setup (privacy-focused)
 
 > Onboarding defaults are least-privilege. Full-access examples are documented separately in explicit advanced sections.
@@ -45,8 +45,8 @@ That's it. The rest is reference material.
 | File | What it is |
 |------|------------|
 | [README.md](README.md) | Entry point and navigation |
-| [OPENCLAW-INSTALLATION.md](OPENCLAW-INSTALLATION.md) | Step-by-step install guide |
-| [OPENCLAW-CONFIGURATION.md](OPENCLAW-CONFIGURATION.md) | Detailed config walkthrough |
+| [HERMES-INSTALLATION.md](HERMES-INSTALLATION.md) | Step-by-step install guide |
+| [HERMES-CONFIGURATION.md](HERMES-CONFIGURATION.md) | Detailed config walkthrough |
 | [LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md) | Privacy-respecting AI memory |
 | [CHANGELOG.md](CHANGELOG.md) | Concise change history |
 | [LICENSE](LICENSE) | MIT license |
@@ -105,7 +105,7 @@ The `archive/` folder contains session logs, experimental frameworks, and verbos
 - **Sample size: 1** - This is one partnership, not a study
 - **Duration: ~2 weeks** - Too early to know what works long-term
 - **Self-reported** - The AI helped write this documentation
-- **Platform-specific** - Tested on OpenClaw + Claude only
+- **Platform-specific** - Tested on Hermes + Ollama Cloud models only
 - **No metrics** - We haven't measured outcomes rigorously
 
 ## What Seems to Work (So Far)
@@ -133,4 +133,4 @@ MIT - Use freely, no guarantees.
 
 ---
 
-*Last updated: 2026-02-17*
+*Last updated: 2026-05-11*

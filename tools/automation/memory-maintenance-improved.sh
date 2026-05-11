@@ -8,7 +8,7 @@ set -euo pipefail  # Exit on error, undefined variables, pipe failures
 trap 'echo "ERROR: Error on line $LINENO. Exit code: $?" >&2; exit 1' ERR
 
 # Configuration - Make paths configurable with fallbacks
-WORKSPACE="${OPENCLAW_WORKSPACE:-${HOME}/.openclaw/workspace}"
+WORKSPACE="${HERMES_WORKSPACE:-${HOME}/.hermes/workspace}"
 MEMORY_DIR="$WORKSPACE/memory"
 LOG_DIR="${XDG_RUNTIME_DIR:-/tmp}"
 LOG_FILE="$LOG_DIR/memory-maintenance.log"
@@ -22,7 +22,7 @@ verify_environment() {
   
   if [[ ! -d "$WORKSPACE" ]]; then
   echo "ERROR: Critical error: Workspace directory not found: $WORKSPACE" >&2
-  echo "  Try: export OPENCLAW_WORKSPACE=/path/to/your/workspace" >&2
+    echo "  Try: export HERMES_WORKSPACE=/path/to/your/workspace" >&2
   ((errors++))
   fi
 
@@ -148,10 +148,10 @@ analyze_consolidation_opportunities() {
   {
   echo "TREND: Topic distribution analysis:"
   
-  # Count OpenClaw references safely
-  local openclaw_count
-  if openclaw_count=$(grep -l -i "openclaw\|gateway" "$MEMORY_DIR"/*.md 2>/dev/null | wc -l); then
-  echo "  OpenClaw references: $openclaw_count files"
+  # Count Hermes references safely
+  local hermes_count
+  if hermes_count=$(grep -l -i "hermes\\|gateway" "$MEMORY_DIR"/*.md 2>/dev/null | wc -l); then
+  echo "  Hermes references: $hermes_count files"
   fi
   
   # Count network/performance references
@@ -167,8 +167,8 @@ analyze_consolidation_opportunities() {
   fi
   
   # Consolidation recommendations
-  if (( openclaw_count > 10 )); then
-  echo "TIP: Consider consolidating OpenClaw content (spread across $openclaw_count files)"
+  if (( hermes_count > 10 )); then
+  echo "TIP: Consider consolidating Hermes content (spread across $hermes_count files)"
   fi
   
   } | tee -a "$LOG_FILE" 2>/dev/null || {

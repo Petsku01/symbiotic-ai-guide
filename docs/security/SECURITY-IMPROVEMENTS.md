@@ -45,7 +45,7 @@ This document details the comprehensive security and reliability improvements ma
 **Issue: Hardcoded paths**
 - **Risk:** Scripts only work for specific user/system configuration
 - **Fix:** Configurable paths via environment variables
-- **Implementation:** `OPENCLAW_WORKSPACE` environment variable with sensible defaults
+- **Implementation:** `HERMES_WORKSPACE` environment variable with sensible defaults
 
 **Issue: Missing dependency validation**
 - **Risk:** Scripts fail silently when dependencies unavailable
@@ -102,7 +102,7 @@ All automation tools now include:
 
 Set the workspace location (optional):
 ```bash
-export OPENCLAW_WORKSPACE=/path/to/your/workspace
+export HERMES_WORKSPACE=/path/to/your/workspace
 ```
 
 ### Running Improved Tools
@@ -141,14 +141,14 @@ Scripts automatically prevent conflicts:
 ### For Existing Users
 
 1. **Backup existing automation:** Scripts continue to work but lack security improvements
-2. **Update environment:** Set `OPENCLAW_WORKSPACE` if using non-standard location
+2. **Update environment:** Set `HERMES_WORKSPACE` if using non-standard location
 3. **Switch to improved versions:** Use `-improved.sh` scripts for enhanced security
 4. **Verify permissions:** Check that log files have 600 permissions
 
 ### For New Deployments
 
 1. **Use improved versions:** Always use `-improved.sh` scripts
-2. **Set environment:** Configure `OPENCLAW_WORKSPACE` appropriately
+2. **Set environment:** Configure `HERMES_WORKSPACE` appropriately
 3. **Test thoroughly:** Verify all components work in your environment
 4. **Monitor logs:** Check secure log files for any issues
 

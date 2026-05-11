@@ -22,7 +22,7 @@ Keep `EXAMPLE-RUN.md` as the reference template.
 1. Run metadata
   - Date/time (timezone)
   - Runner
-  - Environment (OS, shell, OpenClaw version)
+  - Environment (OS, shell, Hermes version)
   - Repo commit hash
 2. Scope
   - What was validated
@@ -48,7 +48,7 @@ Keep `EXAMPLE-RUN.md` as the reference template.
 - Date:
 - Runner:
 - Environment:
-- OpenClaw version:
+- Hermes version:
 - Commit:
 
 ## Scope

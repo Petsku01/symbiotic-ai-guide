@@ -21,19 +21,19 @@ for IP in "${DISCORD_IPS[@]}"; do
   fi
 done
 
-# Check current OpenClaw connections
+# Check current Hermes connections
 echo "" | tee -a $LOG_FILE
-echo "Current OpenClaw network status:" | tee -a $LOG_FILE
-OPENCLAW_PID=$(pgrep -f openclaw-gateway)
-if [ ! -z "$OPENCLAW_PID" ]; then
-  ESTABLISHED=$(lsof -p $OPENCLAW_PID -a -i | grep ESTABLISHED | wc -l)
+echo "Current Hermes network status:" | tee -a $LOG_FILE
+HERMES_PID=$(pgrep -f hermes-gateway)
+if [ ! -z "$HERMES_PID" ]; then
+  ESTABLISHED=$(lsof -p $HERMES_PID -a -i | grep ESTABLISHED | wc -l)
   echo "  Active connections: $ESTABLISHED" | tee -a $LOG_FILE
   
   # Recent WebSocket issues
-  RECENT_DROPS=$(journalctl --user -u openclaw-gateway --since="1 hour ago" --no-pager | grep "WebSocket connection closed" | wc -l)
+  RECENT_DROPS=$(journalctl --user -u hermes-gateway --since="1 hour ago" --no-pager | grep "WebSocket connection closed" | wc -l)
   echo "  WebSocket drops (1h): $RECENT_DROPS" | tee -a $LOG_FILE
 else
-  echo "  ERROR: OpenClaw gateway not running" | tee -a $LOG_FILE
+  echo "  ERROR: Hermes gateway not running" | tee -a $LOG_FILE
 fi
 
 echo "------------------------------------------------" | tee -a $LOG_FILE

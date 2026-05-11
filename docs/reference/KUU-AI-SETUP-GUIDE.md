@@ -1,12 +1,12 @@
 # Setting Up an Autonomous AI Assistant: The Kuu Configuration
 
-This guide documents how to configure OpenClaw to create an AI assistant with personality, memory, autonomy, and ethical boundaries - based on the "Kuu" configuration.
+This guide documents how to configure Hermes to create an AI assistant with personality, memory, autonomy, and ethical boundaries - based on the "Kuu" configuration.
 
 ## Validated against
 
 - **Validation basis:** [docs/VALIDATION-BASIS.md](../VALIDATION-BASIS.md)
-- **OpenClaw docs/config assumptions:** 2026-02 baseline
-- **Last validated:** 2026-02-17
+- **Hermes docs/config assumptions:** 2026-05 baseline
+- **Last validated:** 2026-05-11
 
 ## Philosophy & Approach
 
@@ -22,7 +22,7 @@ This guide documents how to configure OpenClaw to create an AI assistant with pe
 
 ## Prerequisites
 
-- OpenClaw installed and configured
+- Hermes installed and configured
 - Local embeddings set up (see LOCAL-EMBEDDINGS-SETUP.md)
 - Understanding of git/version control
 - Willingness to give AI genuine autonomy
@@ -96,11 +96,11 @@ Document what you learn about your human:
 - [Observations about their character, needs, etc.]
 ```
 
-## Step 2: Configure OpenClaw Agent
+## Step 2: Configure Hermes Agent
 
 ### Basic Agent Configuration
 
-In your `openclaw.json`, set up the agent with identity:
+In your `hermes.json`, set up the agent with identity:
 
 ```json
 {
@@ -166,7 +166,7 @@ Start with conservative permissions and expand intentionally:
 ### Create Memory Directory Structure
 
 ```bash
-mkdir -p ~/.openclaw/workspace/memory
+mkdir -p ~/.hermes/workspace/memory
 ```
 
 ### Bootstrap Files

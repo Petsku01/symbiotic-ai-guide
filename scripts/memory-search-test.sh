@@ -7,8 +7,8 @@ set -euo pipefail
 echo "=== Memory Search Quality Test ==="
 echo ""
 
-if ! command -v openclaw &> /dev/null; then
-  echo "ERROR: openclaw command not found"
+if ! command -v hermes &> /dev/null; then
+  echo "ERROR: hermes command not found"
   exit 1
 fi
 
@@ -26,7 +26,7 @@ for query in "${QUERIES[@]}"; do
   echo "Query: \"$query\""
   
   # Run search and capture results
-  RESULT=$(openclaw memory search "$query" 2>&1 || true)
+  RESULT=$(hermes memory search "$query" 2>&1 || true)
   
   if echo "$RESULT" | grep -q "score"; then
   # Extract top score
@@ -41,4 +41,4 @@ done
 
 # Check memory status
 echo "=== Memory Index Status ==="
-openclaw memory status 2>&1 | grep -E "(Indexed|Vector|FTS|Provider)" || echo "Could not get status"
+hermes memory status 2>&1 | grep -E "(Indexed|Vector|FTS|Provider)" || echo "Could not get status"

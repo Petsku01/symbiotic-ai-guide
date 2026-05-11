@@ -1,22 +1,22 @@
 #!/bin/bash
-# OpenClaw Performance Optimizer - Actionable recommendations
+# Hermes Performance Optimizer - Actionable recommendations
 
-echo "FIX: OpenClaw Performance Optimization Recommendations"
+echo "FIX: Hermes Performance Optimization Recommendations"
 echo "===================================================="
 echo ""
 
-OPENCLAW_PID=$(pgrep -f openclaw-gateway)
+HERMES_PID=$(pgrep -f hermes-gateway)
 
-if [ -z "$OPENCLAW_PID" ]; then
-  echo "ERROR: OpenClaw gateway not running - cannot analyze"
+if [ -z "$HERMES_PID" ]; then
+  echo "ERROR: Hermes gateway not running - cannot analyze"
   exit 1
 fi
 
 # Analyze current performance metrics
-MEMORY_MB=$(ps -p $OPENCLAW_PID -o rss --no-headers)
+MEMORY_MB=$(ps -p $HERMES_PID -o rss --no-headers)
 MEMORY_MB=$((MEMORY_MB / 1024))
-UPTIME=$(ps -p $OPENCLAW_PID -o etime --no-headers | tr -d ' ')
-CONNECTION_COUNT=$(lsof -p $OPENCLAW_PID -a -i | wc -l)
+UPTIME=$(ps -p $HERMES_PID -o etime --no-headers | tr -d ' ')
+CONNECTION_COUNT=$(lsof -p $HERMES_PID -a -i | wc -l)
 
 echo "METRICS: CURRENT METRICS:"
 echo "  Memory usage: ${MEMORY_MB}MB"
@@ -25,8 +25,8 @@ echo "  Network connections: $CONNECTION_COUNT"
 echo ""
 
 # Recent performance issues analysis
-SLOW_EVENTS=$(journalctl --user -u openclaw-gateway --since="24 hours ago" --no-pager | grep "Slow listener" | wc -l)
-DISCONNECTS=$(journalctl --user -u openclaw-gateway --since="24 hours ago" --no-pager | grep "WebSocket connection closed" | wc -l)
+SLOW_EVENTS=$(journalctl --user -u hermes-gateway --since="24 hours ago" --no-pager | grep "Slow listener" | wc -l)
+DISCONNECTS=$(journalctl --user -u hermes-gateway --since="24 hours ago" --no-pager | grep "WebSocket connection closed" | wc -l)
 
 echo "WARNING:  ISSUES DETECTED (24h):"
 echo "  Slow message processing events: $SLOW_EVENTS"
@@ -39,7 +39,7 @@ echo ""
 # Memory optimization
 if [ $MEMORY_MB -gt 1500 ]; then
   echo "CRITICAL: HIGH PRIORITY - Memory usage over 1.5GB:"
-  echo "  • Consider restarting OpenClaw gateway periodically"
+  echo "  • Consider restarting Hermes gateway periodically"
   echo "  • Monitor for memory leaks in long-running sessions"
   echo ""
 fi
@@ -79,7 +79,7 @@ echo "  • Document incident response procedures"
 echo ""
 
 echo "TREND: MONITORING SETUP:"
-echo "  • Run /tmp/openclaw-monitor.sh every 15 minutes"
+echo "  • Run /tmp/hermes-monitor.sh every 15 minutes"
 echo "  • Run /tmp/network-health-check.sh every hour"
 echo "  • Set alerts for >60 second message processing"
 echo "  • Track WebSocket disconnection frequency"

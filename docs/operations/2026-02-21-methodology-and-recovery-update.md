@@ -1,6 +1,6 @@
 # 2026-02-21 Update: Methodology Automation + Gateway Recovery
 
-This update captures two practical improvements validated in daily OpenClaw usage.
+This update captures two practical improvements validated in daily Hermes usage.
 
 ## 1) Automatic methodology triggering
 

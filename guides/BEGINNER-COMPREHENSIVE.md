@@ -1,33 +1,33 @@
-# OpenClaw Setup Guide for Ubuntu 24.04 LTS (WSL2)
+# Hermes Setup Guide for Ubuntu 24.04 LTS (WSL2)
 *From "Never heard of this" to "Working AI Assistant"*
 
 ---
 
-## What Is OpenClaw?
+## What Is Hermes?
 
-**OpenClaw is an open-source AI assistant that runs on your computer.** Unlike ChatGPT or Siri, your conversations stay private and you can customize how it works.
+**Hermes is an open-source AI assistant that runs on your computer.** Unlike ChatGPT or Siri, your conversations stay private and you can customize how it works.
 
 Think of it as your personal AI that:
 - Runs locally (your data stays on your machine)
-- Works with multiple AI providers (Anthropic, OpenAI, Google, local models)
+- Works with multiple AI providers (Ollama Cloud, OpenAI, Google, local models)
 - Connects to Discord, email, calendar, and other services
 - Costs only what you use (no monthly subscription)
 
-### How OpenClaw Works (Architecture)
+### How Hermes Works (Architecture)
 
-OpenClaw has two main parts:
+Hermes has two main parts:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  Your Computer (Ubuntu 24.04 WSL2)                          │
 │                                                             │
 │   ┌─────────────┐         ┌──────────────────────────────┐ │
-│   │ openclaw    │ ──────► │ OpenClaw Gateway             │ │
+│   │ hermes    │ ──────► │ Hermes Gateway             │ │
 │   │ tui         │         │ (background service)         │ │
 │   │ (CLI tool)  │         │                              │ │
 │   └─────────────┘         │ • Manages AI connections     │ │
 │                           │ • Handles authentication     │ │
-│         ▲                 │ • Routes requests to Claude  │ │
+│         ▲                 │ • Routes requests to models  │ │
 │         │                 │ • Manages integrations       │ │
 │   You type here           └──────────────────────────────┘ │
 │                                      │                      │
@@ -36,12 +36,12 @@ OpenClaw has two main parts:
                                        ▼
                               ┌──────────────────┐
                               │ AI Provider API  │
-                              │ (Anthropic, etc) │
+                              │ (Ollama Cloud, etc) │
                               └──────────────────┘
 ```
 
-- **Gateway**: A daemon (background service) that must be running for OpenClaw to work
-- **CLI Tools**: Commands like `openclaw tui` that you use to interact with the AI
+- **Gateway**: A daemon (background service) that must be running for Hermes to work
+- **CLI Tools**: Commands like `hermes tui` that you use to interact with the AI
 
 **Realistic time:** 20-40 minutes  
 **Realistic cost:** Light usage ~$3-8/month, Heavy usage ~$15-25/month (pay-per-use)
@@ -147,13 +147,13 @@ npm --version
 
 ---
 
-# Phase 2: Installing OpenClaw
+# Phase 2: Installing Hermes
 *"Getting the actual AI assistant software"*
 
-## Install OpenClaw
+## Install Hermes
 
 ```bash
-sudo npm install -g openclaw
+sudo npm install -g hermes
 ```
 
 **What you'll see:**
@@ -168,13 +168,13 @@ mkdir -p ~/.npm-global
 npm config set prefix '~/.npm-global'
 echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
-npm install -g openclaw
+npm install -g hermes
 ```
 
-## Verify OpenClaw Installed
+## Verify Hermes Installed
 
 ```bash
-openclaw --version
+hermes --version
 ```
 
 **Success looks like:**
@@ -184,10 +184,10 @@ openclaw --version
 
 **If "command not found":**
 1. Close and reopen terminal
-2. Try `which openclaw` to see if it's in your PATH
+2. Try `which hermes` to see if it's in your PATH
 3. If using the npm-global fix above, ensure you ran `source ~/.bashrc`
 
-**STOP: Do not continue until `openclaw --version` shows a version number.**
+**STOP: Do not continue until `hermes --version` shows a version number.**
 
 ---
 
@@ -208,11 +208,11 @@ openclaw --version
 | Medium | 20-30 | $8-15 |
 | Heavy | 50+ | $15-25 |
 
-## Get an Anthropic API Key (Recommended)
+## Get an Ollama Cloud API Key (Recommended)
 
-Anthropic's Claude models work excellently with OpenClaw.
+Ollama Cloud models (GLM-5.1, Kimi K2.6, DeepSeek V4 Pro) work excellently with Hermes.
 
-1. **Go to:** https://console.anthropic.com
+1. **Go to:** https://ollama.com/cloud
 
 2. **Create account:**
    - Sign up with your email
@@ -227,14 +227,14 @@ Anthropic's Claude models work excellently with OpenClaw.
 4. **Create your API key:**
    - Navigate to "API Keys"
    - Click "Create Key"
-   - Give it a name like "OpenClaw"
+   - Give it a name like "Hermes"
    - **IMPORTANT:** Copy the key immediately - you cannot view it again!
    - The key starts with `sk-ant-`
 
 5. **Save your key securely:**
    ```bash
    # Create a secure location for your key (for your reference only)
-   echo "My Anthropic key: sk-ant-xxxxx" >> ~/.api-keys-backup
+   echo "My Ollama key: ol-xxxxx" >> ~/.api-keys-backup
    chmod 600 ~/.api-keys-backup
    ```
 
@@ -248,34 +248,34 @@ Anthropic's Claude models work excellently with OpenClaw.
 
 ---
 
-# Phase 4: Configure OpenClaw
+# Phase 4: Configure Hermes
 *"Connecting everything together"*
 
 ## Start the Gateway
 
-The Gateway is the background service that handles all AI communication. It must be running before you can use OpenClaw.
+The Gateway is the background service that handles all AI communication. It must be running before you can use Hermes.
 
 ```bash
 # Check Gateway status
-openclaw gateway status
+hermes gateway status
 ```
 
 **If Gateway is not running:**
 ```bash
 # Start the Gateway
-openclaw gateway start
+hermes gateway start
 ```
 
 **Verify it's running:**
 ```bash
-openclaw gateway status
+hermes gateway status
 ```
 
 You should see status information indicating the Gateway is active.
 
 ## Configure Your API Key
 
-Set your Anthropic API key as an environment variable:
+Set your Ollama Cloud API key as an environment variable:
 
 ```bash
 # Add to your shell configuration for persistence
@@ -312,7 +312,7 @@ Should display your key (starting with `sk-ant-`).
 ## Start the Interactive Interface
 
 ```bash
-openclaw tui
+hermes tui
 ```
 
 **What `tui` means:** "Text User Interface" - an interactive terminal-based chat interface.
@@ -328,18 +328,18 @@ openclaw tui
 
 **"Gateway not running" or connection errors:**
 ```bash
-openclaw gateway status
-openclaw gateway start  # if not running
+hermes gateway status
+hermes gateway start  # if not running
 ```
 
 **"Invalid API key" or authentication errors:**
 - Double-check your ANTHROPIC_API_KEY is set: `echo $ANTHROPIC_API_KEY`
 - Verify the key is correct (no extra spaces, complete string)
-- Check that you've added a payment method on console.anthropic.com
+- Check that you've added a payment method on ollama.com/cloud
 
 **"Rate limit" errors:**
 - Wait 60 seconds and try again
-- Check your usage on console.anthropic.com
+- Check your usage on ollama.com/cloud
 
 **Slow responses (first time):**
 - First request can take 10-30 seconds
@@ -355,28 +355,28 @@ openclaw gateway start  # if not running
 
 ---
 
-# Managing OpenClaw
+# Managing Hermes
 
 ## Gateway Commands
 
-The Gateway is the heart of OpenClaw. Here are the essential commands:
+The Gateway is the heart of Hermes. Here are the essential commands:
 
 ```bash
 # Check status
-openclaw gateway status
+hermes gateway status
 
 # Start the Gateway
-openclaw gateway start
+hermes gateway start
 
 # Stop the Gateway  
-openclaw gateway stop
+hermes gateway stop
 
 # Restart (useful after configuration changes)
-openclaw gateway restart
+hermes gateway restart
 
 # Get help
-openclaw --help
-openclaw gateway --help
+hermes --help
+hermes gateway --help
 ```
 
 ## Auto-Start Gateway (Optional)
@@ -385,7 +385,7 @@ To have the Gateway start automatically when you open Ubuntu:
 
 ```bash
 # Add to your shell startup
-echo 'openclaw gateway start 2>/dev/null &' >> ~/.bashrc
+echo 'hermes gateway start 2>/dev/null &' >> ~/.bashrc
 ```
 
 ## WSL2-Specific Tips
@@ -411,7 +411,7 @@ processors=2
 The Gateway stops when all Ubuntu terminals close. Keep one terminal open, or use:
 ```bash
 # From Windows PowerShell, keep WSL running:
-wsl -d Ubuntu-24.04 -e bash -c "openclaw gateway start && sleep infinity"
+wsl -d Ubuntu-24.04 -e bash -c "hermes gateway start && sleep infinity"
 ```
 
 ---
@@ -430,9 +430,9 @@ Now that the core works, you can add:
 ## Getting Help
 
 **If something breaks:**
-1. Check Gateway status: `openclaw gateway status`
-2. Restart Gateway: `openclaw gateway restart`
-3. Check help: `openclaw --help`
+1. Check Gateway status: `hermes gateway status`
+2. Restart Gateway: `hermes gateway restart`
+3. Check help: `hermes --help`
 4. Review logs for error messages
 
 **Useful diagnostic commands:**
@@ -440,32 +440,32 @@ Now that the core works, you can add:
 # System info
 lsb_release -a
 node --version
-openclaw --version
+hermes --version
 
 # Gateway status
-openclaw gateway status
+hermes gateway status
 
 # Environment check
 echo $ANTHROPIC_API_KEY | head -c 10  # Shows first 10 chars only (safe)
 ```
 
-## Updating OpenClaw
+## Updating Hermes
 
 ```bash
-sudo npm update -g openclaw
+sudo npm update -g hermes
 ```
 
 ## Uninstalling
 
 ```bash
 # Stop the Gateway first
-openclaw gateway stop
+hermes gateway stop
 
-# Remove OpenClaw
-sudo npm uninstall -g openclaw
+# Remove Hermes
+sudo npm uninstall -g hermes
 
 # Remove configuration (optional)
-rm -rf ~/.openclaw
+rm -rf ~/.hermes
 
 # Remove API key from bashrc (optional)
 # Manually edit ~/.bashrc and remove the ANTHROPIC_API_KEY line
@@ -477,13 +477,13 @@ rm -rf ~/.openclaw
 
 | Task | Command |
 |------|---------|
-| Start Gateway | `openclaw gateway start` |
-| Stop Gateway | `openclaw gateway stop` |
-| Gateway Status | `openclaw gateway status` |
-| Interactive Chat | `openclaw tui` |
-| Get Help | `openclaw --help` |
-| Check Version | `openclaw --version` |
-| Update OpenClaw | `sudo npm update -g openclaw` |
+| Start Gateway | `hermes gateway start` |
+| Stop Gateway | `hermes gateway stop` |
+| Gateway Status | `hermes gateway status` |
+| Interactive Chat | `hermes tui` |
+| Get Help | `hermes --help` |
+| Check Version | `hermes --version` |
+| Update Hermes | `sudo npm update -g hermes` |
 
 ---
 

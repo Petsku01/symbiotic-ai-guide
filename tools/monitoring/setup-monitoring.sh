@@ -1,33 +1,33 @@
 #!/bin/bash
-# Automated Monitoring Setup for OpenClaw
+# Automated Monitoring Setup for Hermes
 
-echo "IMPLEMENTATION:  Setting up OpenClaw monitoring automation..."
+echo "IMPLEMENTATION:  Setting up Hermes monitoring automation..."
 
-# Prefer explicit workspace, then inferred repo root, then default OpenClaw workspace.
+# Prefer explicit workspace, then inferred repo root, then default Hermes workspace.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-WORKSPACE="${OPENCLAW_WORKSPACE:-$REPO_ROOT}"
+WORKSPACE="${HERMES_WORKSPACE:-$REPO_ROOT}"
 TOOLS_DIR="$WORKSPACE/tools/monitoring"
 
 # Create systemd user timer for performance monitoring
 mkdir -p ~/.config/systemd/user
 
-cat > ~/.config/systemd/user/openclaw-monitor.service << SYSTEMD_EOF
+cat > ~/.config/systemd/user/hermes-monitor.service << SYSTEMD_EOF
 [Unit]
-Description=OpenClaw Performance Monitor
-After=openclaw-gateway.service
+Description=Hermes Performance Monitor
+After=hermes-gateway.service
 
 [Service]
 Type=oneshot
-ExecStart=$TOOLS_DIR/openclaw-monitor.sh
+ExecStart=$TOOLS_DIR/hermes-monitor.sh
 StandardOutput=journal
 StandardError=journal
 SYSTEMD_EOF
 
-cat > ~/.config/systemd/user/openclaw-monitor.timer << TIMER_EOF
+cat > ~/.config/systemd/user/hermes-monitor.timer << TIMER_EOF
 [Unit]
-Description=Run OpenClaw monitor every 15 minutes
-Requires=openclaw-monitor.service
+Description=Run Hermes monitor every 15 minutes
+Requires=hermes-monitor.service
 
 [Timer]
 OnCalendar=*:0/15
@@ -41,13 +41,13 @@ echo "OK: Created systemd monitoring service and timer"
 
 # Reload and enable
 systemctl --user daemon-reload
-systemctl --user enable openclaw-monitor.timer
-systemctl --user start openclaw-monitor.timer
+systemctl --user enable hermes-monitor.timer
+systemctl --user start hermes-monitor.timer
 
 echo "OK: Automated monitoring enabled - runs every 15 minutes"
-echo "METRICS: Check status with: systemctl --user status openclaw-monitor.timer"
+echo "METRICS: Check status with: systemctl --user status hermes-monitor.timer"
 echo ""
 echo "FIX: Manual monitoring commands:"
-echo "  Performance: $TOOLS_DIR/openclaw-monitor.sh"
+echo "  Performance: $TOOLS_DIR/hermes-monitor.sh"
 echo "  Network: $TOOLS_DIR/network-health-check.sh"  
-echo "  Optimization: $TOOLS_DIR/openclaw-optimizer.sh"
+echo "  Optimization: $TOOLS_DIR/hermes-optimizer.sh"

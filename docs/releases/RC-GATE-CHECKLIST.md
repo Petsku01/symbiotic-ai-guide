@@ -10,8 +10,8 @@ Use this checklist before promoting a release candidate.
 ## Required CI gates (must be green)
 
 1. **Workflow:** `.github/workflows/validate.yml`
-  - Tool provisioning is strict and pinned in-workflow (`shellcheck`, `gitleaks`, and `openclaw@2026.2.17`).
-  - Missing required tools (including `openclaw` after the pinned install step) is a hard failure.
+  - Tool provisioning is strict and pinned in-workflow (`shellcheck`, `gitleaks`, and `hermes@2026.2.17`).
+  - Missing required tools (including `hermes` after the pinned install step) is a hard failure.
 2. **Bash syntax gate**
   - `bash -n` across `scripts/` and `tools/`.
 3. **JS syntax gate**

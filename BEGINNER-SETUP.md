@@ -1,13 +1,13 @@
-# OpenClaw Setup Guide for WSL2/Ubuntu
+# Hermes Setup Guide for WSL2/Ubuntu
 *From "Never used Linux" to "Working AI Assistant" in 20-30 minutes*
 
 ---
 
 ## Why WSL2?
 
-If you're on Windows, **WSL2 (Windows Subsystem for Linux) is the best way to run OpenClaw**:
+If you're on Windows, **WSL2 (Windows Subsystem for Linux) is the best way to run Hermes**:
 
-- **Better compatibility** — OpenClaw is designed for Unix-like systems  
+- **Better compatibility** — Hermes is designed for Unix-like systems  
 - **Faster** — Native Linux performance, not emulation
 - **Cleaner** — Isolated from Windows, easy to reset if needed
 - **Real Linux skills** — Commands work on any Linux server/cloud
@@ -16,7 +16,7 @@ This guide targets **Ubuntu 24.04 LTS on WSL2** — the proven working environme
 
 ---
 
-## How OpenClaw Works
+## How Hermes Works
 
 Understanding the architecture helps avoid confusion:
 
@@ -25,7 +25,7 @@ Understanding the architecture helps avoid confusion:
 │  Your Computer (Ubuntu 24.04 WSL2)                          │
 │                                                             │
 │   ┌─────────────┐         ┌──────────────────────────────┐ │
-│   │ openclaw    │ ──────► │ OpenClaw Gateway             │ │
+│   │ hermes    │ ──────► │ Hermes Gateway             │ │
 │   │ tui         │         │ (background daemon)          │ │
 │   │ (chat CLI)  │         │                              │ │
 │   └─────────────┘         │ • Manages AI connections     │ │
@@ -39,11 +39,11 @@ Understanding the architecture helps avoid confusion:
                                        ▼ HTTPS
                               ┌──────────────────┐
                               │ AI Provider API  │
-                              │ (Anthropic, etc) │
+                              │ (Ollama Cloud, etc) │
                               └──────────────────┘
 ```
 
-**Key concept:** Gateway daemon runs in background, CLI tools (`openclaw tui`) talk to it.
+**Key concept:** Gateway daemon runs in background, CLI tools (`hermes tui`) talk to it.
 
 ---
 
@@ -118,22 +118,22 @@ npm --version
 
 ---
 
-## Step 3: Install OpenClaw
+## Step 3: Install Hermes
 
 ```bash
-npm install -g openclaw
+npm install -g hermes
 ```
 
 **Takes 2-5 minutes.** You'll see packages downloading.
 
 **If permission errors:**
 ```bash
-sudo npm install -g openclaw
+sudo npm install -g hermes
 ```
 
 **Verify installation:**
 ```bash
-openclaw --version
+hermes --version
 ```
 **Expected:** `2026.x.x`
 
@@ -143,19 +143,19 @@ openclaw --version
 
 ## Step 4: Get API Access
 
-**Recommended: Anthropic Claude (best OpenClaw compatibility)**
+**Recommended: Ollama Cloud models (GLM-5.1, Kimi K2.6, DeepSeek V4 Pro)**
 
 ### Option A: OAuth (Recommended - Easy Setup)
 
 ```bash
-openclaw configure
+hermes configure
 ```
 
 **Follow the prompts:**
-1. Choose **Anthropic Claude** (recommended)
+1. Choose **Ollama Cloud** (recommended)
 2. Choose **OAuth Login**
 3. Browser opens → Sign in with Google
-4. Click "Allow OpenClaw to access Claude"
+4. Follow the authentication prompts for Ollama Cloud
 5. Return to terminal → Should show "✓ Authentication successful"
 
 **If browser doesn't open:** Copy the URL from terminal, paste into your Windows browser manually.
@@ -164,12 +164,12 @@ openclaw configure
 
 ### Option B: API Key (Fallback - if OAuth doesn't work)
 
-**Only if OAuth fails, get Anthropic API key:**
-1. Go to https://console.anthropic.com
+**Only if OAuth fails, get Ollama Cloud API key:**
+1. Go to https://ollama.com/cloud
 2. Sign up, verify email, add phone number  
 3. Add payment method (credit/debit card)
 4. Navigate to "API Keys" → "Create Key"
-5. Name it "OpenClaw", copy the key (starts with `sk-ant-`)
+5. Name it "Hermes", copy the key (starts with `sk-ant-`)
 
 **Set your API key:**
 ```bash
@@ -188,22 +188,22 @@ Should show your key starting with `sk-ant-`.
 
 ---
 
-## Step 5: Start OpenClaw
+## Step 5: Start Hermes
 
 **Start the Gateway (required first):**
 ```bash
-openclaw gateway start
+hermes gateway start
 ```
 
 **Verify Gateway is running:**
 ```bash
-openclaw gateway status
+hermes gateway status
 ```
 Should show status information indicating Gateway is active.
 
 **Start your first conversation:**
 ```bash
-openclaw tui
+hermes tui
 ```
 
 **Good test messages:**
@@ -229,14 +229,14 @@ openclaw tui
 
 | Task | Command |
 |------|---------|
-| Start Gateway | `openclaw gateway start` |
-| Stop Gateway | `openclaw gateway stop` |  
-| Gateway Status | `openclaw gateway status` |
-| Interactive Chat | `openclaw tui` |
-| Get Help | `openclaw --help` |
-| Check Version | `openclaw --version` |
+| Start Gateway | `hermes gateway start` |
+| Stop Gateway | `hermes gateway stop` |  
+| Gateway Status | `hermes gateway status` |
+| Interactive Chat | `hermes tui` |
+| Get Help | `hermes --help` |
+| Check Version | `hermes --version` |
 
-**Gateway management:** Always ensure Gateway is running before using `openclaw tui`.
+**Gateway management:** Always ensure Gateway is running before using `hermes tui`.
 
 ---
 
@@ -245,7 +245,7 @@ openclaw tui
 **Auto-start Gateway (optional):**
 ```bash
 # Add to shell startup
-echo 'openclaw gateway start 2>/dev/null &' >> ~/.bashrc
+echo 'hermes gateway start 2>/dev/null &' >> ~/.bashrc
 ```
 
 **Access Windows files:**
@@ -260,7 +260,7 @@ ls /mnt/c/Users/YourName/Downloads/
 **Keep WSL2 running:**
 Gateway stops when all Ubuntu terminals close. Keep one terminal open, or from Windows PowerShell:
 ```powershell
-wsl -d Ubuntu-24.04 -e bash -c "openclaw gateway start && sleep infinity"
+wsl -d Ubuntu-24.04 -e bash -c "hermes gateway start && sleep infinity"
 ```
 
 **Memory management (if needed):**
@@ -277,18 +277,18 @@ processors=2
 
 **"Gateway not running" errors:**
 ```bash
-openclaw gateway status
-openclaw gateway start  # if stopped
+hermes gateway status
+hermes gateway start  # if stopped
 ```
 
 **"Invalid API key" errors:**
 - Check: `echo $ANTHROPIC_API_KEY` shows your key
-- Verify payment method on console.anthropic.com
+- Verify payment method on ollama.com/cloud
 - Regenerate key if needed
 
 **"Permission denied" during npm install:**
 ```bash
-sudo npm install -g openclaw
+sudo npm install -g hermes
 ```
 
 **Commands not found after install:**
@@ -311,15 +311,15 @@ wsl --install -d Ubuntu-24.04
 - **Calendar/Email** — "What's my schedule?"
 - **File Analysis** — Analyze documents, code
 
-**Update OpenClaw:**
+**Update Hermes:**
 ```bash
-sudo npm update -g openclaw
+sudo npm update -g hermes
 ```
 
 **More help:**
-- Full docs: https://docs.openclaw.ai
-- Community: https://discord.gg/openclaw  
-- Issues: https://github.com/openclaw/openclaw
+- Full docs: https://docs.hermes.ai
+- Community: https://discord.gg/hermes  
+- Issues: https://github.com/hermes/hermes
 
 ---
 

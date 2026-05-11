@@ -1,16 +1,16 @@
-# OpenClaw Configuration for Symbiotic AI
+# Hermes Configuration for Symbiotic AI
 
-This guide walks through the complete OpenClaw setup needed to create an autonomous AI partner like Kuu, with practical examples and exact configuration snippets.
+This guide walks through the complete Hermes setup needed to create an autonomous AI partner like Kuu, with practical examples and exact configuration snippets.
 
 ## Validated against
 
 - **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
-- **OpenClaw docs/config assumptions:** 2026-02 baseline
-- **Last validated:** 2026-02-17
+- **Hermes docs/config assumptions:** 2026-05 baseline
+- **Last validated:** 2026-05-11
 
 ## Prerequisites
 
-- OpenClaw installed and running
+- Hermes installed and running
 - Basic understanding of JSON configuration
 - Text editor for config files
 - Terminal access for commands
@@ -26,7 +26,7 @@ We'll configure:
 
 ## Step 1: Basic Agent Configuration
 
-Edit your OpenClaw configuration file (usually `~/.openclaw/openclaw.json`):
+Edit your Hermes configuration file (usually `~/.hermes/hermes.json`):
 
 ### Agent Identity & Workspace
 
@@ -35,9 +35,9 @@ Edit your OpenClaw configuration file (usually `~/.openclaw/openclaw.json`):
   "agents": {
     "defaults": {
       "model": {
-        "primary": "anthropic/claude-sonnet-4-20250514"
+        "primary": "ollama-cloud/glm-5.1:cloud"
       },
-      "workspace": "/home/username/.openclaw/workspace",
+      "workspace": "/home/username/.hermes/workspace",
       "maxConcurrent": 4,
       "subagents": {
         "maxConcurrent": 8
@@ -52,7 +52,7 @@ Edit your OpenClaw configuration file (usually `~/.openclaw/openclaw.json`):
           "name": "YourAIName", 
           "emoji": "🌙"
         },
-        "model": "anthropic/claude-sonnet-4-20250514",
+        "model": "ollama-cloud/glm-5.1:cloud",
         "subagents": {
           "allowAgents": ["eve"]
         }
@@ -155,23 +155,47 @@ Set up primary model and providers:
   "models": {
     "mode": "merge",
     "providers": {
-      "anthropic": {
-        "baseUrl": "https://api.anthropic.com",
+      "ollama-cloud": {
+        "baseUrl": "https://api.ollama.cloud",
         "apiKey": "your-api-key-here",
-        "api": "anthropic-messages",
+        "api": "openai-completions",
         "models": [
           {
-            "id": "claude-sonnet-4-20250514",
-            "name": "Primary AI Model",
+            "id": "glm-5.1:cloud",
+            "name": "GLM-5.1 (Primary)",
             "reasoning": false,
             "input": ["text", "image"],
             "cost": {
-              "input": 3,
-              "output": 15,
-              "cacheRead": 0.3,
-              "cacheWrite": 3.75
+              "input": 1.5,
+              "output": 6,
+              "cacheRead": 0.15,
+              "cacheWrite": 1.5
             },
-            "contextWindow": 200000,
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "kimi-k2.6:cloud",
+            "name": "Kimi K2.6",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": {
+              "input": 1,
+              "output": 5
+            },
+            "contextWindow": 128000,
+            "maxTokens": 4096
+          },
+          {
+            "id": "deepseek-v4-pro:cloud",
+            "name": "DeepSeek V4 Pro",
+            "reasoning": true,
+            "input": ["text"],
+            "cost": {
+              "input": 2,
+              "output": 10
+            },
+            "contextWindow": 128000,
             "maxTokens": 8192
           }
         ]
@@ -231,7 +255,7 @@ Create the essential workspace structure:
 
 ```bash
 # Navigate to your workspace
-cd ~/.openclaw/workspace
+cd ~/.hermes/workspace
 
 # Create memory directory
 mkdir -p memory
@@ -369,29 +393,29 @@ These files are your continuity. Trust them, update them when you learn.
 
 ```bash
 # Edit the main config file
-nano ~/.openclaw/openclaw.json
+nano ~/.hermes/hermes.json
 
 # Add your configuration sections
-# Save and restart OpenClaw
+# Save and restart Hermes
 ```
 
 ### Method 2: Validate Config Commands
 
 ```bash
 # Inspect available config subcommands on your installed version
-openclaw config --help
+hermes config --help
 ```
 
 ### Method 3: Gateway Tool (if available)
 
-Use the gateway configuration tool from within OpenClaw.
+Use the gateway configuration tool from within Hermes.
 
 ## Step 9: Verify Setup
 
 ### Check Agent Status
 
 ```bash
-openclaw status
+hermes status
 ```
 
 Look for:
@@ -402,7 +426,7 @@ Look for:
 ### Test Memory Search
 
 ```bash
-openclaw memory search "test query"
+hermes memory search "test query"
 ```
 
 Should return results with:
@@ -502,8 +526,8 @@ Use this only after you are confident in your boundaries and review process.
 
 1. **Check embedding model**: Ensure `hf:mixedbread-ai/mxbai-embed-large-v1` is accessible
 2. **Verify memory files**: Create `MEMORY.md` with test content
-3. **Clear memory database**: `rm ~/.openclaw/memory/main.sqlite`
-4. **Check status**: `openclaw status | grep Memory`
+3. **Clear memory database**: `rm ~/.hermes/memory/main.sqlite`
+4. **Check status**: `hermes status | grep Memory`
 
 ### Agent Not Showing Personality
 
@@ -517,14 +541,14 @@ Use this only after you are confident in your boundaries and review process.
 1. **Check tool configuration**: Verify appropriate `tools.profile`
 2. **Review security settings**: Adjust `exec.security` if needed
 3. **Test specific tools**: Try individual tool access
-4. **Check logs**: Review OpenClaw logs for permission errors
+4. **Check logs**: Review Hermes logs for permission errors
 
 ### Configuration Not Applying
 
 1. **Validate JSON**: Check for syntax errors
 2. **Restart gateway**: Full restart after major changes
 3. **Check config path**: Ensure editing the right file
-4. **Verify config directly**: inspect `~/.openclaw/openclaw.json` or run `openclaw config --help` for version-specific subcommands
+4. **Verify config directly**: inspect `~/.hermes/hermes.json` or run `hermes config --help` for version-specific subcommands
 
 ## Security Considerations
 
@@ -560,7 +584,7 @@ Use this only after you are confident in your boundaries and review process.
 
 ### Updates
 
-- Keep OpenClaw updated to latest version
+- Keep Hermes updated to latest version
 - Monitor for embedding model improvements
 - Update identity files as AI develops
 - Backup configurations and memory data

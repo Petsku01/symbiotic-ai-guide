@@ -4,7 +4,7 @@
 
 ## Validation scope
 
-- **Tested in this repo:** 2026-02-17 (non-destructive command/documentation validation)
+- **Tested in this repo:** 2026-05-11 (non-destructive command/documentation validation)
 - **Tested commands:**
   - `./scripts/validate-docs-safety.sh`
   - `./scripts/smoke-test-onboarding-commands.sh`
@@ -12,13 +12,13 @@
 
 ## 10-minute onboarding path
 
-1. **Install OpenClaw CLI**
-  - Follow: [OPENCLAW-INSTALLATION.md](../../OPENCLAW-INSTALLATION.md)
+1. **Install Hermes CLI**
+  - Follow: [HERMES-INSTALLATION.md](../../HERMES-INSTALLATION.md)
   - If any command differs on your version, run:
   ```bash
-  openclaw --help
-  openclaw gateway --help
-  openclaw config --help
+  hermes --help
+  hermes gateway --help
+  hermes config --help
   ```
 
 2. **Initialize workspace files**
@@ -31,7 +31,7 @@
   ```
 
 3. **Apply safe baseline config**
-  - Follow: [OPENCLAW-CONFIGURATION.md](../../OPENCLAW-CONFIGURATION.md)
+  - Follow: [HERMES-CONFIGURATION.md](../../HERMES-CONFIGURATION.md)
   - Use least-privilege defaults first; avoid full-access profiles unless you intentionally move to advanced trust stage.
 
 4. **Enable local memory (recommended)**
@@ -45,8 +45,8 @@
 
 6. **First safe runtime check**
   ```bash
-  openclaw gateway status
-  openclaw --help
+  hermes gateway status
+  hermes --help
   ```
 
 ## Expected outcomes
@@ -58,7 +58,7 @@
 
 ## If something fails
 
-- Re-check command surface with `openclaw --help` and subcommand help.
+- Re-check command surface with `hermes --help` and subcommand help.
 - Use [docs/VALIDATION-RUNTIME-PLAYBOOK.md](../VALIDATION-RUNTIME-PLAYBOOK.md) for structured pass/fail triage.
 - Publish your run evidence with [docs/validation-runs/README.md](../validation-runs/README.md).
 - Review [docs/reference/FAQ.md](../reference/FAQ.md).

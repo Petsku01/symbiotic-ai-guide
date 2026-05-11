@@ -15,7 +15,7 @@ set -euo pipefail
 trap 'echo "ERROR: Error on line $LINENO. Exit code: $?" >&2; cleanup_and_exit 1' ERR
 
 # Configuration with portable defaults
-WORKSPACE="${OPENCLAW_WORKSPACE:-${HOME}/.openclaw/workspace}"
+WORKSPACE="${HERMES_WORKSPACE:-${HOME}/.hermes/workspace}"
 AUTOMATION_DIR="$WORKSPACE/tools/automation"
 TMPDIR=$(get_secure_tmpdir)
 LOG_FILE="$TMPDIR/automation-orchestrator.log"
@@ -135,7 +135,7 @@ execute_automation_tool() {
   
   # Create isolated environment for tool execution
   local tool_env=(
-  "OPENCLAW_WORKSPACE=$WORKSPACE"
+  "HERMES_WORKSPACE=$WORKSPACE"
   "PATH=$PATH"
   "HOME=$HOME"
   )
@@ -179,7 +179,7 @@ execute_automation_tool() {
   case "$tool_name" in
   "memory")
   local memory_findings
-  if memory_findings=$(echo "$tool_output" | grep -o "Cross-reference.*current\|OpenClaw.*files" | head -2); then
+  if memory_findings=$(echo "$tool_output" | grep -o "Cross-reference.*current\|Hermes.*files" | head -2); then
   while IFS= read -r finding; do
   [[ -n "$finding" ]] && echo "  • $finding" | tee -a "$LOG_FILE"
   done <<< "$memory_findings"
@@ -296,7 +296,7 @@ generate_coordinated_recommendations() {
   echo "  • Create systemd user timers for each tool" | tee -a "$LOG_FILE"
   echo "  • Set up log rotation for automation outputs" | tee -a "$LOG_FILE"
   echo "  • Configure alert thresholds for critical issues" | tee -a "$LOG_FILE"
-  echo "  • Integrate with existing OpenClaw monitoring" | tee -a "$LOG_FILE"
+  echo "  • Integrate with existing Hermes monitoring" | tee -a "$LOG_FILE"
   
   return 0
 }

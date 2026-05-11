@@ -1,6 +1,6 @@
 # Runtime Validation Playbook (Non-Destructive)
 
-This playbook validates command/documentation alignment on a machine with OpenClaw installed **without performing destructive actions**.
+This playbook validates command/documentation alignment on a machine with Hermes installed **without performing destructive actions**.
 
 ## Honesty note
 
@@ -10,16 +10,16 @@ This playbook validates command/documentation alignment on a machine with OpenCl
 ## Preconditions
 
 - You are in repo root.
-- OpenClaw CLI is installed and available in `PATH`.
+- Hermes CLI is installed and available in `PATH`.
 - No destructive flags are used.
 
 ## Step 1 — Verify CLI surface exists
 
 ```bash
-openclaw --help
-openclaw gateway --help
-openclaw config --help
-openclaw logs --help
+hermes --help
+hermes gateway --help
+hermes config --help
+hermes logs --help
 ```
 
 ### Expected outcome
@@ -56,13 +56,13 @@ openclaw logs --help
 
 ### Fail signals
 - any help command exits non-zero
-- openclaw binary missing in PATH
+- hermes binary missing in PATH
 
 ## Step 4 — Verify gateway command path (safe checks only)
 
 ```bash
-openclaw gateway status
-openclaw gateway --help
+hermes gateway status
+hermes gateway --help
 ```
 
 ### Expected outcome
@@ -73,13 +73,13 @@ openclaw gateway --help
 
 Mark each item:
 
-- [ ] `openclaw --help` succeeds
-- [ ] `openclaw gateway --help` succeeds
-- [ ] `openclaw config --help` succeeds
-- [ ] `openclaw logs --help` succeeds
+- [ ] `hermes --help` succeeds
+- [ ] `hermes gateway --help` succeeds
+- [ ] `hermes config --help` succeeds
+- [ ] `hermes logs --help` succeeds
 - [ ] `./scripts/validate-docs-safety.sh` passes
 - [ ] `./scripts/smoke-test-onboarding-commands.sh` passes
-- [ ] `openclaw gateway status` returns valid status output
+- [ ] `hermes gateway status` returns valid status output
 
 ### PASS
 All items checked.

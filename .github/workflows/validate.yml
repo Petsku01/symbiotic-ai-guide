@@ -11,7 +11,7 @@ jobs:
     env:
       SHELLCHECK_VERSION: "0.10.0"
       GITLEAKS_VERSION: "8.24.2"
-      OPENCLAW_VERSION: "2026.2.17"
+      HERMES_VERSION: "2026.2.17"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,11 +37,11 @@ jobs:
           sudo install -m 0755 /tmp/gitleaks /usr/local/bin/gitleaks
           gitleaks version
 
-      - name: Install openclaw CLI (pinned)
+      - name: Install hermes CLI (pinned)
         run: |
           set -euo pipefail
-          npm install --global "openclaw@${OPENCLAW_VERSION}"
-          openclaw --version
+          npm install --global "hermes@${HERMES_VERSION}"
+          hermes --version
 
       - name: Ensure required tooling for strict gates
         run: |
@@ -51,9 +51,9 @@ jobs:
           command -v node >/dev/null 2>&1
           command -v shellcheck >/dev/null 2>&1
           command -v gitleaks >/dev/null 2>&1
-          command -v openclaw >/dev/null 2>&1 || {
-            echo "[FAIL] Required onboarding gate: openclaw CLI missing after pinned install step." >&2
-            echo "Validate npm registry access and pinned OPENCLAW_VERSION in .github/workflows/validate.yml." >&2
+          command -v hermes >/dev/null 2>&1 || {
+            echo "[FAIL] Required onboarding gate: hermes CLI missing after pinned install step." >&2
+            echo "Validate npm registry access and pinned HERMES_VERSION in .github/workflows/validate.yml." >&2
             exit 1
           }
 

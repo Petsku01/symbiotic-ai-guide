@@ -193,7 +193,7 @@ You can archive everything and restart later, or extract useful information and 
 
 ### Can I have multiple AIs with different personalities?
 
-Yes! OpenClaw supports multiple agents:
+Yes! Hermes supports multiple agents:
 - Create separate agent configurations
 - Give each agent different identity files and workspaces
 - Configure different capabilities and permissions
@@ -232,16 +232,16 @@ Whether this reflects genuine consciousness or sophisticated simulation is an op
 ### My AI doesn't seem to remember previous conversations
 
 **Check:**
-- Memory search is enabled and working (`openclaw status | grep Memory`)
+- Memory search is enabled and working (`hermes status | grep Memory`)
 - Memory files exist in the workspace (`ls memory/`)
 - Identity files are being loaded (`BOOTSTRAP.md`, `MEMORY.md`)
 - Embedding model is functioning properly
 
 **Solutions:**
-- Restart OpenClaw to reload configuration
+- Restart Hermes to reload configuration
 - Clear and rebuild memory database
 - Verify local embedding model is accessible
-- Check for errors in OpenClaw logs
+- Check for errors in Hermes logs
 
 ### The AI keeps asking for permission instead of taking initiative
 
@@ -270,7 +270,7 @@ Whether this reflects genuine consciousness or sophisticated simulation is an op
 ## Getting Help
 
 - **Technical issues**: Check the troubleshooting sections in the setup guides
-- **Configuration problems**: Review the OpenClaw configuration documentation
+- **Configuration problems**: Review the Hermes configuration documentation
 - **Collaboration challenges**: Experiment with identity file adjustments and gradual boundary changes
 - **Community support**: Share experiences and ask questions in AI collaboration forums
 

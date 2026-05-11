@@ -6,8 +6,8 @@ All notable documentation and safety hardening changes are tracked here.
 
 ### RC hardening
 - CI fail-closed pass:
-  - `.github/workflows/validate.yml` now installs pinned `shellcheck`, `gitleaks`, and `openclaw@2026.2.17` in CI.
-  - strict onboarding smoke check remains hard-required and fails when `openclaw` is unavailable after provisioning (no CI skip path).
+  - `.github/workflows/validate.yml` now installs pinned `shellcheck`, `gitleaks`, and `hermes@2026.2.17` in CI.
+  - strict onboarding smoke check remains hard-required and fails when `hermes` is unavailable after provisioning (no CI skip path).
 - Added adversarial safety test runner:
   - `scripts/run-adversarial-checks.sh`
   - checks prompt-injection response expectations, external-LLM approval-gate markers, and secret-pattern sanity with explicit thresholding.
@@ -69,7 +69,7 @@ All notable documentation and safety hardening changes are tracked here.
   - destination safety checks and private permission defaults (`umask 077`)
 - `quick-setup.sh` auto-commit changed to opt-in (`--auto-commit`).
 - Expanded CI/validation coverage:
-  - command denylist checks for known-invalid OpenClaw examples
+  - command denylist checks for known-invalid Hermes examples
   - onboarding command smoke tests
   - shellcheck-if-available and lightweight secret-scan flow
 

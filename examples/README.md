@@ -12,7 +12,7 @@ This directory contains template files you can copy and customize for your own s
 
 ## How to Use
 
-1. Copy each template to your OpenClaw workspace directory
+1. Copy each template to your Hermes workspace directory
 2. Remove the `-template` suffix from filenames
 3. Replace placeholder text with your specific information
 4. Customize the content to match your AI's purpose and personality

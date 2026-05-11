@@ -1,6 +1,6 @@
 # Scripts
 
-Practical shell scripts for managing an OpenClaw setup.
+Practical shell scripts for managing an Hermes setup.
 
 ## Quick Start
 
@@ -49,12 +49,12 @@ chmod +x *.sh
 
 ## Requirements
 
-- OpenClaw installed (`npm install -g openclaw`)
+- Hermes installed (`npm install -g hermes`)
 - Bash shell
 - Standard Unix tools (grep, stat, rsync)
 
 ## Notes
 
-- Scripts assume default OpenClaw paths (`~/.openclaw`)
-- Set `OPENCLAW_STATE_DIR` environment variable to override
+- Scripts assume default Hermes paths (`~/.hermes`)
+- Set `HERMES_STATE_DIR` environment variable to override
 - Most scripts are non-destructive by default; `backup-workspace.sh` can run destructive sync only with explicit `--delete --confirm-delete` safeguards

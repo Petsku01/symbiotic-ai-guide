@@ -15,7 +15,7 @@ set -euo pipefail
 trap 'echo "ERROR: Error on line $LINENO. Exit code: $?" >&2; cleanup_and_exit 1' ERR
 
 # Configuration with portable defaults
-WORKSPACE="${OPENCLAW_WORKSPACE:-${HOME}/.openclaw/workspace}"
+WORKSPACE="${HERMES_WORKSPACE:-${HOME}/.hermes/workspace}"
 TMPDIR=$(get_secure_tmpdir)
 LOG_FILE="$TMPDIR/intelligent-system-monitor.log"
 LOCK_FILE="$TMPDIR/intelligent-system-monitor.lock"
@@ -61,7 +61,7 @@ initialize_environment() {
   fi
   
   # Add CSV header
-  echo "timestamp,cpu_load,memory_percent,memory_mb,disk_percent,openclaw_pid,openclaw_memory_mb,connections,slow_events_1h,websocket_drops_1h" > "$METRICS_FILE"
+  echo "timestamp,cpu_load,memory_percent,memory_mb,disk_percent,hermes_pid,hermes_memory_mb,connections,slow_events_1h,websocket_drops_1h" > "$METRICS_FILE"
   fi
   
   echo "================================================" | tee "$LOG_FILE"
@@ -76,7 +76,7 @@ collect_system_metrics() {
   echo "METRICS: COLLECTING SYSTEM METRICS:" | tee -a "$LOG_FILE"
   
   local timestamp cpu_load memory_percent memory_mb disk_percent
-  local openclaw_pid openclaw_memory_mb connections slow_events_1h websocket_drops_1h
+  local hermes_pid hermes_memory_mb connections slow_events_1h websocket_drops_1h
   
   # Safe timestamp
   timestamp=$(date +%s)
@@ -103,43 +103,43 @@ collect_system_metrics() {
   echo "  WARNING:  Could not determine disk usage" | tee -a "$LOG_FILE"
   fi
   
-  # OpenClaw specific metrics with enhanced error handling
-  if openclaw_pid=$(pgrep -f "openclaw-gateway" 2>/dev/null | head -1); then
-  # OpenClaw memory usage
-  if ! openclaw_memory_mb=$(ps -p "$openclaw_pid" -o rss --no-headers 2>/dev/null | awk '{print $1/1024}'); then
-  openclaw_memory_mb="0"
+  # Hermes specific metrics with enhanced error handling
+  if hermes_pid=$(pgrep -f "hermes-gateway" 2>/dev/null | head -1); then
+  # Hermes memory usage
+  if ! hermes_memory_mb=$(ps -p "$hermes_pid" -o rss --no-headers 2>/dev/null | awk '{print $1/1024}'); then
+  hermes_memory_mb="0"
   fi
   
   # Network connections with timeout
-  if ! connections=$(timeout 5 lsof -p "$openclaw_pid" -a -i 2>/dev/null | wc -l); then
+  if ! connections=$(timeout 5 lsof -p "$hermes_pid" -a -i 2>/dev/null | wc -l); then
   connections="0"
   fi
   
   # Journal analysis with proper error handling and timeout
   if command -v journalctl >/dev/null 2>&1; then
-  if ! slow_events_1h=$(timeout 10 journalctl --user -u openclaw-gateway --since="1 hour ago" --no-pager -q 2>/dev/null | grep -c "Slow listener" || echo "0"); then
+  if ! slow_events_1h=$(timeout 10 journalctl --user -u hermes-gateway --since="1 hour ago" --no-pager -q 2>/dev/null | grep -c "Slow listener" || echo "0"); then
   slow_events_1h="0"
   fi
   
-  if ! websocket_drops_1h=$(timeout 10 journalctl --user -u openclaw-gateway --since="1 hour ago" --no-pager -q 2>/dev/null | grep -c "WebSocket connection closed" || echo "0"); then
+  if ! websocket_drops_1h=$(timeout 10 journalctl --user -u hermes-gateway --since="1 hour ago" --no-pager -q 2>/dev/null | grep -c "WebSocket connection closed" || echo "0"); then
   websocket_drops_1h="0"
   fi
   else
   slow_events_1h="0"
   websocket_drops_1h="0"
-  echo "  WARNING:  journalctl not available for OpenClaw analysis" | tee -a "$LOG_FILE"
+    echo "  WARNING:  journalctl not available for Hermes analysis" | tee -a "$LOG_FILE"
   fi
   else
-  openclaw_pid="0"
-  openclaw_memory_mb="0"
+  hermes_pid="0"
+  hermes_memory_mb="0"
   connections="0"
   slow_events_1h="0"
   websocket_drops_1h="0"
-  echo "  WARNING:  OpenClaw not running - limited metrics available" | tee -a "$LOG_FILE"
+    echo "  WARNING:  Hermes not running - limited metrics available" | tee -a "$LOG_FILE"
   fi
   
   # Store metrics securely
-  local metrics_line="$timestamp,$cpu_load,$memory_percent,$memory_mb,$disk_percent,$openclaw_pid,$openclaw_memory_mb,$connections,$slow_events_1h,$websocket_drops_1h"
+  local metrics_line="$timestamp,$cpu_load,$memory_percent,$memory_mb,$disk_percent,$hermes_pid,$hermes_memory_mb,$connections,$slow_events_1h,$websocket_drops_1h"
   
   if ! atomic_log_append "$METRICS_FILE" "$metrics_line"; then
   echo "  WARNING:  Failed to store metrics data" | tee -a "$LOG_FILE"
@@ -148,7 +148,7 @@ collect_system_metrics() {
   echo "  OK: Metrics collected and stored" | tee -a "$LOG_FILE"
   
   # Export current metrics for other functions
-  export CURRENT_METRICS="$timestamp,$cpu_load,$memory_percent,$memory_mb,$disk_percent,$openclaw_pid,$openclaw_memory_mb,$connections,$slow_events_1h,$websocket_drops_1h"
+  export CURRENT_METRICS="$timestamp,$cpu_load,$memory_percent,$memory_mb,$disk_percent,$hermes_pid,$hermes_memory_mb,$connections,$slow_events_1h,$websocket_drops_1h"
   
   return 0
 }
@@ -232,8 +232,8 @@ generate_predictive_analysis() {
   return 1
   fi
   
-  local current_memory_percent current_disk_percent current_openclaw_memory
-  if ! IFS=',' read -r _ _ current_memory_percent _ current_disk_percent _ current_openclaw_memory _ _ _ <<< "$CURRENT_METRICS"; then
+  local current_memory_percent current_disk_percent current_hermes_memory
+  if ! IFS=',' read -r _ _ current_memory_percent _ current_disk_percent _ current_hermes_memory _ _ _ <<< "$CURRENT_METRICS"; then
   echo "  WARNING:  Cannot parse current metrics for prediction" | tee -a "$LOG_FILE"
   return 1
   fi
@@ -241,7 +241,7 @@ generate_predictive_analysis() {
   echo "  METRICS: Current system state:" | tee -a "$LOG_FILE"
   echo "  Memory usage: ${current_memory_percent}%" | tee -a "$LOG_FILE"
   echo "  Disk usage: ${current_disk_percent}%" | tee -a "$LOG_FILE"  
-  echo "  OpenClaw memory: ${current_openclaw_memory}MB" | tee -a "$LOG_FILE"
+  echo "  Hermes memory: ${current_hermes_memory}MB" | tee -a "$LOG_FILE"
   
   # Predictive warnings with safe arithmetic
   if (( $(echo "$current_memory_percent > 80" | bc -l 2>/dev/null || echo 0) )); then
@@ -256,9 +256,9 @@ generate_predictive_analysis() {
   echo "  WARNING:  PREDICTION: Consider cleanup - disk usage elevated" | tee -a "$LOG_FILE"
   fi
   
-  # OpenClaw-specific predictions
-  if (( $(echo "$current_openclaw_memory > 2000" | bc -l 2>/dev/null || echo 0) )); then
-  echo "  WARNING:  PREDICTION: OpenClaw memory usage high - monitor for leaks" | tee -a "$LOG_FILE"
+  # Hermes-specific predictions
+  if (( $(echo "$current_hermes_memory > 2000" | bc -l 2>/dev/null || echo 0) )); then
+  echo "  WARNING:  PREDICTION: Hermes memory usage high - monitor for leaks" | tee -a "$LOG_FILE"
   fi
   
   return 0
@@ -281,7 +281,7 @@ generate_intelligent_recommendations() {
   
   # Standard recommendations
   echo "  System optimization suggestions:" | tee -a "$LOG_FILE"
-  echo "  • Monitor OpenClaw memory growth patterns" | tee -a "$LOG_FILE"
+  echo "  • Monitor Hermes memory growth patterns" | tee -a "$LOG_FILE"
   echo "  • Track network stability trends" | tee -a "$LOG_FILE"
   echo "  • Review log files for recurring issues" | tee -a "$LOG_FILE"
   echo "  • Consider cleanup if disk usage >70%" | tee -a "$LOG_FILE"
@@ -295,14 +295,14 @@ check_monitoring_integration() {
   echo " MONITORING INTEGRATION:" | tee -a "$LOG_FILE"
   
   # Check for existing monitoring tools
-  local existing_monitor="$WORKSPACE/tools/monitoring/openclaw-monitor.sh"
+  local existing_monitor="$WORKSPACE/tools/monitoring/hermes-monitor.sh"
   
   if [[ -x "$existing_monitor" ]]; then
-  echo "  OK: Integration with existing OpenClaw monitor available" | tee -a "$LOG_FILE"
+  echo "  OK: Integration with existing Hermes monitor available" | tee -a "$LOG_FILE"
   
   # Check systemd timer status safely
   local timer_status
-  if timer_status=$(timeout 5 systemctl --user is-active openclaw-monitor.timer 2>/dev/null || echo "inactive"); then
+  if timer_status=$(timeout 5 systemctl --user is-active hermes-monitor.timer 2>/dev/null || echo "inactive"); then
   echo "  METRICS: Monitoring timer status: $timer_status" | tee -a "$LOG_FILE"
   else
   echo "  WARNING:  Cannot determine monitoring timer status" | tee -a "$LOG_FILE"
@@ -323,7 +323,7 @@ generate_deployment_recommendations() {
   echo "  • Create systemd user timers for each tool" | tee -a "$LOG_FILE"
   echo "  • Set up log rotation for automation outputs" | tee -a "$LOG_FILE"
   echo "  • Configure alert thresholds for critical issues" | tee -a "$LOG_FILE"
-  echo "  • Integrate with existing OpenClaw monitoring" | tee -a "$LOG_FILE"
+  echo "  • Integrate with existing Hermes monitoring" | tee -a "$LOG_FILE"
   
   return 0
 }

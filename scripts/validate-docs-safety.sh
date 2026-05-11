@@ -16,8 +16,8 @@ check_file_exists() {
 
 CORE_DOCS=(
   "README.md"
-  "OPENCLAW-INSTALLATION.md"
-  "OPENCLAW-CONFIGURATION.md"
+  "HERMES-INSTALLATION.md"
+  "HERMES-CONFIGURATION.md"
   "LOCAL-EMBEDDINGS-SETUP.md"
 )
 
@@ -27,16 +27,16 @@ for file in "${CORE_DOCS[@]}"; do
 done
 
 DENYLIST_PATTERNS=(
-  "openclaw config init"
-  "openclaw config patch"
-  "openclaw gateway logs"
-  "openclaw chat"
-  "openclaw gateway start --watch"
-  "openclaw config path"
+  "hermes config init"
+  "hermes config patch"
+  "hermes gateway logs"
+  "hermes chat"
+  "hermes gateway start --watch"
+  "hermes config path"
 )
 
-# `openclaw config get` requires a path argument; block bare usage
-BARE_CONFIG_GET_REGEX="openclaw config get([[:space:]]*$|[[:space:]]*\|)"
+# `hermes config get` requires a path argument; block bare usage
+BARE_CONFIG_GET_REGEX="hermes config get([[:space:]]*$|[[:space:]]*\|)"
 
 for pattern in "${DENYLIST_PATTERNS[@]}"; do
   if grep -nF "$pattern" "${CORE_DOCS[@]}" >/dev/null; then
@@ -47,7 +47,7 @@ done
 
 if grep -nRE "$BARE_CONFIG_GET_REGEX" "${CORE_DOCS[@]}" >/dev/null; then
   matches="$(grep -nRE "$BARE_CONFIG_GET_REGEX" "${CORE_DOCS[@]}")"
-  fail "Found bare 'openclaw config get' usage without required path in core docs:\n$matches"
+  fail "Found bare 'hermes config get' usage without required path in core docs:\n$matches"
 fi
 
 check_file_exists "docs/VALIDATION-BASIS.md"
@@ -61,7 +61,7 @@ check_file_exists "scripts/quick-setup.sh"
 check_file_exists "scripts/backup-workspace.sh"
 
 # Unsafe backup examples (must not encourage single-flag destructive mode)
-if grep -RInE "backup-workspace\.sh[^\n]*--delete(\s|$)" README.md OPENCLAW-CONFIGURATION.md docs scripts/README.md | grep -v -- "--confirm-delete" >/dev/null; then
+if grep -RInE "backup-workspace\.sh[^\n]*--delete(\s|$)" README.md HERMES-CONFIGURATION.md docs scripts/README.md | grep -v -- "--confirm-delete" >/dev/null; then
   fail "Found unsafe backup example using --delete without --confirm-delete"
 fi
 
@@ -71,7 +71,7 @@ if grep -q '"profile"[[:space:]]*:[[:space:]]*"full"' README.md; then
 fi
 
 # Full profile is allowed in detailed docs only when explicitly marked advanced
-for file in OPENCLAW-CONFIGURATION.md docs/reference/KUU-AI-SETUP-GUIDE.md; do
+for file in HERMES-CONFIGURATION.md docs/reference/KUU-AI-SETUP-GUIDE.md; do
   if grep -q '"profile"[[:space:]]*:[[:space:]]*"full"' "$file"; then
   grep -q "Advanced / Higher Risk" "$file" || fail "$file contains full profile but no explicit advanced risk marker"
   fi

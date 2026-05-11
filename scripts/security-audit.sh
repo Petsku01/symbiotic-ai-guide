@@ -1,24 +1,24 @@
 #!/bin/bash
-# Security audit for OpenClaw setup
+# Security audit for Hermes setup
 # Checks file permissions, exposed secrets, and common issues
 
 set -euo pipefail
 
-OPENCLAW_DIR="${OPENCLAW_STATE_DIR:-$HOME/.openclaw}"
+HERMES_DIR="${HERMES_STATE_DIR:-$HOME/.hermes}"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-echo "=== OpenClaw Security Audit ==="
+echo "=== Hermes Security Audit ==="
 echo ""
 
 ISSUES=0
 WARNINGS=0
 
-# Check if OpenClaw directory exists
-if [[ ! -d "$OPENCLAW_DIR" ]]; then
-  echo -e "${RED}ERROR: OpenClaw directory not found at $OPENCLAW_DIR${NC}"
+# Check if Hermes directory exists
+if [[ ! -d "$HERMES_DIR" ]]; then
+  echo -e "${RED}ERROR: Hermes directory not found at $HERMES_DIR${NC}"
   exit 1
 fi
 
@@ -57,9 +57,9 @@ check_dir_perms() {
   fi
 }
 
-check_dir_perms "$OPENCLAW_DIR" "700" "OpenClaw root"
-check_dir_perms "$OPENCLAW_DIR/credentials" "700" "Credentials dir"
-check_dir_perms "$OPENCLAW_DIR/agents" "700" "Agents dir"
+check_dir_perms "$HERMES_DIR" "700" "Hermes root"
+check_dir_perms "$HERMES_DIR/credentials" "700" "Credentials dir"
+check_dir_perms "$HERMES_DIR/agents" "700" "Agents dir"
 
 # Check file permissions
 echo ""
@@ -86,13 +86,13 @@ check_file_perms() {
   fi
 }
 
-check_file_perms "$OPENCLAW_DIR/openclaw.json" "600" "Main config"
-check_file_perms "$OPENCLAW_DIR/exec-approvals.json" "600" "Exec approvals"
+check_file_perms "$HERMES_DIR/hermes.json" "600" "Main config"
+check_file_perms "$HERMES_DIR/exec-approvals.json" "600" "Exec approvals"
 
 # Check for exposed secrets in workspace
 echo ""
 echo "Checking for exposed secrets in workspace..."
-WORKSPACE="$OPENCLAW_DIR/workspace"
+WORKSPACE="$HERMES_DIR/workspace"
 if [[ -d "$WORKSPACE" ]]; then
   # Look for API keys, tokens (but not in .git)
   SECRETS_FOUND=$(grep -r --include="*.md" --include="*.json" --include="*.sh" \
@@ -108,20 +108,20 @@ if [[ -d "$WORKSPACE" ]]; then
   fi
 fi
 
-# Check OpenClaw's own audit
+# Check Hermes's own audit
 echo ""
-echo "Running OpenClaw security audit..."
-if command -v openclaw &> /dev/null; then
-  AUDIT_OUTPUT=$(openclaw security audit 2>&1 || true)
+echo "Running Hermes security audit..."
+if command -v hermes &> /dev/null; then
+  AUDIT_OUTPUT=$(hermes security audit 2>&1 || true)
   if echo "$AUDIT_OUTPUT" | grep -q "0 critical"; then
-  echo -e "${GREEN}  OK: OpenClaw audit passed${NC}"
+  echo -e "${GREEN}  OK: Hermes audit passed${NC}"
   else
-  echo -e "${YELLOW}  WARN: OpenClaw audit found issues:${NC}"
+  echo -e "${YELLOW}  WARN: Hermes audit found issues:${NC}"
   echo "$AUDIT_OUTPUT" | grep -E "(CRITICAL|WARN)" | head -5
   ((WARNINGS++))
   fi
 else
-  echo -e "${YELLOW}  SKIP: openclaw command not found${NC}"
+  echo -e "${YELLOW}  SKIP: hermes command not found${NC}"
 fi
 
 # Summary
