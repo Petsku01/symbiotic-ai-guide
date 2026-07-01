@@ -33,6 +33,9 @@ DENYLIST_PATTERNS=(
   "hermes chat"
   "hermes gateway start --watch"
   "hermes config path"
+  "hermes configure"
+  "hermes login"
+  "hermes logout"
 )
 
 # `hermes config get` requires a path argument; block bare usage
