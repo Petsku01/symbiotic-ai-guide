@@ -4,6 +4,10 @@ All notable documentation and safety hardening changes are tracked here.
 
 ## 2026-07-01
 
+### Signal messaging setup guide
+- Added `docs/messaging/SIGNAL-SETUP.md` - comprehensive Signal setup guide covering signal-cli JRE installation, QR phone linking, .env configuration, systemd daemon service, testing, media limitations, troubleshooting (NPE bug, SSE errors), and upgrade procedures.
+- Added Signal setup link to README navigation table and quick start section.
+
 ### v0.17.0 documentation alignment
 - Updated all validation baseline dates from 2026-05 to 2026-07 baseline.
 - Updated `hermes@2026.2.17` pins to `hermes@0.17.0` across docs.

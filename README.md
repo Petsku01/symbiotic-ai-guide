@@ -64,6 +64,7 @@ Follow **[docs/getting-started/GOLDEN-PATH.md](docs/getting-started/GOLDEN-PATH.
 2. **Run `./scripts/quick-setup.sh`** - creates workspace structure and templates (no auto-commit by default; use `--auto-commit` to opt in)
 3. **[HERMES-CONFIGURATION.md](HERMES-CONFIGURATION.md)** - detailed configuration
 4. **[LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)** - local memory setup (privacy-focused)
+5. **[docs/messaging/SIGNAL-SETUP.md](docs/messaging/SIGNAL-SETUP.md)** - Signal messenger setup (signal-cli, QR linking, systemd daemon)
 
 > Onboarding defaults are least-privilege. Full-access examples are documented separately in explicit advanced sections.
 
@@ -77,6 +78,7 @@ That's it. The rest is reference material.
 | [HERMES-INSTALLATION.md](HERMES-INSTALLATION.md) | Step-by-step install guide |
 | [HERMES-CONFIGURATION.md](HERMES-CONFIGURATION.md) | Detailed config walkthrough |
 | [LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md) | Privacy-respecting AI memory |
+| [docs/messaging/SIGNAL-SETUP.md](docs/messaging/SIGNAL-SETUP.md) | Signal messenger setup guide |
 | [CHANGELOG.md](CHANGELOG.md) | Concise change history |
 | [LICENSE](LICENSE) | MIT license |
 
