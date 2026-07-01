@@ -3,8 +3,8 @@
 ## Validated against
 
 - **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
-- **Hermes docs/config assumptions:** 2026-05 baseline
-- **Last validated:** 2026-05-11
+- **Hermes docs/config assumptions:** 2026-07 baseline
+- **Last validated:** 2026-07-01
 
 This guide walks through installing Hermes from scratch on different operating systems. Hermes is the foundation that enables symbiotic AI partnerships.
 
@@ -14,7 +14,7 @@ Hermes is an AI gateway that provides:
 - Multi-model AI access (Ollama Cloud, OpenAI, local models)
 - Persistent memory and identity systems
 - Tool access for file operations, web browsing, system commands
-- Multi-channel communication (Discord, Telegram, etc.)
+- Multi-channel communication (Telegram, Discord, Slack, WhatsApp, Signal, Email, SMS, Matrix, and more)
 - Agent-to-agent collaboration capabilities
 
 ## Prerequisites
@@ -178,8 +178,10 @@ mkdir -p ~/.hermes/workspace
 Edit `~/.hermes/config.yaml`:
 
 ```yaml
+config_version: 30
+
 model:
-  default: glm-5.1:cloud
+  default: glm-5.2:cloud
   provider: custom:ollama
 
 providers: {}
@@ -200,21 +202,23 @@ You'll need API access to at least one AI provider:
 ### Ollama Cloud (Recommended)
 
 ```yaml
+config_version: 30
+
 model:
-  default: glm-5.1:cloud
+  default: glm-5.2:cloud
   provider: custom:ollama
 
 providers: {}
 ```
 
-Ollama Cloud models (GLM-5.1, Kimi K2.6, DeepSeek V4 Pro, Qwen 3.5)
+Ollama Cloud models (GLM-5.2, Kimi K2.6, DeepSeek V4 Pro, Qwen 3.5)
 are available automatically with the `custom:ollama` provider.
 
 **Getting Ollama Cloud API key:**
 1. Go to https://ollama.com/cloud
 2. Create account and add billing
 3. Generate API key in settings
-4. Add to configuration
+4. Add credentials via: `hermes auth add`
 
 ### OpenAI Alternative
 
@@ -257,10 +261,10 @@ providers:
 hermes gateway start
 
 # Check status
-hermes status
+hermes gateway status
 
-# View logs
-hermes logs
+# View logs (check logs section for details)
+# Log location varies by platform; run: hermes gateway --help
 ```
 
 ### Method 2: System Service (Linux)
@@ -294,7 +298,7 @@ hermes gateway start --verbose
 ### Check Gateway Status
 
 ```bash
-hermes status
+hermes gateway status
 ```
 
 Should show:
@@ -309,9 +313,14 @@ Should show:
 # CLI chat command varies by version; use your configured channel/UI for a first test message
 ```
 
-### Web Interface (if enabled)
+### Web Interface (Dashboard)
 
-Visit http://localhost:3000 in your browser to access the web interface.
+The Hermes Dashboard is available at http://localhost:9119 when the gateway is running.
+
+```bash
+# Open the dashboard in your browser
+hermes dashboard
+```
 
 ## Post-Installation Setup
 
@@ -400,7 +409,7 @@ curl -H "Authorization: Bearer your-api-key" \
      https://api.openai.com/v1/models (or Ollama Cloud)
 
 # Check Hermes logs for API errors
-hermes logs --level error
+# Log location varies by platform; run: hermes gateway --help
 ```
 
 ## Updating Hermes
@@ -473,7 +482,6 @@ server {
 # Set via environment instead of config file
 export HERMES_PORT=3000
 export HERMES_HOST=localhost
-export ANTHROPIC_API_KEY=your-key
 export HERMES_WORKSPACE=/path/to/workspace
 
 hermes gateway start
@@ -482,10 +490,33 @@ hermes gateway start
 ### Multiple Instances
 
 ```bash
-# Run multiple Hermes instances
-HERMES_PORT=3001 HERMES_CONFIG=~/.hermes/config1.json hermes gateway start &
-HERMES_PORT=3002 HERMES_CONFIG=~/.hermes/config2.json hermes gateway start &
+# Run multiple Hermes instances using profiles
+hermes profile create work
+hermes profile create personal
+
+# Use a profile and start gateway
+hermes profile use work
+hermes gateway start
+
+# Switch to another profile
+hermes profile use personal
+hermes gateway start
 ```
+
+See `hermes profile --help` for more details on managing profiles.
+
+## Additional Features
+
+Hermes v0.17.0 includes several powerful subsystems worth exploring after installation:
+
+- **Skills** - Installable capability modules: `hermes skills list`, `hermes skills install <name>`
+- **MCP Servers** - Model Context Protocol integrations: `hermes mcp add/remove/list/test`
+- **Dashboard** - Web-based UI at http://localhost:9119: `hermes dashboard`
+- **Profiles** - Isolated configurations for multiple use cases: `hermes profile create/use/list`
+- **Credential Pools** - Manage multiple provider credentials: `hermes auth add/list/remove`
+- **Fallback Providers** - Automatic failover between AI providers: `hermes fallback add/remove`
+- **Curator** - Automated memory and workspace maintenance: `hermes curator status/run`
+- **Cron Jobs** - Scheduled task execution: `hermes cron list/create/edit`
 
 ## Next Steps
 

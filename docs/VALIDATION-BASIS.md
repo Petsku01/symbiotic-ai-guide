@@ -2,7 +2,7 @@
 
 This repository's onboarding and safety documentation is validated against the following baseline:
 
-- **Date:** 2026-05-11
+- **Date:** 2026-07-01
 - **Platform:** Hermes configuration and workspace conventions used by this repo
 - **Scope:**
   - least-privilege defaults in onboarding docs
@@ -11,7 +11,7 @@ This repository's onboarding and safety documentation is validated against the f
   - denylist enforcement for known-invalid Hermes command patterns in core onboarding docs
   - lightweight docs safety checks in CI (`scripts/validate-docs-safety.sh`)
   - non-destructive onboarding command smoke tests (`scripts/smoke-test-onboarding-commands.sh`)
-  - fail-closed CI provisioning of pinned `hermes@2026.2.17` before onboarding smoke checks
+  - fail-closed CI provisioning of pinned `hermes@0.17.0` before onboarding smoke checks
 
 ## Validation markers
 
@@ -40,3 +40,26 @@ These markers are checked by CI.
   - `hermes gateway --help`
   - `hermes config --help`
   - `hermes logs --help`
+
+## v0.17.0 CLI surface smoke tests
+
+Additional smoke test commands for v0.17.0 feature coverage:
+
+- `hermes auth --help`
+- `hermes skills --help`
+- `hermes mcp --help`
+- `hermes cron --help`
+- `hermes dashboard --help`
+- `hermes profile --help`
+- `hermes curator --help`
+- `hermes webhook --help`
+
+## v0.17.0 config field validation
+
+The following config fields must be present or accounted for in `config.yaml`:
+
+- `config_version`: must be `30`
+- `agent.system_prompt`: optional string for TASK MODE (prepends to every session)
+- `security.redact_secrets`: boolean, default `true` since v0.13.0
+- `privacy.redact_pii`: boolean, default `false`
+- `approvals.mode`: enum `manual` (default) / `smart` / `off`

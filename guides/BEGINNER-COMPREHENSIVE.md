@@ -179,7 +179,7 @@ hermes --version
 
 **Success looks like:**
 ```
-2026.2.17
+0.17.0
 ```
 
 **If "command not found":**
@@ -210,7 +210,7 @@ hermes --version
 
 ## Get an Ollama Cloud API Key (Recommended)
 
-Ollama Cloud models (GLM-5.1, Kimi K2.6, DeepSeek V4 Pro) work excellently with Hermes.
+Ollama Cloud models (GLM-5.2, Kimi K2.6, DeepSeek V4 Pro) work excellently with Hermes.
 
 1. **Go to:** https://ollama.com/cloud
 
@@ -229,7 +229,6 @@ Ollama Cloud models (GLM-5.1, Kimi K2.6, DeepSeek V4 Pro) work excellently with 
    - Click "Create Key"
    - Give it a name like "Hermes"
    - **IMPORTANT:** Copy the key immediately - you cannot view it again!
-   - The key starts with `sk-ant-`
 
 5. **Save your key securely:**
    ```bash
@@ -275,34 +274,27 @@ You should see status information indicating the Gateway is active.
 
 ## Configure Your API Key
 
-Set your Ollama Cloud API key as an environment variable:
+Use the interactive credential wizard to add your Ollama Cloud API key:
 
 ```bash
-# Add to your shell configuration for persistence
-echo 'export ANTHROPIC_API_KEY="sk-ant-your-key-here"' >> ~/.bashrc
+# Add credentials via the interactive wizard
+hermes auth add
 
-# Load the new configuration
-source ~/.bashrc
+# Follow the prompts to select Ollama Cloud and enter your API key
 ```
 
-**Replace `sk-ant-your-key-here` with your actual API key.**
-
-For OpenAI, use:
-```bash
-echo 'export OPENAI_API_KEY="sk-your-key-here"' >> ~/.bashrc
-source ~/.bashrc
-```
+The `hermes auth add` wizard securely stores your credentials. No environment variables needed.
 
 ## Verify Configuration
 
 ```bash
-# Check that your key is set
-echo $ANTHROPIC_API_KEY
+# Check that credentials are configured
+hermes auth list
 ```
 
-Should display your key (starting with `sk-ant-`).
+Should display your configured provider credentials.
 
-**STOP: Do not continue until Gateway is running and your API key environment variable is set.**
+**STOP: Do not continue until Gateway is running and your credentials are configured.**
 
 ---
 
@@ -333,7 +325,7 @@ hermes gateway start  # if not running
 ```
 
 **"Invalid API key" or authentication errors:**
-- Double-check your ANTHROPIC_API_KEY is set: `echo $ANTHROPIC_API_KEY`
+- Re-run `hermes auth add` to reconfigure credentials
 - Verify the key is correct (no extra spaces, complete string)
 - Check that you've added a payment method on ollama.com/cloud
 
@@ -445,8 +437,8 @@ hermes --version
 # Gateway status
 hermes gateway status
 
-# Environment check
-echo $ANTHROPIC_API_KEY | head -c 10  # Shows first 10 chars only (safe)
+# Credential check
+hermes auth list
 ```
 
 ## Updating Hermes
@@ -467,8 +459,8 @@ sudo npm uninstall -g hermes
 # Remove configuration (optional)
 rm -rf ~/.hermes
 
-# Remove API key from bashrc (optional)
-# Manually edit ~/.bashrc and remove the ANTHROPIC_API_KEY line
+# Remove credentials (optional)
+hermes auth remove
 ```
 
 ---
@@ -485,7 +477,9 @@ rm -rf ~/.hermes
 | Check Version | `hermes --version` |
 | Update Hermes | `sudo npm update -g hermes` |
 
+**Dashboard:** Run `hermes dashboard` to open a web-based interface at http://localhost:9119 as an alternative to `hermes tui`.
+
 ---
 
-*Last updated: February 19, 2026*
+*Last updated: July 1, 2026*
 *Target environment: Ubuntu 24.04 LTS on WSL2*

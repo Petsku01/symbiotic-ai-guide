@@ -5,8 +5,8 @@ This guide walks through the complete Hermes setup needed to create an autonomou
 ## Validated against
 
 - **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
-- **Hermes docs/config assumptions:** 2026-05 baseline
-- **Last validated:** 2026-05-11
+- **Hermes docs/config assumptions:** 2026-07 baseline
+- **Last validated:** 2026-07-01
 
 ## Prerequisites
 
@@ -35,7 +35,7 @@ Edit your Hermes configuration file (usually `~/.hermes/config.yaml`):
   "agents": {
     "defaults": {
       "model": {
-        "primary": "ollama-cloud/glm-5.1:cloud"
+        "primary": "ollama-cloud/glm-5.2:cloud"
       },
       "workspace": "/home/username/.hermes/workspace",
       "maxConcurrent": 4,
@@ -52,7 +52,7 @@ Edit your Hermes configuration file (usually `~/.hermes/config.yaml`):
           "name": "YourAIName",
           "emoji": "🌙"
         },
-        "model": "ollama-cloud/glm-5.1:cloud",
+        "model": "ollama-cloud/glm-5.2:cloud",
         "subagents": {
           "allowAgents": ["eve"]
         }
@@ -151,14 +151,16 @@ Start restrictive, then expand only when needed:
 Set up primary model and providers in `~/.hermes/config.yaml`:
 
 ```yaml
+config_version: 30
+
 model:
-  default: glm-5.1:cloud
+  default: glm-5.2:cloud
   provider: custom:ollama
 
 providers: {}
 ```
 
-Ollama Cloud models (GLM-5.1, Kimi K2.6, DeepSeek V4 Pro, Qwen 3.5) are
+Ollama Cloud models (GLM-5.2, Kimi K2.6, DeepSeek V4 Pro, Qwen 3.5) are
 available automatically when the Ollama Cloud provider is configured.
 
 **Optional: Local Models**
@@ -459,6 +461,173 @@ Use this only after you are confident in your boundaries and review process.
   }
 }
 ```
+
+## Advanced Configuration: v0.17.0 Features
+
+Hermes v0.17.0 (config_version 30) introduced several subsystems that extend configuration beyond the basics above.
+
+### Task Mode (agent.system_prompt)
+
+Set a system prompt to put the agent into a focused task mode:
+
+```yaml
+agent:
+  system_prompt: |
+    You are a focused task agent. Complete the assigned work efficiently.
+    Ask for clarification only when truly stuck.
+```
+
+### Security and Privacy
+
+```yaml
+security:
+  redact_secrets: true    # Redact API keys and secrets in logs (default: true)
+
+privacy:
+  redact_pii: false        # Redact personally identifiable info (default: false)
+
+approvals:
+  mode: manual             # Options: manual, smart, off (default: manual)
+```
+
+**Approval modes:**
+- `manual` - Prompt for approval on each action requiring it
+- `smart` - Auto-approve safe operations, prompt for risky ones
+- `off` - No approval prompts (use with caution)
+
+### MCP Servers
+
+Model Context Protocol (MCP) servers provide tool integrations:
+
+```bash
+# Add an MCP server
+hermes mcp add <name> <command> [args...]
+
+# List configured MCP servers
+hermes mcp list
+
+# Test an MCP server connection
+hermes mcp test <name>
+
+# Remove an MCP server
+hermes mcp remove <name>
+```
+
+### Skills
+
+Skills are installable capability modules that extend agent abilities:
+
+```bash
+# List available skills
+hermes skills list
+
+# Install a skill
+hermes skills install <name>
+
+# Configure a skill
+hermes skills config <name>
+```
+
+### Profiles
+
+Profiles allow isolated configurations for different use cases (work, personal, experiments):
+
+```bash
+# Create a new profile
+hermes profile create <name>
+
+# Switch to a profile
+hermes profile use <name>
+
+# List all profiles
+hermes profile list
+```
+
+Each profile has its own config, workspace, and credentials.
+
+### Credential Pools
+
+Manage multiple provider credentials without environment variables:
+
+```bash
+# Add credentials interactively
+hermes auth add
+
+# List configured credentials
+hermes auth list
+
+# Remove credentials
+hermes auth remove <name>
+```
+
+### Fallback Providers
+
+Automatic failover between AI providers for reliability:
+
+```bash
+# Add a fallback provider
+hermes fallback add <provider> <model>
+
+# Remove a fallback provider
+hermes fallback remove <provider>
+
+# List fallback chain
+hermes fallback list
+```
+
+### Dashboard
+
+The web-based Dashboard provides a browser UI alternative to `hermes tui`:
+
+```bash
+# Open the dashboard in your browser
+hermes dashboard
+```
+
+The Dashboard runs at http://localhost:9119 when the gateway is active.
+
+### Curator
+
+The Curator performs automated memory and workspace maintenance:
+
+```bash
+# Check curator status
+hermes curator status
+
+# Run curator manually
+hermes curator run
+```
+
+### Cron Jobs
+
+Scheduled task execution for recurring operations:
+
+```bash
+# List cron jobs
+hermes cron list
+
+# Create a new cron job
+hermes cron create
+
+# Edit an existing cron job
+hermes cron edit <name>
+```
+
+### Gateway: Multi-Channel Support
+
+The Hermes Gateway supports 20+ communication platforms including Telegram, Discord, Slack, WhatsApp, Signal, Email, SMS, Matrix, and more. Configure channels in `~/.hermes/config.yaml`:
+
+```yaml
+channels:
+  telegram:
+    enabled: true
+    token: your-telegram-bot-token
+  discord:
+    enabled: true
+    token: your-discord-bot-token
+```
+
+See `hermes gateway --help` for the full list of supported platforms.
 
 ## Troubleshooting
 

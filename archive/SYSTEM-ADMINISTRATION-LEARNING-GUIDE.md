@@ -4,7 +4,7 @@
 
 ## Overview
 
-This guide documents a successful approach where an AI (Kuu) learned genuine system administration skills by systematically analyzing, diagnosing, and solving real performance problems in a live OpenClaw environment.
+This guide documents a successful approach where an AI (Kuu) learned genuine system administration skills by systematically analyzing, diagnosing, and solving real performance problems in a live Hermes environment.
 
 **Key principle:** Learning through practice, not just theory - building actual tools and solving real problems.
 
@@ -65,7 +65,7 @@ iostat -x 1 1
 ## Phase 2: Root Cause Investigation
 
 ### **Objective** 
-Identify why OpenClaw's DiscordMessageListener takes 50-140+ seconds to process messages.
+Identify why Hermes's DiscordMessageListener takes 50-140+ seconds to process messages.
 
 ### **Investigation Approach**
 ```bash
@@ -75,7 +75,7 @@ ls /proc/[PID]/task/
 lsof -p [PID]
 
 # Timeline correlation
-journalctl --user -u openclaw-gateway --since="24 hours ago"
+journalctl --user -u hermes-gateway --since="24 hours ago"
 
 # Network stability testing
 ping -c 5 [discord-ip]
@@ -109,7 +109,7 @@ Build production-ready tools for ongoing performance monitoring and optimization
 
 ### **Tools Created**
 
-#### **1. OpenClaw Performance Monitor** (`openclaw-monitor.sh`)
+#### **1. Hermes Performance Monitor** (`hermes-monitor.sh`)
 Real-time system health tracking:
 ```bash
 #!/bin/bash
@@ -128,7 +128,7 @@ Discord connectivity stability assessment:
 # Logs results for trend analysis
 ```
 
-#### **3. Performance Optimizer** (`openclaw-optimizer.sh`)
+#### **3. Performance Optimizer** (`hermes-optimizer.sh`)
 Automated analysis with actionable recommendations:
 ```bash
 #!/bin/bash
@@ -179,9 +179,9 @@ All monitoring tools are available in the `tools/monitoring/` directory:
 
 ```
 tools/monitoring/
-├── openclaw-monitor.sh      # Real-time performance tracking
+├── hermes-monitor.sh      # Real-time performance tracking
 ├── network-health-check.sh  # Discord connectivity monitoring
-├── openclaw-optimizer.sh    # Analysis and recommendations  
+├── hermes-optimizer.sh    # Analysis and recommendations
 └── setup-monitoring.sh      # Automated deployment
 ```
 
@@ -195,13 +195,13 @@ chmod +x *.sh
 ### **Usage**
 ```bash
 # Manual monitoring
-./openclaw-monitor.sh           # Current performance status
-./network-health-check.sh       # Network connectivity test  
-./openclaw-optimizer.sh         # Analysis and recommendations
+./hermes-monitor.sh           # Current performance status
+./network-health-check.sh       # Network connectivity test
+./hermes-optimizer.sh         # Analysis and recommendations
 
 # Automated monitoring status
-systemctl --user status openclaw-monitor.timer
-journalctl --user -u openclaw-monitor.service
+systemctl --user status hermes-monitor.timer
+journalctl --user -u hermes-monitor.service
 ```
 
 ## Learning Outcomes & Skills Developed

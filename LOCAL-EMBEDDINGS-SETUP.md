@@ -3,8 +3,8 @@
 ## Validated against
 
 - **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
-- **Hermes docs/config assumptions:** 2026-05 baseline
-- **Last validated:** 2026-05-11
+- **Hermes docs/config assumptions:** 2026-07 baseline
+- **Last validated:** 2026-07-01
 
 This guide documents how to configure Hermes to use local embeddings for memory search instead of expensive API calls to OpenAI/Google.
 
@@ -229,7 +229,9 @@ rm ~/.hermes/memory/main.sqlite
 
 This configuration provides a fully functional, cost-free, privacy-respecting memory search system for Hermes. The local embedding approach eliminates external dependencies while maintaining excellent search quality.
 
+> **v0.17.0 alternative - Honcho memory:** Hermes v0.17.0 also supports Honcho as a memory integration plugin. Honcho provides higher-level memory management (session-aware context, user modeling) on top of embedding-based search. If local embeddings meet your needs, no change is required. If you want richer memory semantics, consider installing the Honcho plugin via `hermes plugins install honcho` and consulting the Hermes docs for configuration.
+
 ---
 
 *Created: 2026-02-06*
-*Environment: WSL2, Hermes 2026.2.3-1*
+*Environment: WSL2, Hermes 0.17.0*

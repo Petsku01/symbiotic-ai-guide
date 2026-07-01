@@ -168,6 +168,44 @@ All security improvements have been tested for:
 - **Reliability:** File locking prevents conflicts, error handling works correctly
 - **Portability:** Configurable paths work across different environments
 
+## v0.17.0 Security and Privacy Features
+
+### security.redact_secrets
+
+- **Config field:** `security.redact_secrets`
+- **Default:** `true` (since v0.13.0)
+- **Purpose:** Automatically redacts secret patterns (API keys, tokens, passwords) from agent context, logs, and tool outputs before they are sent to the model or displayed.
+- **Impact:** Prevents accidental leakage of credentials into conversation history or memory files.
+
+### privacy.redact_pii
+
+- **Config field:** `privacy.redact_pii`
+- **Default:** `false`
+- **Purpose:** When enabled, redacts personally identifiable information (email addresses, phone numbers, SSN-like patterns) from agent context before sending to the model.
+- **Impact:** Adds a privacy layer for sensitive workspaces. Disabled by default to avoid breaking legitimate content; enable when working with PII-heavy data.
+
+### approvals.mode
+
+- **Config field:** `approvals.mode`
+- **Options:**
+  - `manual` (default): user approves each external action interactively
+  - `smart`: agent uses heuristics to decide when approval is needed (e.g., safe internal actions proceed, risky external actions still ask)
+  - `off`: no approval prompts (use only in trusted, sandboxed, or non-production environments)
+- **Impact:** Controls the balance between agent autonomy and human oversight. Start with `manual` and move to `smart` only after verifying the agent's judgment.
+
+### Credential Pools (hermes auth)
+
+- **CLI:** `hermes auth add/list/remove/reset`
+- **Replaces:** `hermes configure` and `hermes login` (deprecated)
+- **Purpose:** Centralized management of API credentials for multiple providers. Credentials are stored securely and can be added, listed, removed, or reset without editing config files.
+- **Security benefit:** Avoids storing API keys in plaintext config files; credentials are managed through a dedicated auth subsystem.
+
+### Fallback Providers (hermes fallback)
+
+- **CLI:** `hermes fallback add/remove`
+- **Purpose:** Configure automatic failover to a backup provider when the primary model provider is unavailable or rate-limited.
+- **Security benefit:** Ensures continuous operation without exposing fallback credentials in logs or error messages. Failover is automatic and transparent to the agent.
+
 ## Future Enhancements
 
 Potential future security improvements:
@@ -178,5 +216,5 @@ Potential future security improvements:
 
 ---
 
-**Last Updated:** February 9, 2026
+**Last Updated:** July 1, 2026
 **Security Audit Status:** All identified critical issues resolved

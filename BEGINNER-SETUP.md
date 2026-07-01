@@ -143,12 +143,12 @@ hermes --version
 
 ## Step 4: Get API Access
 
-**Recommended: Ollama Cloud models (GLM-5.1, Kimi K2.6, DeepSeek V4 Pro)**
+**Recommended: Ollama Cloud models (GLM-5.2, Kimi K2.6, DeepSeek V4 Pro)**
 
 ### Option A: OAuth (Recommended - Easy Setup)
 
 ```bash
-hermes configure
+hermes auth add
 ```
 
 **Follow the prompts:**
@@ -169,20 +169,17 @@ hermes configure
 2. Sign up, verify email, add phone number
 3. Add payment method (credit/debit card)
 4. Navigate to "API Keys" → "Create Key"
-5. Name it "Hermes", copy the key (starts with `sk-ant-`)
+5. Name it "Hermes", copy your API key
 
-**Set your API key:**
+**Add your API key:**
 ```bash
-# Add to shell configuration
-echo 'export ANTHROPIC_API_KEY="sk-ant-your-actual-key-here"' >> ~/.bashrc
+# Use the interactive credential wizard
+hermes auth add
 
-# Reload configuration
-source ~/.bashrc
-
-# Verify it's set
-echo $ANTHROPIC_API_KEY
+# Follow the prompts to enter your Ollama Cloud API key
 ```
-Should show your key starting with `sk-ant-`.
+
+The `hermes auth add` wizard securely stores your credentials for you.
 
 **STOP:** Don't continue until authentication is configured (either API key OR OAuth working).
 
@@ -205,6 +202,12 @@ Should show status information indicating Gateway is active.
 ```bash
 hermes tui
 ```
+
+**Alternative:** Use the web-based dashboard:
+```bash
+hermes dashboard
+```
+This opens a browser-based interface at http://localhost:9119.
 
 **Good test messages:**
 - "Hello! What can you help me with?"
@@ -233,6 +236,7 @@ hermes tui
 | Stop Gateway | `hermes gateway stop` |
 | Gateway Status | `hermes gateway status` |
 | Interactive Chat | `hermes tui` |
+| Dashboard | `hermes dashboard` |
 | Get Help | `hermes --help` |
 | Check Version | `hermes --version` |
 
@@ -282,7 +286,7 @@ hermes gateway start  # if stopped
 ```
 
 **"Invalid API key" errors:**
-- Check: `echo $ANTHROPIC_API_KEY` shows your key
+- Re-run `hermes auth add` to reconfigure credentials
 - Verify payment method on ollama.com/cloud
 - Regenerate key if needed
 
@@ -324,4 +328,4 @@ sudo npm update -g hermes
 ---
 
 *Final version combining structure + technical accuracy*
-*Target: Ubuntu 24.04 LTS on WSL2 • February 2026*
+*Target: Ubuntu 24.04 LTS on WSL2 - July 2026*

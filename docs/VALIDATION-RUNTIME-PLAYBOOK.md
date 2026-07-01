@@ -22,6 +22,19 @@ hermes config --help
 hermes logs --help
 ```
 
+### v0.17.0 additional CLI surface checks
+
+```bash
+hermes auth --help
+hermes skills --help
+hermes mcp --help
+hermes cron --help
+hermes dashboard --help
+hermes profile --help
+hermes curator --help
+hermes webhook --help
+```
+
 ### Expected outcome
 - Each command exits successfully and prints non-empty help text.
 
@@ -77,6 +90,14 @@ Mark each item:
 - [ ] `hermes gateway --help` succeeds
 - [ ] `hermes config --help` succeeds
 - [ ] `hermes logs --help` succeeds
+- [ ] `hermes auth --help` succeeds
+- [ ] `hermes skills --help` succeeds
+- [ ] `hermes mcp --help` succeeds
+- [ ] `hermes cron --help` succeeds
+- [ ] `hermes dashboard --help` succeeds
+- [ ] `hermes profile --help` succeeds
+- [ ] `hermes curator --help` succeeds
+- [ ] `hermes webhook --help` succeeds
 - [ ] `./scripts/validate-docs-safety.sh` passes
 - [ ] `./scripts/smoke-test-onboarding-commands.sh` passes
 - [ ] `hermes gateway status` returns valid status output

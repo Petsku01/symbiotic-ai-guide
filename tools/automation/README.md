@@ -27,6 +27,16 @@ Use only the `*-improved.sh` scripts for active automation. Non-improved scripts
 
 ## Legacy removal target
 
-Legacy (non-improved) scripts are scheduled for removal by **v0.2.0 (2026-04-30)**.
+Legacy (non-improved) scripts are scheduled for removal by **v0.2.0 (2026-07-31)**.
 
 Track policy details in [docs/reference/SCRIPT-DEPRECATION-POLICY.md](../../docs/reference/SCRIPT-DEPRECATION-POLICY.md).
+
+## Hermes-native automation alternatives
+
+Hermes v0.17.0 provides native CLI tools that can replace shell-based automation:
+
+- **Cron** (`hermes cron list/create/edit/pause/resume/run/remove`): native scheduled tasks - no need for system crontab entries
+- **Curator** (`hermes curator status/run/pin/unpin`): automated skill and memory maintenance
+- **Skills** (`hermes skills list/search/install/config`): installable workflow packages that encapsulate common automation patterns
+
+Consider migrating to these native tools for long-term maintainability.

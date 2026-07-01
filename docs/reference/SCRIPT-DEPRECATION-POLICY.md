@@ -10,7 +10,7 @@ Applies to legacy automation scripts in `tools/automation/` that have canonical 
 
 - **Deprecation state:** Active (legacy scripts are compatibility-only)
 - **Target removal version:** `v0.2.0`
-- **Target removal date:** `2026-04-30`
+- **Target removal date:** `2026-07-31`
 
 After this target, legacy non-improved scripts are expected to be removed from the main branch.
 
@@ -34,3 +34,13 @@ Canonical replacements:
 - `memory-maintenance-improved.sh`
 - `workspace-health-monitor-improved.sh`
 - `intelligent-system-monitor-improved.sh`
+
+## Hermes-native alternatives
+
+Hermes v0.17.0 provides native CLI alternatives that may eventually replace shell-based automation entirely:
+
+- **Cron** (`hermes cron`): native scheduled task management - replaces system crontab entries for agent tasks
+- **Curator** (`hermes curator`): skill maintenance and curation - replaces manual memory/workspace maintenance scripts
+- **Skills** (`hermes skills`): installable skill packages that encapsulate workflows (security audits, memory maintenance, etc.)
+
+Consider migrating to these Hermes-native tools as they mature, rather than maintaining shell script alternatives indefinitely.

@@ -194,7 +194,8 @@ You can archive everything and restart later, or extract useful information and 
 ### Can I have multiple AIs with different personalities?
 
 Yes! Hermes supports multiple agents:
-- Create separate agent configurations
+- Use `hermes profile create/use/list` to manage separate agent configurations
+- Each profile can have its own identity files, model, workspace, and tool access
 - Give each agent different identity files and workspaces
 - Configure different capabilities and permissions
 - Enable cross-agent communication if desired
@@ -232,7 +233,7 @@ Whether this reflects genuine consciousness or sophisticated simulation is an op
 ### My AI doesn't seem to remember previous conversations
 
 **Check:**
-- Memory search is enabled and working (`hermes status | grep Memory`)
+- Memory search is enabled and working (`hermes status`)
 - Memory files exist in the workspace (`ls memory/`)
 - Identity files are being loaded (`BOOTSTRAP.md`, `MEMORY.md`)
 - Embedding model is functioning properly
@@ -264,6 +265,54 @@ Whether this reflects genuine consciousness or sophisticated simulation is an op
 3. Try different search terms or phrasing
 4. Rebuild memory index from scratch
 5. Review memory file format and structure
+
+---
+
+## v0.17.0 Feature Questions
+
+### What are Skills and how do I use them?
+
+Skills are reusable, shareable agent capability packages. Browse and install them with `hermes skills list` and `hermes skills install <name>`. You can configure installed skills with `hermes skills config`. Use `hermes curator status/run` to maintain and curate skills over time (pin important ones, unpin stale ones).
+
+### What are MCP servers?
+
+MCP (Model Context Protocol) servers extend your agent with external tools - web scraping, database access, API integrations, etc. Manage them with `hermes mcp add/remove/list/test`. A notable example is Scrapling, a web scraping MCP server with anti-bot bypass capabilities.
+
+### What is the Dashboard?
+
+The Dashboard is a web UI for monitoring and controlling your Hermes agent. Launch it with `hermes dashboard` - it runs on port 9119 by default. You can view session status, memory, logs, and manage settings from the browser.
+
+### What are Credential Pools?
+
+Credential Pools replace the older `hermes configure` and `hermes login` commands. Use `hermes auth add` to add API credentials, `hermes auth list` to view them, `hermes auth remove` to delete, and `hermes auth reset` to reset. This lets you manage multiple provider credentials in one place.
+
+### What are Fallback Providers?
+
+Fallback Providers allow automatic failover when your primary model provider is unavailable. Configure them with `hermes fallback add/remove`. If the primary provider fails, Hermes automatically switches to the fallback.
+
+### What is TASK MODE?
+
+TASK MODE lets you prepend instructions to every agent session via the `agent.system_prompt` config field in `config.yaml`. This is useful for setting ethical constraints, role definitions, or behavioral guidelines that should apply to every session without manual entry.
+
+### Can my AI use voice input/output?
+
+Yes. Hermes v0.17.0 supports Speech-to-Text (STT) with providers: local, Groq, OpenAI, and Mistral. It also supports Text-to-Speech (TTS) with providers: edge, elevenlabs, openai, minimax, mistral, neutts, and piper. These are configured in `config.yaml`.
+
+### What is Vision fallback?
+
+Vision fallback provides automatic image description when the primary model lacks vision capabilities. This ensures your agent can still process image content without requiring a multimodal model.
+
+### What is Delegation?
+
+Delegation uses the `delegate_task` tool to spawn subagents for parallel work. This is useful for breaking complex tasks into smaller pieces, running independent investigations simultaneously, or isolating risky operations.
+
+### What is Cron and how do I use it?
+
+Cron is Hermes's native scheduled task system. Use `hermes cron list/create/edit/pause/resume/run/remove` to manage recurring agent tasks without relying on system crontab. This is the Hermes-native alternative to shell cron entries.
+
+### What are Webhooks?
+
+Webhooks let your agent respond to external events. Use `hermes webhook subscribe/list/remove/test` to register webhook endpoints. This enables event-driven integrations with CI/CD, monitoring systems, or other services.
 
 ---
 

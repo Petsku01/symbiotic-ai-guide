@@ -97,7 +97,7 @@ hermes --version
 ## Step 4: Connect to AI (OAuth — Easy Path)
 
 ```bash
-hermes configure
+hermes auth add
 ```
 
 **Follow the prompts:**
@@ -124,7 +124,7 @@ hermes doctor
 
 **Test a conversation:**
 ```bash
-hermes chat
+hermes
 ```
 
 Try: "Hello! What can you help me with?"
@@ -147,9 +147,10 @@ You now have:
 
 | Command | What it does |
 |---------|-------------|
-| `hermes chat` | Start conversation |
+| `hermes` | Start conversation (default command) |
 | `hermes doctor` | Check if everything works |
-| `hermes configure` | Change AI provider/settings |
+| `hermes auth add` | Add credentials / change AI provider |
+| `hermes dashboard` | Open web-based dashboard |
 | `hermes --help` | See all commands |
 
 **Access Ubuntu anytime:** Open "Ubuntu" from Start menu or type `wsl` in any terminal.
@@ -191,9 +192,9 @@ Close and reopen Ubuntu terminal, then try again.
 
 **"Invalid API key" or "Connection failed"**
 ```bash
-hermes configure
+hermes auth add
 ```
-Redo the OAuth flow — make sure to complete the browser authorization.
+Redo the authentication flow - make sure to complete the browser authorization.
 
 **OAuth browser doesn't open**
 Copy the displayed URL → Paste into Windows browser → Complete auth → Return to terminal.
@@ -218,4 +219,4 @@ Once the basics work, explore:
 
 ---
 
-*Guide optimized for Ubuntu 24.04 LTS on WSL2 • February 2026*
+*Guide optimized for Ubuntu 24.04 LTS on WSL2 - July 2026*

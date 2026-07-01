@@ -99,7 +99,7 @@ def consolidate_learning(insights):
 # learning-consolidation.sh
 # Automated extraction and synthesis of daily learning
 
-WORKSPACE="${OPENCLAW_WORKSPACE:-${HOME}/.openclaw/workspace}"
+WORKSPACE="${HERMES_WORKSPACE:-${HOME}/.hermes/workspace}"
 MEMORY_DIR="$WORKSPACE/memory"
 LEARNING_DIR="$WORKSPACE/learning-analytics"
 DATE=$(date +%Y-%m-%d)

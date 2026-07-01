@@ -16,8 +16,37 @@ Perfect if you're on Windows and want to try AI symbiosis without getting lost i
 ## Validated against
 
 - **Validation basis:** [docs/VALIDATION-BASIS.md](docs/VALIDATION-BASIS.md)
-- **Hermes docs/config assumptions:** 2026-05 baseline
-- **Last validated:** 2026-05-11
+- **Hermes docs/config assumptions:** 2026-07 baseline
+- **Last validated:** 2026-07-01
+
+## What's New in v0.17.0
+
+Hermes Agent v0.17.0 (config_version 30, released 2026-06-19) introduced major features beyond the 2026-05 baseline. Key additions:
+
+| Feature | CLI command / config | Brief |
+|---------|----------------------|-------|
+| Skills | `hermes skills list/search/install/config` | Reusable, shareable agent skill packages |
+| MCP servers | `hermes mcp add/remove/list/test` | Model Context Protocol server integration |
+| Dashboard | `hermes dashboard` (port 9119) | Web UI for monitoring and control |
+| Profiles | `hermes profile create/use/list` | Separate agent configurations in one install |
+| Credential Pools | `hermes auth add/list/remove/reset` | Replaces `hermes configure` and `hermes login` |
+| Fallback Providers | `hermes fallback add/remove` | Automatic provider failover |
+| Curator | `hermes curator status/run/pin/unpin` | Skill maintenance and curation |
+| Cron CLI | `hermes cron list/create/edit/pause/resume/run/remove` | Native scheduled tasks |
+| Webhooks | `hermes webhook subscribe/list/remove/test` | Event-driven integrations |
+| TASK MODE | `agent.system_prompt` in config | Prepend instructions to every agent session |
+| Voice STT/TTS | config-driven | Speech-to-text (local/Groq/OpenAI/Mistral) and text-to-speech (edge/elevenlabs/openai/minimax/mistral/neutts/piper) |
+| Vision fallback | config-driven | Automatic image description fallback |
+| Delegation | `delegate_task` tool | Subagent spawning for parallel work |
+| One-shot mode | `hermes -z "prompt"` | Non-interactive single-prompt execution |
+| Worktree mode | `hermes -w` | Git worktree isolation per session |
+| Compression | automatic | Context compression for long sessions |
+| Checkpoints | filesystem | Rollback to prior filesystem states |
+| Honcho memory | plugin | Memory integration via Honcho |
+| Plugins | `hermes plugins list/install/remove` | Third-party plugin management |
+| Scrapling | MCP server | Web scraping with anti-bot bypass |
+
+> **Note:** `hermes auth add` replaces the older `hermes configure` and `hermes login` commands. `hermes auth remove` replaces `hermes logout`. `hermes doctor` remains valid.
 
 ## What This Is
 
@@ -63,6 +92,8 @@ That's it. The rest is reference material.
 - Reference: [docs/reference/KUU-AI-SETUP-GUIDE.md](docs/reference/KUU-AI-SETUP-GUIDE.md), [docs/reference/FAQ.md](docs/reference/FAQ.md)
 - Security notes: [docs/security/SECURITY-IMPROVEMENTS.md](docs/security/SECURITY-IMPROVEMENTS.md), [docs/security/INTERNAL-SKEPTIC-COMPACT.md](docs/security/INTERNAL-SKEPTIC-COMPACT.md), [docs/security/EXTERNAL-LLM-SAFETY.md](docs/security/EXTERNAL-LLM-SAFETY.md), [docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md](docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md)
 - Roadmap tracker: [docs/roadmap/ISSUE-STACK.md](docs/roadmap/ISSUE-STACK.md)
+- v0.17.0 features overview: see "What's New in v0.17.0" section above
+- Security and privacy config: [docs/security/SECURITY-IMPROVEMENTS.md](docs/security/SECURITY-IMPROVEMENTS.md)
 
 ## Scripts
 
@@ -133,4 +164,4 @@ MIT - Use freely, no guarantees.
 
 ---
 
-*Last updated: 2026-05-11*
+*Last updated: 2026-07-01*

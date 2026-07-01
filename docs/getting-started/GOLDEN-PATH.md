@@ -4,7 +4,7 @@
 
 ## Validation scope
 
-- **Tested in this repo:** 2026-05-11 (non-destructive command/documentation validation)
+- **Tested in this repo:** 2026-07-01 (non-destructive command/documentation validation)
 - **Tested commands:**
   - `./scripts/validate-docs-safety.sh`
   - `./scripts/smoke-test-onboarding-commands.sh`
@@ -33,6 +33,7 @@
 3. **Apply safe baseline config**
   - Follow: [HERMES-CONFIGURATION.md](../../HERMES-CONFIGURATION.md)
   - Use least-privilege defaults first; avoid full-access profiles unless you intentionally move to advanced trust stage.
+  - Add API credentials using `hermes auth add` (replaces the older `hermes configure` and `hermes login` commands).
 
 4. **Enable local memory (recommended)**
   - Follow: [LOCAL-EMBEDDINGS-SETUP.md](../../LOCAL-EMBEDDINGS-SETUP.md)
@@ -48,6 +49,11 @@
   hermes gateway status
   hermes --help
   ```
+
+7. **Explore v0.17.0 features (optional)**
+  - Launch the web Dashboard: `hermes dashboard` (opens on port 9119)
+  - Browse and install Skills: `hermes skills list` then `hermes skills install <name>`
+  - See the "What's New in v0.17.0" section in [README.md](../../README.md) for the full feature list.
 
 ## Expected outcomes
 

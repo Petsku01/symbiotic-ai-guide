@@ -10,7 +10,7 @@ Use this checklist before promoting a release candidate.
 ## Required CI gates (must be green)
 
 1. **Workflow:** `.github/workflows/validate.yml`
-  - Tool provisioning is strict and pinned in-workflow (`shellcheck`, `gitleaks`, and `hermes@2026.2.17`).
+  - Tool provisioning is strict and pinned in-workflow (`shellcheck`, `gitleaks`, and `hermes@0.17.0`).
   - Missing required tools (including `hermes` after the pinned install step) is a hard failure.
 2. **Bash syntax gate**
   - `bash -n` across `scripts/` and `tools/`.
@@ -35,6 +35,8 @@ Use this checklist before promoting a release candidate.
 2. `CHANGELOG.md` includes all hardening completed since last release draft.
 3. Release draft references this checklist and known scope limits.
 4. README links to this checklist for release hygiene discoverability.
+5. v0.17.0 feature coverage check: docs mention all v0.17.0 features (Skills, MCP, Dashboard, Profiles, Credential Pools, Fallback, Curator, Cron, Webhooks, TASK MODE, Voice, Vision fallback, Delegation, One-shot, Worktree, Compression, Checkpoints, Honcho, Plugins, Scrapling).
+6. `hermes auth add` replaces `hermes configure`: verify no onboarding docs reference `hermes configure` or `hermes login` as current commands (they are deprecated; `hermes auth add` is canonical).
 
 ## Manual reviewer sign-off (required)
 
