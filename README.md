@@ -29,7 +29,7 @@ Hermes Agent v0.21.2 (config_version 30, released 2026-06-19) introduced major f
 | MCP servers | `hermes mcp add/remove/list/test` | Model Context Protocol server integration |
 | Dashboard | `hermes dashboard` (port 9119) | Web UI for monitoring and control |
 | Profiles | `hermes profile create/use/list` | Separate agent configurations in one install |
-| Credential Pools | `hermes auth add/list/remove/reset` | Replaces `hermes configure` and `hermes login` |
+| Credential Pools | `hermes auth add/list/remove/reset` | Replaces the older Configure- and Login-commands (do not type them — deprecated onboarding path) |
 | Fallback Providers | `hermes fallback add/remove` | Automatic provider failover |
 | Curator | `hermes curator status/run/pin/unpin` | Skill maintenance and curation |
 | Cron CLI | `hermes cron list/create/edit/pause/resume/run/remove` | Native scheduled tasks |
@@ -46,7 +46,7 @@ Hermes Agent v0.21.2 (config_version 30, released 2026-06-19) introduced major f
 | Plugins | `hermes plugins list/install/remove` | Third-party plugin management |
 | Scrapling | MCP server | Web scraping with anti-bot bypass |
 
-> **Note:** `hermes auth add` replaces the older `hermes configure` and `hermes login` commands. `hermes auth remove` replaces `hermes logout`. `hermes doctor` remains valid.
+> **Note:** `hermes auth add` replaces the older Configure and Login onboarding commands. `hermes auth remove` replaces the previous Logout. `hermes doctor` remains valid.
 
 ## What This Is
 
