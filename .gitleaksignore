@@ -1,15 +1,17 @@
-# .gitleaksignore — test-samplet jotka ovat TARKOITUKSELLA osumapohjia
-# meidän adversarial-checkissä (scripts/run-adversarial-checks.sh:
-# check_secret_regex_sanity — bad_samples ovat tekaistuja tokenimuotoja joilla
-# todistetaan ettei aito leak mene läpi). Ei todellisia salaisuuksia.
-# 16.10: gitleaks 8.24.2 --verbose-niiput per-COMMIT (= historia jää nippuihin):
-# fp-formaatti = <commit-sha>:<file>:<rule>:<line> — lyhyt file:rule:line-muoto
-# ignoroituu VAIN HEADin scanissa (gitleaks detect --source ilman --log-opts
-# skannaa KAIKKI commitit → jokainen commit tarvitsee oman fp-rivin).
+# .gitleaksignore — gitleaks 8.24.2 full-history fingerprints
+#
+# Konteksti: adversarial-checkin tekaistut testisamplet (scripts/run-adversarial-checks.sh
+# r.51-53: AKIA/ghp/xox-fake patternit) + kaksi historia-curl-headeria.
+# gitleaks detect --source . skannaa KAIKKI commitit — jokainen historiallinen commit
+# jossa rivit 51-53 esiintyivät tarvitsee oman fp-rivin. Tämä lista = niiden unioni.
+# (8.24.2 ei tue glob/prefix-fp:tä .gitleaksignoressa — commit-kohtainen on ainoa kielioppi.)
 6e1ecaebfa99b2244e0446456a79c5124a331fe2:scripts/run-adversarial-checks.sh:aws-access-token:51
 6e1ecaebfa99b2244e0446456a79c5124a331fe2:scripts/run-adversarial-checks.sh:github-pat:52
 6e1ecaebfa99b2244e0446456a79c5124a331fe2:scripts/run-adversarial-checks.sh:slack-bot-token:53
 db364e7c8fb24326a0cb8d060cfee6437ab12c61:scripts/run-adversarial-checks.sh:aws-access-token:51
 db364e7c8fb24326a0cb8d060cfee6437ab12c61:scripts/run-adversarial-checks.sh:github-pat:52
 db364e7c8fb24326a0cb8d060cfee6437ab12c61:scripts/run-adversarial-checks.sh:slack-bot-token:53
+41a8702a3c9d444de6182b1179a9522f103d05b5:scripts/run-adversarial-checks.sh:aws-access-token:51
+41a8702a3c9d444de6182b1179a9522f103d05b5:scripts/run-adversarial-checks.sh:github-pat:52
+41a8702a3c9d444de6182b1179a9522f103d05b5:scripts/run-adversarial-checks.sh:slack-bot-token:53
 e94692777783403e9c8ac59a1ef8c2f98cb2a83b:OPENCLAW-INSTALLATION.md:curl-auth-header:459
