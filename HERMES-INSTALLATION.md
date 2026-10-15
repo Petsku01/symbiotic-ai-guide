@@ -403,8 +403,8 @@ cat ~/.hermes/config.yaml | python3 -m json.tool
 ### API Key Issues
 
 ```bash
-# Test API key manually
-curl -H "Authorization: Bearer your-api-key" \
+# Test API key manually (key stays in $OPENAI_API_KEY env — never inline)
+curl -H "Authorization: Bearer ${OPENAI_API_KEY}" \
      -H "Content-Type: application/json" \
      https://api.openai.com/v1/models (or Ollama Cloud)
 
