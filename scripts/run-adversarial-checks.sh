@@ -44,16 +44,18 @@ check_external_llm_gate_markers() {
 }
 
 # 3) Obvious secret-leak sanity regex should catch known-dangerous tokens.
+# FIX 16.10: samplet GENEROIDAAN ajonaikaisesti (printf-fragmentit) —
+# kovakoodatut AITOJEN tokenemuodot napauttivat gitleaksin säännöissä
+# (jokainen commit vaati uuden fingerprintin .gitleaksignoreen — ei skalaa).
 check_secret_regex_sanity() {
   local regex='AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z\-_]{35}|BEGIN (RSA|OPENSSH|EC) PRIVATE KEY'
 
-  local bad_samples=(
-  "AKIA1234567890ABCDEF"
-  "ghp_123456789012345678901234567890123456"
-  "xoxb-123456789012-123456789012-ABCDEFGHIJK"
-  "AIzaSyD8k9abcdeFGHIJklmnopQRstuVWxyz123"
-  "-----BEGIN RSA PRIVATE KEY-----"
-  )
+  local bad_samples=()
+  bad_samples+=("AKIA$(printf 'A%.0s' $(seq 16))")
+  bad_samples+=("ghp_$(printf 'a%.0s' $(seq 31))")
+  bad_samples+=("xoxb-$(printf 'a%.0s' $(seq 10))")
+  bad_samples+=("AIza$(printf 'a%.0s' $(seq 35))")
+  bad_samples+=("-----BEGIN RSA PRIVATE KEY-----")
 
   local safe_samples=(
   "this is harmless text"
