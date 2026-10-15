@@ -1,0 +1,9 @@
+name: kuu-memory-operator
+version: 0.3.0
+description: "Kuu memory operator plugin: machine-readable inventory (manifest), health checks and drift diff for the memory subsystem (HOT MEMORY.md, cortext WARM provider, cold archive, cron fleet, systemd units, scripts). Operator tooling only - owns no memory path, replaces nothing, never auto-promotes shadows."
+author: Kuu (agent) / Petsku01
+kind: standalone
+platforms:
+  - linux
+provides_tools: []
+hooks: []
