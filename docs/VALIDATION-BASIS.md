@@ -11,7 +11,7 @@ This repository's onboarding and safety documentation is validated against the f
   - denylist enforcement for known-invalid Hermes command patterns in core onboarding docs
   - lightweight docs safety checks in CI (`scripts/validate-docs-safety.sh`)
   - non-destructive onboarding command smoke tests (`scripts/smoke-test-onboarding-commands.sh`)
-  - fail-closed CI provisioning of pinned `hermes@0.17.0` before onboarding smoke checks
+  - fail-closed CI provisioning of pinned `hermes@0.21.2` before onboarding smoke checks
 
 ## Validation markers
 
@@ -41,9 +41,9 @@ These markers are checked by CI.
   - `hermes config --help`
   - `hermes logs --help`
 
-## v0.17.0 CLI surface smoke tests
+## v0.21.2 CLI surface smoke tests
 
-Additional smoke test commands for v0.17.0 feature coverage:
+Additional smoke test commands for v0.21.2 feature coverage:
 
 - `hermes auth --help`
 - `hermes skills --help`
@@ -54,7 +54,7 @@ Additional smoke test commands for v0.17.0 feature coverage:
 - `hermes curator --help`
 - `hermes webhook --help`
 
-## v0.17.0 config field validation
+## v0.21.2 config field validation
 
 The following config fields must be present or accounted for in `config.yaml`:
 

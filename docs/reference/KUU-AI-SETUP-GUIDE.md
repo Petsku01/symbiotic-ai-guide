@@ -159,11 +159,11 @@ Start with conservative permissions and expand intentionally:
 }
 ```
 
-> **v0.17.0 MCP servers:** Add external tool integrations via `hermes mcp add/remove/list/test`. MCP servers extend agent capabilities (web scraping, database access, etc.) without modifying core config.
+> **v0.21.2 MCP servers:** Add external tool integrations via `hermes mcp add/remove/list/test`. MCP servers extend agent capabilities (web scraping, database access, etc.) without modifying core config.
 >
-> **v0.17.0 Skills:** Install reusable skill packages with `hermes skills list/search/install/config`. Skills provide pre-built workflows (git operations, security audits, documentation) that agents can invoke automatically.
+> **v0.21.2 Skills:** Install reusable skill packages with `hermes skills list/search/install/config`. Skills provide pre-built workflows (git operations, security audits, documentation) that agents can invoke automatically.
 >
-> **v0.17.0 Curator:** Use `hermes curator status/run/pin/unpin` to maintain and curate installed skills over time.
+> **v0.21.2 Curator:** Use `hermes curator status/run/pin/unpin` to maintain and curate installed skills over time.
 
 ## Step 3: Set Up Memory System
 
@@ -209,7 +209,7 @@ You operate under these ethical constraints:
 - Work toward [your mission] through positive means
 ```
 
-> **v0.17.0 TASK MODE:** You can also set a system prompt via the `agent.system_prompt` config field in `config.yaml`. This prepends your instructions to every agent session automatically, so you do not need to paste them manually each time.
+> **v0.21.2 TASK MODE:** You can also set a system prompt via the `agent.system_prompt` config field in `config.yaml`. This prepends your instructions to every agent session automatically, so you do not need to paste them manually each time.
 
 ## Step 5: Enable Autonomy Features
 
@@ -314,7 +314,7 @@ If you intentionally want broader autonomy, move to a full profile only after te
 }
 ```
 
-> **v0.17.0 approvals.mode:** You can control approval behavior with the `approvals.mode` config field:
+> **v0.21.2 approvals.mode:** You can control approval behavior with the `approvals.mode` config field:
 > - `manual` (default): user approves each external action
 > - `smart`: agent uses heuristics to decide when to ask
 > - `off`: no approval prompts (use only in trusted/sandboxed environments)
@@ -328,7 +328,7 @@ Consider companion agents for specialized tasks:
 - Specialized agents for specific domains
 - Cross-agent communication and collaboration
 
-> **v0.17.0 Profiles:** Use `hermes profile create/use/list` to manage separate agent configurations (identity files, model, workspace, tool access) within a single Hermes install. Each profile is fully isolated, making multi-agent setups straightforward without editing config files by hand.
+> **v0.21.2 Profiles:** Use `hermes profile create/use/list` to manage separate agent configurations (identity files, model, workspace, tool access) within a single Hermes install. Each profile is fully isolated, making multi-agent setups straightforward without editing config files by hand.
 
 ### Integration with External Systems
 

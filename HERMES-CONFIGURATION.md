@@ -462,9 +462,9 @@ Use this only after you are confident in your boundaries and review process.
 }
 ```
 
-## Advanced Configuration: v0.17.0 Features
+## Advanced Configuration: v0.21.2 Features
 
-Hermes v0.17.0 (config_version 30) introduced several subsystems that extend configuration beyond the basics above.
+Hermes v0.21.2 (config_version 30) introduced several subsystems that extend configuration beyond the basics above.
 
 ### Task Mode (agent.system_prompt)
 

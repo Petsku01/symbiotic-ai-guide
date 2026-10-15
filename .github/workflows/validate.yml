@@ -11,7 +11,7 @@ jobs:
     env:
       SHELLCHECK_VERSION: "0.10.0"
       GITLEAKS_VERSION: "8.24.2"
-      HERMES_VERSION: "0.17.0"
+      HERMES_AGENT_VERSION: "0.19.0"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,10 +37,13 @@ jobs:
           sudo install -m 0755 /tmp/gitleaks /usr/local/bin/gitleaks
           gitleaks version
 
-      - name: Install hermes CLI (pinned)
+      - name: Install hermes CLI (pinned, PyPI hermes-agent)
         run: |
           set -euo pipefail
-          npm install --global "hermes@${HERMES_VERSION}"
+          # FIX 16.10: npm 'hermes' on väärä paketti (0.4.x, ei Nousin); Nous-julkaisu
+          # on PyPI:ssä = 'hermes-agent' (0.13→0.19.0). Aiempi npm-pinna 0.17.0
+          # kaatosi CI:n (ETARGET) 10.15:stä lähtien.
+          python3 -m pip install --quiet "hermes-agent==${HERMES_AGENT_VERSION}"
           hermes --version
 
       - name: Ensure required tooling for strict gates

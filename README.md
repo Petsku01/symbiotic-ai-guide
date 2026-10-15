@@ -19,9 +19,9 @@ Perfect if you're on Windows and want to try AI symbiosis without getting lost i
 - **Hermes docs/config assumptions:** 2026-07 baseline
 - **Last validated:** 2026-07-01
 
-## What's New in v0.17.0
+## What's New in v0.21.2
 
-Hermes Agent v0.17.0 (config_version 30, released 2026-06-19) introduced major features beyond the 2026-05 baseline. Key additions:
+Hermes Agent v0.21.2 (config_version 30, released 2026-06-19) introduced major features beyond the 2026-05 baseline. Key additions:
 
 | Feature | CLI command / config | Brief |
 |---------|----------------------|-------|
@@ -94,7 +94,7 @@ That's it. The rest is reference material.
 - Reference: [docs/reference/KUU-AI-SETUP-GUIDE.md](docs/reference/KUU-AI-SETUP-GUIDE.md), [docs/reference/FAQ.md](docs/reference/FAQ.md)
 - Security notes: [docs/security/SECURITY-IMPROVEMENTS.md](docs/security/SECURITY-IMPROVEMENTS.md), [docs/security/INTERNAL-SKEPTIC-COMPACT.md](docs/security/INTERNAL-SKEPTIC-COMPACT.md), [docs/security/EXTERNAL-LLM-SAFETY.md](docs/security/EXTERNAL-LLM-SAFETY.md), [docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md](docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md)
 - Roadmap tracker: [docs/roadmap/ISSUE-STACK.md](docs/roadmap/ISSUE-STACK.md)
-- v0.17.0 features overview: see "What's New in v0.17.0" section above
+- v0.21.2 features overview: see "What's New in v0.21.2" section above
 - Security and privacy config: [docs/security/SECURITY-IMPROVEMENTS.md](docs/security/SECURITY-IMPROVEMENTS.md)
 
 ## Scripts

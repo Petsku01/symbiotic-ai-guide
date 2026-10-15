@@ -58,7 +58,7 @@
 **Remaining work:** create first semver tag and add PR checklist item for breaking changes.
 
 ### 12) OK: DONE — Expand secret scanning and CI guardrails
-**Status notes:** CI now pins and installs shellcheck + gitleaks + `hermes@0.17.0`, fails closed on missing required tooling, runs strict onboarding smoke checks, and includes an adversarial safety test pack with explicit thresholding.
+**Status notes:** CI now pins and installs shellcheck + gitleaks + `hermes@0.21.2`, fails closed on missing required tooling, runs strict onboarding smoke checks, and includes an adversarial safety test pack with explicit thresholding.
 
 ---
 
@@ -75,10 +75,10 @@
 
 ---
 
-## P1 Issues (v0.17.0 feature coverage)
+## P1 Issues (v0.21.2 feature coverage)
 
-### 13) OPEN: OPEN - Document v0.17.0 feature coverage across all docs
-**Remaining work:** Ensure all onboarding and reference docs mention v0.17.0 features where relevant. Coverage gaps identified:
+### 13) OPEN: OPEN - Document v0.21.2 feature coverage across all docs
+**Remaining work:** Ensure all onboarding and reference docs mention v0.21.2 features where relevant. Coverage gaps identified:
 - Skills (`hermes skills`) - added to README, KUU guide, FAQ
 - MCP servers (`hermes mcp`) - added to README, KUU guide, FAQ
 - Dashboard (`hermes dashboard`, port 9119) - added to README, Golden Path, FAQ
