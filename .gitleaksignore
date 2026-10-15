@@ -1,0 +1,9 @@
+# .gitleaksignore — test-samplet jotka ovat TARKOITUKSELLA osumapohjia
+# meidän adversarial-checkissä (scripts/run-adversarial-checks.sh:
+# check_secret_regex_sanity — bad_samples ovat FEIKKI-neidonmuodoja joilla
+# todistetaan ettei aito leak mene läpi). Ei todellisia salaisuuksia.
+# gitleaks 8.24.2 nappaa ne koska muodot noudattavat aitoja tokenipitäviä.
+scripts/run-adversarial-checks.sh:51:aws-access-token
+scripts/run-adversarial-checks.sh:52:github-pat
+scripts/run-adversarial-checks.sh:53:slack-bot-token
+HERMES-INSTALLATION.md:407:curl-auth-header
