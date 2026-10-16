@@ -54,7 +54,7 @@ Follow the browser prompt to authenticate. This sets up the default model
 provider (Nous Research free tier) — no manual API keys needed.
 
 **Alternative (bring your own keys):** set `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`,
-or similar in `~/.hermes/.env` — see [HERMES-CONFIGURATION.md](HERMES-CONFIGURATION.md).
+or similar in `~/.hermes/.env` — see [HERMES-CONFIGURATION.md](../HERMES-CONFIGURATION.md).
 
 ## Step 4: Verify the gateway works
 
@@ -68,11 +68,11 @@ no critical issues.
 
 ## Step 5: Choose your next path
 
-- **Memory setup (the interesting part):** [LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)
+- **Memory setup (the interesting part):** [LOCAL-EMBEDDINGS-SETUP.md](../LOCAL-EMBEDDINGS-SETUP.md)
 - **Full memory architecture (3-layer, operator-plugin, offsite backup):**
-  [docs/memory-system/REPLICATION-README.md](docs/memory-system/REPLICATION-README.md)
-- **Configuration depth:** [HERMES-CONFIGURATION.md](HERMES-CONFIGURATION.md)
-- **Signal messaging:** [docs/messaging/SIGNAL-SETUP.md](docs/messaging/SIGNAL-SETUP.md)
+  [docs/memory-system/REPLICATION-README.md](../docs/memory-system/REPLICATION-README.md)
+- **Configuration depth:** [HERMES-CONFIGURATION.md](../HERMES-CONFIGURATION.md)
+- **Signal messaging:** [docs/messaging/SIGNAL-SETUP.md](../docs/messaging/SIGNAL-SETUP.md)
 
 ## Fedora-specific notes
 
