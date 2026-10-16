@@ -72,14 +72,29 @@ nano ~/.hermes/config.yaml
 
 ## Step 3: Handle Cache/Persistence Issues
 
-If you encounter caching issues where the old configuration persists:
+> **Fix 16.10 (Sol-audit P1):** ÄLÄ koskaan `rm`-osaa muistikannasta "force
+> regeneration" -syystä — se POISTAA muistitiedot pysyvästi. Muistitiedosto =
+> user data. Jos config ei vaikuta: (1) `hermes doctor` (asennustilanne),
+> (2) `hermes gateway restart` (config-lukija), (3) backup ensin (katso
+> docs/memory-system/SETUP.md §5) ja VASTA tämän jälkeen harkitse datasiirtoa.
 
 ```bash
-# Remove the old memory database to force regeneration
-rm ~/.hermes/memory/main.sqlite
-
-# Check that the configuration applied
+# Tilanne: muistikonfiguraation muutokset ei vaikuta?
+# 1) Diagnoosi (ei kirjoitusta):
+hermes doctor | grep -i memory
 hermes status | grep Memory
+
+# 2) Jos täytyy siirtää dataa: BACKUP ENSIN, uudelleen rakenteen kanssa
+#    (ei rm:ää koskaan suoraan)
+cp -a ~/.hermes/memory ~/.hermes/memory.bak-$(date +%F)
+python3 - <<'EOF'
+# sqlite-lukija: backup-API (ei live-copyä, gateway saan olla päällä)
+import sqlite3
+src = sqlite3.connect("file:/home/Petsku/.hermes/memory/main.sqlite?mode=ro", uri=True)
+dst = sqlite3.connect("/tmp/main.sqlite.fresh")
+src.backup(dst); dst.close(); src.close()
+print("backup OK — vaihda vain VARMISTETTUASI")
+EOF
 ```
 
 ## Step 4: Test Memory Search

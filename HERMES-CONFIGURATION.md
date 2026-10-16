@@ -24,89 +24,51 @@ We'll configure:
 4. **Models** - Primary and fallback model selection
 5. **Workspace Files** - Identity and bootstrap files
 
-## Step 1: Basic Agent Configuration
+# Step 1: Basic Agent Configuration
 
-Edit your Hermes configuration file (usually `~/.hermes/config.yaml`):
+> **Fix 16.10 (Sol-audit P1):** Hermes nykyversiot (v0.21.x) käyttävät **YAML-configia**
+> (`~/.hermes/config.yaml`) — vanha JSON `agents.defaults`-rakenne on OpenClaw-eran
+> jäänne. Tämä osio uudelleenkirjoitettu nykyskeemalle. Katso myös hermes-agent
+> -repon `cli-config.yaml.example`.
 
-### Agent Identity & Workspace
+Muokkaa Hermes-configia (`~/.hermes/config.yaml`, YAML — ei JSON):
 
-```json
-{
-  "agents": {
-    "defaults": {
-      "model": {
-        "primary": "ollama-cloud/glm-5.2:cloud"
-      },
-      "workspace": "/home/username/.hermes/workspace",
-      "maxConcurrent": 4,
-      "subagents": {
-        "maxConcurrent": 8
-      }
-    },
-    "list": [
-      {
-        "id": "main",
-        "default": true,
-        "name": "YourAIName",
-        "identity": {
-          "name": "YourAIName",
-          "emoji": "🌙"
-        },
-        "model": "ollama-cloud/glm-5.2:cloud",
-        "subagents": {
-          "allowAgents": ["eve"]
-        }
-      }
-    ]
-  }
-}
+### Agent Identity & Workspace (config.yaml)
+
+```yaml
+model:
+  default: glm-5.3-flash      # päämalli
+  base_url: ''                # provider-pohjainen reititys hoitaa
+
+workspace: ~/.hermes/workspace
+# (agentin identiteetti-tiedostot: IDENTITY.md, BOOTSTRAP.md jne.)
 ```
 
-**Key settings:**
-- `name` & `identity.name` - What the AI calls itself
-- `emoji` - Visual representation in interfaces
-- `workspace` - Where identity/memory files live
-- `model` - Primary reasoning model to use
+Identiteetti: `workspace/IDENTITY.md` (nimi, kuvaus) — ei config-JSON:aa.
+Multi-agent: `hermes profile create/use/list` (profiilit eristettyjä saaria).
+Subagentit: `delegation:` osio configissa (model + max_concurrent_children).
 
 ## Step 2: Memory System Configuration
 
-Enable local embeddings for persistent memory:
+> **Fix 16.10:** memorySearch-JSON (OpenClaw-era) = poistettu. Nykyskeema:
 
-```json
-{
-  "agents": {
-    "defaults": {
-      "memorySearch": {
-        "enabled": true,
-        "provider": "local",
-        "local": {
-          "modelPath": "hf:mixedbread-ai/mxbai-embed-large-v1"
-        },
-        "fallback": "none",
-        "sources": ["memory"],
-        "query": {
-          "maxResults": 6,
-          "hybrid": {
-            "enabled": true,
-            "vectorWeight": 0.7,
-            "textWeight": 0.3
-          }
-        },
-        "cache": {
-          "enabled": true,
-          "maxEntries": 50000
-        }
-      }
-    }
-  }
-}
+```yaml
+memory:
+  memory_enabled: true
+  user_profile_enabled: true      # USER.md-profiilipohja
+  memory_char_limit: 10000        # HOT-katto (merkkejä)
+  user_char_limit: 3000
+  provider: cortext               # MemoryProvider-plugin (episoodimuisti)
 ```
 
+Katso `docs/memory-system/SETUP.md` koko muistiarkkitehtuurille (HOT/WARM/COLD +
+arkistointi + operator-valvonta).
+
 **What this enables:**
-- Local embedding model (no API costs)
-- Hybrid search (vector + keyword)
-- Caching for performance
+- Local episodic memory (SQLite + 256-dim embeddings, ei API-kustannuksia)
+- Semantic + BM25-hybrid haku
 - Memory persistence across sessions
+- Hot/warm/cold-kerrosarkkitehtuuri pointerien kanssa
 
 ## Step 3: Tool Access Configuration (Least Privilege First)
 
