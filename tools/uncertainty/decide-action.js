@@ -2,7 +2,9 @@
 
 function clamp01(n) {
   const x = Number(n);
-  if (!Number.isFinite(x)) return 0;
+  // FIX 17.10 (Sol-audit #88/#89): ei-numeerinen/NaN riski EI saa tulla "nollaksi"
+  // ( = AUTO_ACT-onnistuminen) — fail-closed: puuttuva riski = maksimiriski.
+  if (!Number.isFinite(x)) return NaN; // NaN = "unknown" — käsittelijä päättää
   return Math.max(0, Math.min(1, x));
 }
 
@@ -36,6 +38,17 @@ function normalizeInput(input) {
 function decide(raw) {
   const ctx = normalizeInput(raw);
   const { risk, severity, tLow, tHigh, highSeverityEscalate } = ctx;
+
+  // FIX 17.10 (Sol-audit #88): unknown risk = fail-closed ESCALATE (ei AUTO_ACT)
+  if (Number.isNaN(risk)) {
+    return {
+      action: 'ESCALATE',
+      reason: 'risk_unknown',
+      decisionReason: 'risk missing/non-numeric — fail-closed (was: became 0 = AUTO_ACT)',
+      risk, severity, scoreBand: ctx.scoreBand, mode: ctx.mode || 'full',
+      thresholds: { tLow, tHigh, highSeverityEscalate },
+    };
+  }
 
   let action = 'AUTO_ACT';
   let decisionReason = `risk ${risk.toFixed(2)} < low threshold ${tLow.toFixed(2)}`;

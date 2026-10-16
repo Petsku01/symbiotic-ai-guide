@@ -10,7 +10,9 @@ function loadInput(arg) {
 
 function clamp01(n) {
   const x = Number(n);
-  if (!Number.isFinite(x)) return 0;
+  // FIX 17.10 (Sol-audit #89): signaalien puuttuva arvo → NEUTRAALI 0.5,
+  // EI "0" (= luottamus korkeaksi = riskiä pienemmäksi = nolla-riski-vaara)
+  if (!Number.isFinite(x)) return 0.5;
   return Math.max(0, Math.min(1, x));
 }
 

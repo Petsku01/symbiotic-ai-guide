@@ -360,7 +360,9 @@ main() {
   echo " AUTOMATION ORCHESTRATION COMPLETE - $(date)" | tee -a "$LOG_FILE"
   cleanup_and_exit 0
   else
-  echo " AUTOMATION ORCHESTRATION COMPLETE WITH $failed_executions FAILURES - $(date)" | tee -a "$LOG_FILE"
+  # FIX 17.10 (Solin audit #86): fail-closed — virheillmoitukset stderrille + exit 1
+  echo "[FAIL] AUTOMATION ORCHESTRATION: $failed_executions FAILURES — $(date)" >&2
+  echo "  (exit 1 = cron-sessio havaitsee; katso logi: $LOG_FILE)" >&2
   cleanup_and_exit 1
   fi
 
