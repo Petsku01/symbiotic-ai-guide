@@ -79,18 +79,22 @@ node --version
 
 ## Step 3: Install Hermes
 
+> **Fix 16.10 (Sol-audit):** asennus = PyPI `hermes-agent` ei npm (npm = eri projekti).
+
 ```bash
-npm install -g hermes
+python3 -m venv ~/.hermes-venv
+source ~/.hermes-venv/bin/activate
+pip install hermes-agent
 ```
 
-**Takes 2-5 minutes.** You'll see packages downloading.
+**Takes 2-5 minutes.** pip näyttää lataukset.
 
 **Verify:**
 ```bash
 hermes --version
 ```
 
-**Expected output:** `2026.x.x`
+**Expected output:** `0.19.x` (PyPI-kanavan uusin)
 
 ---
 
@@ -178,11 +182,11 @@ wsl --shutdown
 wsl --install -d Ubuntu-24.04
 ```
 
-### Node.js Issues
+### Python pip Issues
 
-**"Permission denied" during npm install**
+**"Permission denied" during pip install**
 ```bash
-sudo npm install -g hermes
+sudo pip install hermes-agent   # venv-reitillä ei tarvita sudoa
 ```
 
 **"Command not found" after install**

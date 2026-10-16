@@ -49,7 +49,7 @@ chmod +x *.sh
 
 ## Requirements
 
-- Hermes installed (`npm install -g hermes`)
+- Hermes installed (`pip install hermes-agent` in a venv — see HERMES-INSTALLATION.md)
 - Bash shell
 - Standard Unix tools (grep, stat, rsync)
 

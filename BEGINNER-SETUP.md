@@ -120,22 +120,28 @@ npm --version
 
 ## Step 3: Install Hermes
 
+> **Fix 16.10 (Sol-audit):** npm `hermes` = väärä paketti. Aito reitti = PyPI
+> (`hermes-agent`) tai git-clone + venv (katso HERMES-INSTALLATION.md).
+
 ```bash
-npm install -g hermes
+# Isolated venv (recommended), then install
+python3 -m venv ~/.hermes-venv
+source ~/.hermes-venv/bin/activate
+pip install hermes-agent
 ```
 
-**Takes 2-5 minutes.** You'll see packages downloading.
+**Takes 2-5 minutes.** pip näyttää lataukset.
 
-**If permission errors:**
+**If permission errors (system-wide install):**
 ```bash
-sudo npm install -g hermes
+sudo pip install hermes-agent   # venv-reitillä ei tarvita sudoa
 ```
 
 **Verify installation:**
 ```bash
 hermes --version
 ```
-**Expected:** `2026.x.x`
+**Expected:** `0.19.x` (PyPI-kanavan uusin; git-clone-asennuksessa versio = checkout)
 
 **STOP:** Don't continue until version shows.
 
@@ -290,9 +296,9 @@ hermes gateway start  # if stopped
 - Verify payment method on ollama.com/cloud
 - Regenerate key if needed
 
-**"Permission denied" during npm install:**
+**"Permission denied" during pip install:**
 ```bash
-sudo npm install -g hermes
+sudo pip install hermes-agent   # venv-reitillä ei tarvita sudoa
 ```
 
 **Commands not found after install:**

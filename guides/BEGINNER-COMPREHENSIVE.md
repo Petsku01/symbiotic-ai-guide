@@ -152,23 +152,22 @@ npm --version
 
 ## Install Hermes
 
+> **Fix 16.10 (Sol-audit):** asennus = PyPI-paketti `hermes-agent` (ei npm —
+> npm `hermes` on eri projekti). Isolated venv = helpoin ja turvallisin:
 ```bash
-sudo npm install -g hermes
+python3 -m venv ~/.hermes-venv
+source ~/.hermes-venv/bin/activate
+pip install hermes-agent
 ```
 
 **What you'll see:**
-- Lines of text showing packages being downloaded
-- Progress indicators
-- Takes 1-3 minutes depending on internet speed
+- pip:n latausrivit + progress
+- 1-3 minuuttia netinopeudesta riippuen
 
 **If you see permission errors:**
 ```bash
-# Fix npm global permissions (alternative approach)
-mkdir -p ~/.npm-global
-npm config set prefix '~/.npm-global'
-echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
-npm install -g hermes
+# venv-reitillä EI tarvita sudoa — älä asenna system-wide
+# jos tarvitset: sudo pip install hermes-agent
 ```
 
 ## Verify Hermes Installed

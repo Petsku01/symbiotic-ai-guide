@@ -26,13 +26,20 @@ Hermes is an AI gateway that provides:
 
 ## Installation Methods
 
-### Method 1: NPM Installation (Recommended)
+> **Fix 16.10 (Sol-audit P0):** aiemmat npm-metodit olivat VÄÄRIN — npm-paketti
+> `hermes` on kokonaan eri projekti (0.4.x, ei Nousin). Aito asennus =
+> **PyPI `hermes-agent`** (versiot 0.13…0.19.0) tai git-clone + venv.
 
-This installs Hermes globally via npm:
+### Method 1: PyPI Installation (Recommended)
+
+This installs Hermes from the official PyPI package `hermes-agent`:
 
 ```bash
-# Install Hermes globally
-npm install -g hermes
+# Recommended: isolated venv (avoids system python pollution) — Hermes is
+# fast-moving; an isolated env makes updates safe.
+python3 -m venv ~/.hermes-venv
+source ~/.hermes-venv/bin/activate
+pip install hermes-agent
 
 # Verify installation
 hermes --version
@@ -41,33 +48,37 @@ hermes --version
 hermes --help
 ```
 
-**Pros:** Simple, automatic updates, clean uninstall
-**Cons:** Requires npm/Node.js setup
+**Pros:** Simple, official channel, version-pinnable (`==0.19.0`)
+**Cons:** None known — this is the distribution channel the project uses
 
-### Method 2: Git Clone Installation
+### Method 2: Git Clone + venv Installation
 
-For development or customization:
+For development or customization (this is how production deployments run):
 
 ```bash
 # Clone the repository
 git clone https://github.com/nousresearch/hermes-agent.git
-cd hermes
+cd hermes-agent
 
-# Install dependencies
-npm install
+# Create and activate a virtualenv
+python3 -m venv venv
+source venv/bin/activate
 
-# Build the project
-npm run build
-
-# Create global symlink (optional)
-npm link
+# Install the package in editable mode (deps + CLI)
+pip install -e .
 
 # Verify installation
-./bin/hermes.js --version
+hermes --version
 ```
 
-**Pros:** Full source access, customization possible
-**Cons:** More complex, manual updates
+For development, the repo's own venv conventions apply (`source .venv/bin/activate`
+if present). Updates: `git pull` + `pip install -e .` again.
+
+**Pros:** Full source access, customization, matches production installs
+**Cons:** Manual updates; pin your checkout when stability matters
+
+**Never use:** `npm install -g hermes` — that package is unrelated (0.4.x,
+different project). The `hermes` name on npm has no connection to Nous Research.
 
 ## Platform-Specific Setup
 
@@ -77,15 +88,13 @@ npm link
 # Update system packages
 sudo apt update
 
-# Install Node.js 18+ and npm
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-sudo apt-get install -y nodejs
+# Install Python 3.11+, git, build essentials
+sudo apt-get install -y python3.11 python3.11-venv python3-pip git
 
-# Install Git if not present
-sudo apt-get install -y git
-
-# Install Hermes
-npm install -g hermes
+# Install Hermes (isolated venv — recommended)
+python3 -m venv ~/.hermes-venv
+source ~/.hermes-venv/bin/activate
+pip install hermes-agent
 
 # Verify installation
 hermes --version
@@ -97,14 +106,13 @@ hermes --version
 # Install Homebrew if not present
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Install Node.js and npm
-brew install node
+# Install Python and Git
+brew install python git
 
-# Install Git if not present
-brew install git
-
-# Install Hermes
-npm install -g hermes
+# Install Hermes (isolated venv — recommended)
+python3 -m venv ~/.hermes-venv
+source ~/.hermes-venv/bin/activate
+pip install hermes-agent
 
 # Verify installation
 hermes --version
@@ -112,13 +120,17 @@ hermes --version
 
 ### Windows
 
-**Option A: Using Node.js Installer**
+**Install Python 3.11+ from python.org** (tick "Add to PATH"), then in PowerShell:
 
-1. Download Node.js from https://nodejs.org/ (LTS version)
-2. Run the installer (includes npm automatically)
-3. Open Command Prompt or PowerShell as Administrator
-4. Run: `npm install -g hermes`
-5. Verify: `hermes --version`
+```powershell
+python -m venv $HOME\.hermes-venv
+$HOME\.hermes-venv\Scripts\Activate.ps1
+pip install hermes-agent
+hermes --version
+```
+
+> Note: Hermes runs cross-platform, but the richest surface (gateway, daemon
+> tooling, systemd units) is Linux-first. WSL2 works well on Windows.
 
 **Option B: Using Windows Subsystem for Linux (WSL)**
 
@@ -424,13 +436,14 @@ npm update -g hermes
 hermes --version
 ```
 
-### Git Installation
+### Git Installation (development)
 
 ```bash
-cd hermes
+cd hermes-agent
 git pull origin main
-npm install
-npm run build
+source venv/bin/activate   # tai .venv
+pip install -e .           # editable-install: deps + CLI uudelleen
+# (ei npm-buildia — projekti on Python-pohjainen)
 ```
 
 ## Security Considerations
