@@ -6,8 +6,9 @@ Koko ketju on ajettu tuotannossa; jokaisella askeleella on todiste.
 ## Ota käyttöön
 
 ```bash
-git clone https://github.com/Petsku01/kuu-memory-replication.git
-cd kuu-memory-replication
+# Kloonaa tämä repo (symbiotic-ai-guide) — operator + muisti-dokut sisällä
+git clone https://github.com/Petsku01/symbiotic-ai-guide.git
+cd symbiotic-ai-guide
 ```
 
 ## 1. WARM-kierros: episoodimuisti (cortext)
@@ -111,7 +112,7 @@ hermes cron create --name "Kuu Memory Operator Shadow" --deliver local \
 
 ```bash
 # TUOTANNOMALLI (meidän polut — muuta omiin):
-scripts/kuu-scratch-backup.sh   # /scratch-snapshot: SQLite backup-API + tar+zstd
+scripts/kuu-scratch-backup.sh   # snapshot: SQLite backup-API + tar+zstd
 scripts/kuu-offsite-backup.sh   # salaus (AES-256-CBC PBKDF2 600k) + ositus + push
 ```
 

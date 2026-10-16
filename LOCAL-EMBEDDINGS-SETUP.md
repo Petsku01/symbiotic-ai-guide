@@ -90,7 +90,7 @@ cp -a ~/.hermes/memory ~/.hermes/memory.bak-$(date +%F)
 python3 - <<'EOF'
 # sqlite-lukija: backup-API (ei live-copyä, gateway saan olla päällä)
 import sqlite3
-src = sqlite3.connect("file:/home/Petsku/.hermes/memory/main.sqlite?mode=ro", uri=True)
+src = sqlite3.connect("file:$HOME/.hermes/memory/main.sqlite?mode=ro", uri=True)  # muuta oma HOME
 dst = sqlite3.connect("/tmp/main.sqlite.fresh")
 src.backup(dst); dst.close(); src.close()
 print("backup OK — vaihda vain VARMISTETTUASI")
