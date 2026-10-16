@@ -65,6 +65,7 @@ Follow **[docs/getting-started/GOLDEN-PATH.md](docs/getting-started/GOLDEN-PATH.
 3. **[HERMES-CONFIGURATION.md](HERMES-CONFIGURATION.md)** - detailed configuration
 4. **[LOCAL-EMBEDDINGS-SETUP.md](LOCAL-EMBEDDINGS-SETUP.md)** - local memory setup (privacy-focused)
 5. **[docs/messaging/SIGNAL-SETUP.md](docs/messaging/SIGNAL-SETUP.md)** - Signal messenger setup (signal-cli, QR linking, systemd daemon)
+6. **Full memory system (episodic DB + 3-layer archive + operator):** [docs/memory-system/REPLICATION-README.md](docs/memory-system/REPLICATION-README.md) — layer map with measured sizes, 8 production lessons, step-by-step replication, and the operator plugin ([tools/memory-operator/](tools/memory-operator/), v0.3.0: manifest/health/audit/restore-check + 7 red tests)
 
 > Onboarding defaults are least-privilege. Full-access examples are documented separately in explicit advanced sections.
 
@@ -94,6 +95,7 @@ That's it. The rest is reference material.
 - Reference: [docs/reference/KUU-AI-SETUP-GUIDE.md](docs/reference/KUU-AI-SETUP-GUIDE.md), [docs/reference/FAQ.md](docs/reference/FAQ.md)
 - Security notes: [docs/security/SECURITY-IMPROVEMENTS.md](docs/security/SECURITY-IMPROVEMENTS.md), [docs/security/INTERNAL-SKEPTIC-COMPACT.md](docs/security/INTERNAL-SKEPTIC-COMPACT.md), [docs/security/EXTERNAL-LLM-SAFETY.md](docs/security/EXTERNAL-LLM-SAFETY.md), [docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md](docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md)
 - Roadmap tracker: [docs/roadmap/ISSUE-STACK.md](docs/roadmap/ISSUE-STACK.md)
+- Memory system replication (NEW, Oct 2026): [docs/memory-system/REPLICATION-README.md](docs/memory-system/REPLICATION-README.md), [docs/memory-system/ARCHITECTURE.md](docs/memory-system/ARCHITECTURE.md), [docs/memory-system/LESSONS.md](docs/memory-system/LESSONS.md), [docs/memory-system/SETUP.md](docs/memory-system/SETUP.md), operator plugin in [tools/memory-operator/](tools/memory-operator/)
 - v0.21.2 features overview: see "What's New in v0.21.2" section above
 - Security and privacy config: [docs/security/SECURITY-IMPROVEMENTS.md](docs/security/SECURITY-IMPROVEMENTS.md)
 
