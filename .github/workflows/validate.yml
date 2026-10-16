@@ -15,6 +15,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # FIX 16.10 (Sol-audit P1#8): gitleaks skannaa KOKO historian
+                          # (lyhyt checkout = historia-scannaus ei toimi)
 
       - name: Install Node.js (for JS checks)
         uses: actions/setup-node@v4
