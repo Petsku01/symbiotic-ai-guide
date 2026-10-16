@@ -40,15 +40,18 @@ PRODUCTION_ARTIFACTS = (
 # offsite-ajojen RESTORE.sh tavanomaiset osat (RESTORE.sh itse tulostaa)
 
 
-def _sha256(path: Path, limit_bytes: int = 5_000_000) -> str:
-    """Pienelle tiedostolle full-SHA, isoille head-SHA (5 MB) + koko."""
+def _sha256(path: Path) -> str:
+    """FIX 17.10 (Solin täysaudit #79): KOKOTIEDOSTO-SHA (ei head-sampleä) +
+    size-erottelu. Isoille tiedostoille voi kestää — restore_check on ajonaikainen
+    ja tiedostot ovat palautuneita kopioita (levyllä), joten chunk-luku on ok."""
     h = hashlib.sha256()
     size = path.stat().st_size
     with open(path, "rb") as f:
-        if size <= limit_bytes:
-            h.update(f.read())
-        else:
-            h.update(f.read(limit_bytes))
+        while True:
+            chunk = f.read(8 * 1024 * 1024)
+            if not chunk:
+                break
+            h.update(chunk)
     return f"{h.hexdigest()[:16]}@{size}"
 
 
