@@ -105,4 +105,4 @@
 - `config_version: 30` - added to Validation Basis
 
 ### 14) OPEN: OPEN - Update deprecation timeline (2026-04-30 has passed)
-**Remaining work:** The original target removal date of 2026-04-30 for legacy scripts has passed. Extended to 2026-07-31 per `docs/reference/SCRIPT-DEPRECATION-POLICY.md`. Hermes-native alternatives (Cron, Curator, Skills) should be documented as replacement paths for legacy automation scripts.
+**Remaining work:** The original target removal date of 2026-04-30 for legacy scripts has passed. Extended to 2026-10-31 (2nd extension; legacy scripts now actively replaced by memory-operator + cron-CLI) per `docs/reference/SCRIPT-DEPRECATION-POLICY.md`. Hermes-native alternatives (Cron, Curator, Skills) should be documented as replacement paths for legacy automation scripts.

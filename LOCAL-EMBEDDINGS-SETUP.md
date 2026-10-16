@@ -133,10 +133,12 @@ hermes memory search "test embeddings"
  │ Memory │ 7 files · 9 chunks · sources memory · plugin memory-core · vector ready · fts ready │
  ```
 
-2. **Memory Search Works**:
+2. **Memory Search Works** (esimerkki-vastauksen muoto — illustratiivinen):
  ```json
  {
- "results": [...],
+ "results": [
+ {"path": "workspace/MEMORY.md", "match": "esimerkki-osuma", "score": 0.87}
+ ],
  "provider": "local",
  "model": "hf:mixedbread-ai/mxbai-embed-large-v1",
  "citations": "auto"

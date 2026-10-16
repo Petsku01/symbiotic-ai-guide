@@ -10,7 +10,7 @@ Applies to legacy automation scripts in `tools/automation/` that have canonical 
 
 - **Deprecation state:** Active (legacy scripts are compatibility-only)
 - **Target removal version:** `v0.2.0`
-- **Target removal date:** `2026-07-31`
+- **Target removal date:** `2026-10-31`
 
 After this target, legacy non-improved scripts are expected to be removed from the main branch.
 

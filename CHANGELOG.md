@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-16
+
+- Memory system replication section added: docs/memory-system/ (ARCHITECTURE with measured sizes, LESSONS (8 production lessons), SETUP (10-step), REPLICATION-README) + tools/memory-operator/ v0.3.0 (6 CLI commands, 7 red tests, restore-check E2E 8 s/7 GB).
+- CI restored to green after 7 months: npm->PyPI hermes-agent 0.19.0 (npm 'hermes' = unrelated 0.4.x project), fetch-depth 0 for gitleaks full-history, .gitleaksignore (per-commit fingerprints), runtime-generated adversarial token samples.
+- Version references updated v0.17.0 -> v0.21.2 in 7 docs (CHANGELOG history preserved).
+- WSL2-era guides rewritten for Fedora-native: FEDORA-NATIVE-SETUP.md, FEDORA-COMPREHENSIVE-SETUP.md (71 emojis removed from active docs; archive layer untouched by policy).
+- Data-destroying instructions replaced with diagnose->restart->sqlite-backup-API flow (3 rm-commands removed from active docs).
+- Fail-closed fixes: grep -c double-zero (5 scripts), NaN risk -> ESCALATE, orchestrator exit-1 on failures, JDK link 404 -> temurin25 verified.
+
+
 All notable documentation and safety hardening changes are tracked here.
 
 ## 2026-07-01

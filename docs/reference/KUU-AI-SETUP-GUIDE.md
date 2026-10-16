@@ -129,16 +129,17 @@ Enable local memory search for continuity:
 {
  "agents": {
  "defaults": {
- "memorySearch": {
- "enabled": true,
- "provider": "local",
- "local": {
- "modelPath": "hf:mixedbread-ai/mxbai-embed-large-v1"
- },
- "fallback": "none"
+ "note": "DEPRECATED 17.10 (Sol-audit): memorySearch-JSON = OpenClaw-era skeema, POISTETTU Hermes v0.21.x:stä — katso docs/memory-system/SETUP.md §1 (cortext-provider YAML-reitti)",
+ "_old_memorySearch": {
+   "enabled": true,
+   "provider": "local",
+   "local": {
+   "modelPath": "hf:mixedbread-ai/mxbai-embed-large-v1"
+   },
+   "fallback": "none"
  }
  }
- }
+}
 }
 ```
 
@@ -150,7 +151,9 @@ Start with conservative permissions and expand intentionally:
 {
  "tools": {
  "profile": "default",
- "agentToAgent": enabled: true,
+ "agentToAgent": {
+ "enabled": true
+ },
  "exec": {
  "security": "allowlist",
  "ask": "always"
