@@ -24,7 +24,7 @@ pipeline, encrypted off-site backups, and the operator tooling that keeps it hon
  SERVICE 1: compression (ContextEngine) — local reranker scores
  old tool results, spill-to-disk, host commits
  SERVICE 2: operator — read-only health/audit/restore-check
- (this repo's `operator/` — portable, no personal data)
+            (this repo's `tools/memory-operator/` — portable, no personal data)
 ```
 
 **Design rule discovered the hard way:** the operator owns NOTHING. It reads,
