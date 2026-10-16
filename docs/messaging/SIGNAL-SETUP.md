@@ -6,7 +6,7 @@ Connect Signal to Hermes for bidirectional messaging via signal-cli daemon.
 
 - A Signal account on a phone (for QR linking)
 - Hermes gateway running (`hermes gateway status`)
-- Linux (non-WSL) or Linux with systemd support
+- Linux with systemd support
 
 ## Architecture
 

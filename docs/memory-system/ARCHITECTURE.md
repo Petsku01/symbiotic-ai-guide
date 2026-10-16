@@ -88,7 +88,7 @@ Keskeiset: auto-archive (10:35/22:35), promotion-gate (10:45/22:45), operator-sh
 
 ## Kerros I — vanhahermes (kylmäkopio, EI tuotanto)
 
-~/Documents/vanhahermes/: 14 GB Linux (non-WSL)-era-snapshot (22.9) — vanha cortex-kanta
+~/Documents/vanhahermes/: 14 GB legacy-era snapshot (WSL2-era machine, retired) (22.9) — vanha cortex-kanta
 (47,6 MB) + dokumentit. Palautuslähde, ei tuotantopolku.
 
 ## Kerros J — Operaattori (repot tässä: operator/)
