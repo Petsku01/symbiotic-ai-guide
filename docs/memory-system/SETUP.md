@@ -82,7 +82,7 @@ Canary-testi joka siirrossa (grep + cortex-haku — molemmat pitää osumaa).
 ## 5. Operaattori (tämä repo)
 
 ```bash
-cp -r operator/ ~/.hermes/plugins/kuu-memory-operator/
+cp -r tools/memory-operator/ ~/.hermes/plugins/kuu-memory-operator/
 hermes plugins enable kuu-memory-operator
 # 6 komentoa:
 hermes kuu-memory manifest # inventointi manifest.json (as_of-stamped)
