@@ -1,7 +1,7 @@
 #!/bin/bash
 # Hermes Performance Monitor - Real-time system health tracking
 
-HERMES_PID=$(pgrep -f hermes-gateway)
+HERMES_PID=$(pgrep -f hermes-gateway | head -1)  # FIX 17.10: moni-PID turva (viim. ajettu = head -1)
 
 if [ -z "$HERMES_PID" ]; then
   echo "ERROR: Hermes gateway not running"

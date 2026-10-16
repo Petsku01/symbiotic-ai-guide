@@ -5,7 +5,7 @@ echo "FIX: Hermes Performance Optimization Recommendations"
 echo "===================================================="
 echo ""
 
-HERMES_PID=$(pgrep -f hermes-gateway)
+HERMES_PID=$(pgrep -f hermes-gateway | head -1)  # FIX 17.10: moni-PID turva (viim. ajettu = head -1)
 
 if [ -z "$HERMES_PID" ]; then
   echo "ERROR: Hermes gateway not running - cannot analyze"
@@ -79,8 +79,8 @@ echo "  • Document incident response procedures"
 echo ""
 
 echo "TREND: MONITORING SETUP:"
-echo "  • Run /tmp/hermes-monitor.sh every 15 minutes"
-echo "  • Run /tmp/network-health-check.sh every hour"
+echo "  • Run ~/.hermes/workspace/symbiotic-ai-guide/tools/monitoring/hermes-monitor.sh every 15 minutes"
+echo "  • Run ~/.hermes/workspace/symbiotic-ai-guide/tools/monitoring/network-health-check.sh every hour"
 echo "  • Set alerts for >60 second message processing"
 echo "  • Track WebSocket disconnection frequency"
 echo ""
