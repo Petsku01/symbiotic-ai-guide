@@ -23,12 +23,13 @@ signal-cli runs as a local HTTP daemon (JSON-RPC for outbound, SSE for inbound).
 signal-cli 0.14.4+ requires Java 25 (class file version 69). Use the JRE distribution so you can patch the JAR if needed (see Troubleshooting).
 
 ```bash
-# Install JDK 25 (Temurin)
+# Install JDK 25 (Temurin) — FIX 17.10 (Sol-audit #31): repo = temurin25-binaries
+# (pohjarepo "temurin-binaries" on 404); versio 25.0.4.1+1 (uusin jdk-25, 0.3+9 oli lokakuu)
 cd /tmp
-curl -sL -o jdk25.tar.gz "https://github.com/adoptium/temurin-binaries/releases/download/jdk-25.0.3%2B9/OpenJDK25U-jdk_x64_linux_hotspot_25.0.3_9.tar.gz"
+curl -sL -o jdk25.tar.gz "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.4.1%2B1/OpenJDK25U-jdk_x64_linux_hotspot_25.0.4.1_1.tar.gz"
 tar xzf jdk25.tar.gz
 mkdir -p ~/.local/share
-cp -r jdk-25.0.3+9 ~/.local/share/jdk-25
+cp -r jdk-25.0.4.1+1 ~/.local/share/jdk-25
 
 # Download signal-cli JRE version
 LATEST_VER=$(curl -sL https://api.github.com/repos/AsamK/signal-cli/releases/latest | python3 -c "import sys,json; print(json.load(sys.stdin)['tag_name'])")
