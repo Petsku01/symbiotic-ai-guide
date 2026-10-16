@@ -26,7 +26,7 @@ from pathlib import Path
 Here = Path(__file__).resolve().parent
 HERMES = Path.home() / ".hermes"
 OFFSITE_KEY = HERMES / "backup-keys" / "backup.passphrase"
-OFFSITE_WORK_ROOT = Path("/scratch/tmp")
+OFFSITE_WORK_ROOT = Path(os.environ.get("KUU_OFFSITE_STAGE", "/tmp/kuu-offsite-work"))
 
 # tuotantopolut: EI KOSKETETA — listaan vain inventaariota varten
 # nimi-mapping: snapshotissa X.zst → palautus tuottaa plainin eri nimellä
@@ -66,8 +66,10 @@ def _pick_source(stamp: str | None) -> Path:
 
 
 def _safe_temp() -> Path:
-    """temp-työkansio /scratchissa (ei tuotantopolkuja; EI koskaan HERMES)"""
-    t = Path(tempfile.mkdtemp(prefix="kuu-restore-check-", dir="/scratch/tmp"))
+    """temp-työkansio (ei tuotantopolkuja; EI koskaan HERMES) — ympäristökohtainen:
+    KUU_RESTORE_TMP env tai /tmp-oletus (ei ole /scratch:ia toisen koneen alla)."""
+    tmp_parent = os.environ.get("KUU_RESTORE_TMP", "/tmp")
+    t = Path(tempfile.mkdtemp(prefix="kuu-restore-check-", dir=tmp_parent))
     return t
 
 

@@ -5,3 +5,7 @@ research/**/logs/*.jsonl
 # Optional local env files
 .env
 .env.local
+
+# python cache
+__pycache__/
+*.pyc
