@@ -10,6 +10,12 @@ WORKSPACE="${HERMES_WORKSPACE:-$REPO_ROOT}"
 TOOLS_DIR="$WORKSPACE/tools/monitoring"
 
 # Create systemd user timer for performance monitoring
+# FIX 17.10 (Solin audit #57): DRY-RUN: jos DRY_RUN=1 määritetty, ei kirjoiteta
+# (aiemmin mkdir+cat suoritti aina — myös "dry-run"-ajossa)
+if [ "${DRY_RUN:-0}" = "1" ]; then
+  echo "[DRY-RUN] ohitan systemd-yksiköiden kirjoituksen (DRY_RUN=1)"
+  exit 0
+fi
 mkdir -p ~/.config/systemd/user
 
 cat > ~/.config/systemd/user/hermes-monitor.service << SYSTEMD_EOF

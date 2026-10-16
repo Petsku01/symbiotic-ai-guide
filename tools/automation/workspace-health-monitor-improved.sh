@@ -331,6 +331,12 @@ main() {
   echo "LOG: Full log available at: $LOG_FILE" | tee -a "$LOG_FILE"
   echo "================================================" | tee -a "$LOG_FILE"
 
+  # FIX 17.10 (Solin täysaudit #74): fail-closed — ilmoitus ei enää onnistuminen
+  # kun PROBLEM-rivejä tuli; warnings = exit 1 (cron-sessio havaitsee)
+  if (( failed_functions > 0 )); then
+  echo "[FAIL] workspace-health: $failed_functions funktiota varoitti — exit 1" >&2
+  cleanup_and_exit 1
+  fi
   cleanup_and_exit 0
 }
 
