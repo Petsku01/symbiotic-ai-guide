@@ -155,8 +155,11 @@ hermes memory search "test embeddings"
  - Wait for indexing to complete (check status)
 
 3. **Configuration not applying**
- - Solution: Remove old memory database: `rm ~/.hermes/memory/main.sqlite`
- - Wait for restart/reload to complete
+ - Solution (FIX 17.10, Sol-audit: ÄLÄ koskaan rm:ää muistikantaa = data-tuhoo):
+   1. `hermes doctor | grep -i memory` (diagnoosi)
+   2. `hermes gateway restart` (config-lukija uusinta)
+   3. Vain viimeisenä: backup-API:lla kopio (`cp -a` + sqlite backup-API — katso Step 3 yläpuolella), VÄLITTÖMÄN verifioinnin jälkeen harkitse vaihtoa
+   4. Katoamisselvitys: `hermes status | grep Memory` (chunking-tila)
 
 ## Configuration Details
 
@@ -234,10 +237,13 @@ hermes memory search "your search query"
 ```
 
 ### Reset Memory Database
+> **FIX 17.10 (Sol-audit):** tämä poistaa muistit datan pysyvästi — EI tee näin.
+> Aito reitti: (1) hermes doctor + gateway restart; (2) jos aito data-rebuild
+> tähtäin: BACKUP ENSIN (sqlite backup-API, katso ylempänä), verify (row-count
+> ennen/jälkeen), VASTA sitten harkitse.
 ```bash
-# If experiencing persistent issues
-rm ~/.hermes/memory/main.sqlite
-# Wait for automatic reindexing
+# Poistettu vaarallinen ohje — katso diagnoso-ja-backup-putki ylempänä
+# (rm ~/.hermes/memory/main.sqlite POISTETTU tästä dokumentista 17.10)
 ```
 
 ## Conclusion

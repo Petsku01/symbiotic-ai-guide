@@ -597,7 +597,7 @@ See `hermes gateway --help` for the full list of supported platforms.
 
 1. **Check embedding model**: Ensure `hf:mixedbread-ai/mxbai-embed-large-v1` is accessible
 2. **Verify memory files**: Create `MEMORY.md` with test content
-3. **Clear memory database**: `rm ~/.hermes/memory/main.sqlite`
+3. **FIX 17.10 (Sol-audit):** ÄLÄ rm:ää muistikantaa (data-tuhoo) — sijaan: `hermes doctor | grep -i memory` → `hermes gateway restart` → backup-API-kopio (verify ennen/jälkeen) — katso [LOCAL-EMBEDDINGS-SETUP.md "Reset Memory Database"](LOCAL-EMBEDDINGS-SETUP.md)
 4. **Check status**: `hermes status | grep Memory`
 
 ### Agent Not Showing Personality
