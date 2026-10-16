@@ -112,7 +112,7 @@ SIGNAL_HOME_CHANNEL=+<YOUR_PHONE_NUMBER>
 
 **Important:** Replace `<YOUR_PHONE_NUMBER>` with your actual phone number in international format (e.g., +358...).
 
-**Pitfall:** If `security.redact_secrets: true` is set in config.yaml, phone numbers in .env and service files may appear as `+358****3308`. If Signal fails to connect, verify the real number is in .env. Temporarily set `redact_secrets: false`, write the number, verify with `cat ~/.hermes/.env | grep SIGNAL`, then re-enable redaction if desired.
+**Pitfall:** If `security.redact_secrets: true` is set in config.yaml, phone numbers in .env and service files may appear masked (like `+358****XXXX`). If Signal fails to connect, verify the real number is in .env. Temporarily set `redact_secrets: false`, write the number, verify with `cat ~/.hermes/.env | grep SIGNAL`, then re-enable redaction if desired.
 
 ---
 
