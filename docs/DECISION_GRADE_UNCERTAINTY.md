@@ -16,9 +16,9 @@ For each task, compute a risk score from observable signals:
 5. Task severity (reversibility/impact)
 
 Then apply thresholds:
-- low risk → auto-act
-- medium risk → auto-act with caution
-- high risk → escalate
+- low risk auto-act
+- medium risk auto-act with caution
+- high risk escalate
 
 ## Minimal pilot (2 weeks)
 ### Week 1 (shadow mode)

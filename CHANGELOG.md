@@ -5,7 +5,7 @@ All notable documentation and safety hardening changes are tracked here.
 ## 2026-07-01
 
 ### Signal messaging setup guide
-- Added `docs/messaging/SIGNAL-SETUP.md` - comprehensive Signal setup guide covering signal-cli JRE installation, QR phone linking, .env configuration, systemd daemon service, testing, media limitations, troubleshooting (NPE bug, SSE errors), and upgrade procedures.
+- Added `docs/messaging/SIGNAL-SETUP.md` - comprehensive Signal setup guide covering signal-cli JRE installation, QR phone linking,.env configuration, systemd daemon service, testing, media limitations, troubleshooting (NPE bug, SSE errors), and upgrade procedures.
 - Added Signal setup link to README navigation table and quick start section.
 
 ### v0.17.0 documentation alignment
@@ -79,18 +79,18 @@ All notable documentation and safety hardening changes are tracked here.
 
 ### RC hardening
 - CI fail-closed pass:
-  - `.github/workflows/validate.yml` now installs pinned `shellcheck`, `gitleaks`, and `hermes@2026.2.17` in CI.
-  - strict onboarding smoke check remains hard-required and fails when `hermes` is unavailable after provisioning (no CI skip path).
+ - `.github/workflows/validate.yml` now installs pinned `shellcheck`, `gitleaks`, and `hermes@2026.2.17` in CI.
+ - strict onboarding smoke check remains hard-required and fails when `hermes` is unavailable after provisioning (no CI skip path).
 - Added adversarial safety test runner:
-  - `scripts/run-adversarial-checks.sh`
-  - checks prompt-injection response expectations, external-LLM approval-gate markers, and secret-pattern sanity with explicit thresholding.
+ - `scripts/run-adversarial-checks.sh`
+ - checks prompt-injection response expectations, external-LLM approval-gate markers, and secret-pattern sanity with explicit thresholding.
 - Script reliability hardening:
-  - improved permission-stat handling in `scripts/security-audit.sh` with safer fallback behavior.
+ - improved permission-stat handling in `scripts/security-audit.sh` with safer fallback behavior.
 - Governance sync:
-  - updated status reality in `docs/roadmap/ISSUE-STACK.md` (issues 9 and 12 now marked done).
+ - updated status reality in `docs/roadmap/ISSUE-STACK.md` (issues 9 and 12 now marked done).
 - RC release gate documentation:
-  - added `docs/releases/RC-GATE-CHECKLIST.md`
-  - linked from `README.md` and beta draft release notes.
+ - added `docs/releases/RC-GATE-CHECKLIST.md`
+ - linked from `README.md` and beta draft release notes.
 
 ## 2026-02-17
 
@@ -100,10 +100,10 @@ All notable documentation and safety hardening changes are tracked here.
 ### Process & policy
 - Added status sync requirement policy: `docs/operations/STATUS-SYNC-POLICY.md`
 - Added public validation run workflow and template:
-  - `docs/validation-runs/README.md`
-  - `docs/validation-runs/EXAMPLE-RUN.md`
+ - `docs/validation-runs/README.md`
+ - `docs/validation-runs/EXAMPLE-RUN.md`
 - Added script deprecation policy with explicit removal target (`v0.2.0` / `2026-07-31`):
-  - `docs/reference/SCRIPT-DEPRECATION-POLICY.md`
+ - `docs/reference/SCRIPT-DEPRECATION-POLICY.md`
 
 
 ### Added
@@ -113,47 +113,47 @@ All notable documentation and safety hardening changes are tracked here.
 
 ### Changed
 - Reduced root-document clutter; moved non-core docs into `docs/`:
-  - `docs/reference/KUU-AI-SETUP-GUIDE.md`
-  - `docs/reference/FAQ.md`
-  - `docs/security/SECURITY-IMPROVEMENTS.md`
-  - `docs/security/INTERNAL-SKEPTIC-COMPACT.md`
-  - `docs/security/EXTERNAL-LLM-SAFETY.md`
-  - `docs/roadmap/ISSUE-STACK.md`
+ - `docs/reference/KUU-AI-SETUP-GUIDE.md`
+ - `docs/reference/FAQ.md`
+ - `docs/security/SECURITY-IMPROVEMENTS.md`
+ - `docs/security/INTERNAL-SKEPTIC-COMPACT.md`
+ - `docs/security/EXTERNAL-LLM-SAFETY.md`
+ - `docs/roadmap/ISSUE-STACK.md`
 - Updated links/references across README, installation docs, validation basis, PR template, and docs safety checks.
 - Updated issue stack statuses to reflect completed hardening/drift fixes and remaining open items.
 
 ### Safety & uncertainty toolkit milestones
 - Drift/hardening baseline documented and validated through:
-  - `scripts/validate-docs-safety.sh`
-  - `scripts/smoke-test-onboarding-commands.sh`
+ - `scripts/validate-docs-safety.sh`
+ - `scripts/smoke-test-onboarding-commands.sh`
 - Uncertainty-method reference kept in `docs/DECISION_GRADE_UNCERTAINTY.md` and linked from organized docs flow.
 - Added uncertainty toolkit implementation under `tools/uncertainty/`:
-  - `score-task.js`
-  - `decide-action.js`
-  - `log-result.js`
-  - `review-week.js`
-  - `README.md`
+ - `score-task.js`
+ - `decide-action.js`
+ - `log-result.js`
+ - `review-week.js`
+ - `README.md`
 - Upgraded uncertainty toolkit with MVE/quick mode and calibration reporting.
 
 ### Additional hardening completed
 - Backup hardening updates:
-  - dry-run default
-  - destructive sync gated by `--delete --confirm-delete` + typed confirmation
-  - destination safety checks and private permission defaults (`umask 077`)
+ - dry-run default
+ - destructive sync gated by `--delete --confirm-delete` + typed confirmation
+ - destination safety checks and private permission defaults (`umask 077`)
 - `quick-setup.sh` auto-commit changed to opt-in (`--auto-commit`).
 - Expanded CI/validation coverage:
-  - command denylist checks for known-invalid Hermes examples
-  - onboarding command smoke tests
-  - shellcheck-if-available and lightweight secret-scan flow
+ - command denylist checks for known-invalid Hermes examples
+ - onboarding command smoke tests
+ - shellcheck-if-available and lightweight secret-scan flow
 
 ### External LLM safety + deprecation enforcement
 - Added explicit outbound safety workflow:
-  - `docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md`
+ - `docs/security/EXTERNAL-LLM-APPROVAL-WORKFLOW.md`
 - Updated references from `README.md` and `docs/security/EXTERNAL-LLM-SAFETY.md`.
 - Finalized legacy automation deprecation controls:
-  - canonical-vs-legacy matrix + migration notes in `tools/automation/README.md`
-  - deprecation notices in legacy automation scripts
-  - validator checks enforcing deprecation markers and canonical target references
+ - canonical-vs-legacy matrix + migration notes in `tools/automation/README.md`
+ - deprecation notices in legacy automation scripts
+ - validator checks enforcing deprecation markers and canonical target references
 
 ### Honesty / scope notes
 - Runtime validation playbook is validated for **non-destructive command checks only**.

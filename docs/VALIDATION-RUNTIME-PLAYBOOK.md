@@ -86,21 +86,21 @@ hermes gateway --help
 
 Mark each item:
 
-- [ ] `hermes --help` succeeds
-- [ ] `hermes gateway --help` succeeds
-- [ ] `hermes config --help` succeeds
-- [ ] `hermes logs --help` succeeds
-- [ ] `hermes auth --help` succeeds
-- [ ] `hermes skills --help` succeeds
-- [ ] `hermes mcp --help` succeeds
-- [ ] `hermes cron --help` succeeds
-- [ ] `hermes dashboard --help` succeeds
-- [ ] `hermes profile --help` succeeds
-- [ ] `hermes curator --help` succeeds
-- [ ] `hermes webhook --help` succeeds
-- [ ] `./scripts/validate-docs-safety.sh` passes
-- [ ] `./scripts/smoke-test-onboarding-commands.sh` passes
-- [ ] `hermes gateway status` returns valid status output
+- [] `hermes --help` succeeds
+- [] `hermes gateway --help` succeeds
+- [] `hermes config --help` succeeds
+- [] `hermes logs --help` succeeds
+- [] `hermes auth --help` succeeds
+- [] `hermes skills --help` succeeds
+- [] `hermes mcp --help` succeeds
+- [] `hermes cron --help` succeeds
+- [] `hermes dashboard --help` succeeds
+- [] `hermes profile --help` succeeds
+- [] `hermes curator --help` succeeds
+- [] `hermes webhook --help` succeeds
+- [] `./scripts/validate-docs-safety.sh` passes
+- [] `./scripts/smoke-test-onboarding-commands.sh` passes
+- [] `hermes gateway status` returns valid status output
 
 ### PASS
 All items checked.

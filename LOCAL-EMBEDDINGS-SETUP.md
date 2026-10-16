@@ -18,16 +18,16 @@ Hermes's memory search functionality was disabled due to missing API keys:
 ## Solution Overview
 
 Configure Hermes to use local embeddings via HuggingFace models, eliminating:
-- ❌ API costs for memory search
-- ❌ External API dependencies
-- ❌ Privacy concerns with memory content
-- ✅ Fast, offline memory search functionality
+- API costs for memory search
+- External API dependencies
+- Privacy concerns with memory content
+- Fast, offline memory search functionality
 
 ## Prerequisites
 
 - Hermes installed and running
 - Ollama installed (we used this initially, but switched to direct HuggingFace)
-- WSL2 environment (though this works on any Linux system)
+- Linux (non-WSL) environment (though this works on any Linux system)
 
 ## Step 1: Install Local Embedding Model
 
@@ -44,18 +44,18 @@ The key is configuring Hermes to use the `local` provider with a HuggingFace mod
 
 ```json
 {
-  "agents": {
-    "defaults": {
-      "memorySearch": {
-        "enabled": true,
-        "provider": "local",
-        "local": {
-          "modelPath": "hf:mixedbread-ai/mxbai-embed-large-v1"
-        },
-        "fallback": "none"
-      }
-    }
-  }
+ "agents": {
+ "defaults": {
+ "memorySearch": {
+ "enabled": true,
+ "provider": "local",
+ "local": {
+ "modelPath": "hf:mixedbread-ai/mxbai-embed-large-v1"
+ },
+ "fallback": "none"
+ }
+ }
+ }
 }
 ```
 
@@ -85,12 +85,12 @@ hermes doctor | grep -i memory
 hermes status | grep Memory
 
 # 2) Jos täytyy siirtää dataa: BACKUP ENSIN, uudelleen rakenteen kanssa
-#    (ei rm:ää koskaan suoraan)
+# (ei rm:ää koskaan suoraan)
 cp -a ~/.hermes/memory ~/.hermes/memory.bak-$(date +%F)
 python3 - <<'EOF'
 # sqlite-lukija: backup-API (ei live-copyä, gateway saan olla päällä)
 import sqlite3
-src = sqlite3.connect("file:$HOME/.hermes/memory/main.sqlite?mode=ro", uri=True)  # muuta oma HOME
+src = sqlite3.connect("file:$HOME/.hermes/memory/main.sqlite?mode=ro", uri=True) # muuta oma HOME
 dst = sqlite3.connect("/tmp/main.sqlite.fresh")
 src.backup(dst); dst.close(); src.close()
 print("backup OK — vaihda vain VARMISTETTUASI")
@@ -126,37 +126,37 @@ hermes memory search "test embeddings"
 
 ## Verification Steps
 
-### ✅ Success Indicators
+### Success Indicators
 
 1. **Memory Status Shows Files**:
-   ```
-   │ Memory │ 7 files · 9 chunks · sources memory · plugin memory-core · vector ready · fts ready │
-   ```
+ ```
+ │ Memory │ 7 files · 9 chunks · sources memory · plugin memory-core · vector ready · fts ready │
+ ```
 
 2. **Memory Search Works**:
-   ```json
-   {
-     "results": [...],
-     "provider": "local",
-     "model": "hf:mixedbread-ai/mxbai-embed-large-v1",
-     "citations": "auto"
-   }
-   ```
+ ```json
+ {
+ "results": [...],
+ "provider": "local",
+ "model": "hf:mixedbread-ai/mxbai-embed-large-v1",
+ "citations": "auto"
+ }
+ ```
 
 3. **No API Errors**: No more "No API key found" errors
 
-### ❌ Common Issues
+### Common Issues
 
 1. **"No model file found at /path/to/ollama/model"**
-   - Solution: Use HuggingFace URI format `hf:model-name` instead of Ollama paths
+ - Solution: Use HuggingFace URI format `hf:model-name` instead of Ollama paths
 
 2. **Memory search returns empty results**
-   - Solution: Ensure memory files exist in `~/.hermes/workspace/MEMORY.md` and `~/.hermes/workspace/memory/`
-   - Wait for indexing to complete (check status)
+ - Solution: Ensure memory files exist in `~/.hermes/workspace/MEMORY.md` and `~/.hermes/workspace/memory/`
+ - Wait for indexing to complete (check status)
 
 3. **Configuration not applying**
-   - Solution: Remove old memory database: `rm ~/.hermes/memory/main.sqlite`
-   - Wait for restart/reload to complete
+ - Solution: Remove old memory database: `rm ~/.hermes/memory/main.sqlite`
+ - Wait for restart/reload to complete
 
 ## Configuration Details
 
@@ -164,18 +164,18 @@ hermes memory search "test embeddings"
 
 ```json
 {
-  "agents": {
-    "defaults": {
-      "memorySearch": {
-        "enabled": true,
-        "provider": "local",
-        "local": {
-          "modelPath": "hf:mixedbread-ai/mxbai-embed-large-v1"
-        },
-        "fallback": "none"
-      }
-    }
-  }
+ "agents": {
+ "defaults": {
+ "memorySearch": {
+ "enabled": true,
+ "provider": "local",
+ "local": {
+ "modelPath": "hf:mixedbread-ai/mxbai-embed-large-v1"
+ },
+ "fallback": "none"
+ }
+ }
+ }
 }
 ```
 
@@ -184,18 +184,18 @@ hermes memory search "test embeddings"
 You can use other embedding models:
 ```json
 {
-  "local": {
-    "modelPath": "hf:sentence-transformers/all-MiniLM-L6-v2"
-  }
+ "local": {
+ "modelPath": "hf:sentence-transformers/all-MiniLM-L6-v2"
+ }
 }
 ```
 
 Or local GGUF files:
 ```json
 {
-  "local": {
-    "modelPath": "/path/to/local/embedding-model.gguf"
-  }
+ "local": {
+ "modelPath": "/path/to/local/embedding-model.gguf"
+ }
 }
 ```
 
@@ -249,4 +249,4 @@ This configuration provides a fully functional, cost-free, privacy-respecting me
 ---
 
 *Created: 2026-02-06*
-*Environment: WSL2, Hermes 0.21.2*
+*Environment: Linux (non-WSL), Hermes 0.21.2*

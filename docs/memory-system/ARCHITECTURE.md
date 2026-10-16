@@ -29,7 +29,7 @@ cortext_memory.db: **82,5 MB** SQLite + WAL — 36 taulua (+sqlite_sequence=37),
 | memory_reconstructions | 10 443 |
 | embeddings (kaikki + current) | 10 501 + 5 967 (256-dim) |
 
-Historia: 30.7. → nykyhetki; kuorma/kk: 07:38, 08:1901, 09:2605, 10:1448 (15 pv).
+Historia: 30.7. nykyhetki; kuorma/kk: 07:38, 08:1901, 09:2605, 10:1448 (15 pv).
 
 ## Kerros C — COLD (arkisto)
 
@@ -52,7 +52,7 @@ Canary: ARCHIVAL_canary_29.9 löytyy tiedostosta (rajoitettu todiste — ei reca
 - engine: jev_compaction (ContextEngine-plugin) — politikkan omistaja
 - trigger: threshold_tokens 524 288 = 0,5 × 1 048 576 (glm-5.3-flash)
 - cache-guard: skipaa kun share ≥ 0,8 JA pressure < 0,49 (FIX 14.10; vanha 0,85
-  = ristiriita triggerin kanssa — lessons §1)
+ = ristiriita triggerin kanssa — lessons §1)
 - daemit: hermes-jev-local-primary (service+socket, on-demand), hermes-jev-reranker
 
 ## Kerros E — Hakupolut
@@ -88,7 +88,7 @@ Keskeiset: auto-archive (10:35/22:35), promotion-gate (10:45/22:45), operator-sh
 
 ## Kerros I — vanhahermes (kylmäkopio, EI tuotanto)
 
-~/Documents/vanhahermes/: 14 GB WSL2-era-snapshot (22.9) — vanha cortex-kanta
+~/Documents/vanhahermes/: 14 GB Linux (non-WSL)-era-snapshot (22.9) — vanha cortex-kanta
 (47,6 MB) + dokumentit. Palautuslähde, ei tuotantopolku.
 
 ## Kerros J — Operaattori (repot tässä: operator/)

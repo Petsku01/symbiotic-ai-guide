@@ -6,54 +6,54 @@
 
 - **Tested in this repo:** 2026-07-01 (non-destructive command/documentation validation)
 - **Tested commands:**
-  - `./scripts/validate-docs-safety.sh`
-  - `./scripts/smoke-test-onboarding-commands.sh`
+ - `./scripts/validate-docs-safety.sh`
+ - `./scripts/smoke-test-onboarding-commands.sh`
 - **Untested in this document (must be validated per machine):** OS package installation steps and provider-specific API provisioning.
 
 ## 10-minute onboarding path
 
 1. **Install Hermes CLI**
-  - Follow: [HERMES-INSTALLATION.md](../../HERMES-INSTALLATION.md)
-  - If any command differs on your version, run:
-  ```bash
-  hermes --help
-  hermes gateway --help
-  hermes config --help
-  ```
+ - Follow: [HERMES-INSTALLATION.md](../../HERMES-INSTALLATION.md)
+ - If any command differs on your version, run:
+ ```bash
+ hermes --help
+ hermes gateway --help
+ hermes config --help
+ ```
 
 2. **Initialize workspace files**
-  ```bash
-  ./scripts/quick-setup.sh
-  ```
-  Optional (explicit opt-in only):
-  ```bash
-  ./scripts/quick-setup.sh --auto-commit
-  ```
+ ```bash
+./scripts/quick-setup.sh
+ ```
+ Optional (explicit opt-in only):
+ ```bash
+./scripts/quick-setup.sh --auto-commit
+ ```
 
 3. **Apply safe baseline config**
-  - Follow: [HERMES-CONFIGURATION.md](../../HERMES-CONFIGURATION.md)
-  - Use least-privilege defaults first; avoid full-access profiles unless you intentionally move to advanced trust stage.
-  - Add API credentials using `hermes auth add` (replaces the older `hermes configure` and `hermes login` commands).
+ - Follow: [HERMES-CONFIGURATION.md](../../HERMES-CONFIGURATION.md)
+ - Use least-privilege defaults first; avoid full-access profiles unless you intentionally move to advanced trust stage.
+ - Add API credentials using `hermes auth add` (replaces the older `hermes configure` and `hermes login` commands).
 
 4. **Enable local memory (recommended)**
-  - Follow: [LOCAL-EMBEDDINGS-SETUP.md](../../LOCAL-EMBEDDINGS-SETUP.md)
+ - Follow: [LOCAL-EMBEDDINGS-SETUP.md](../../LOCAL-EMBEDDINGS-SETUP.md)
 
 5. **Run non-destructive validation checks**
-  ```bash
-  ./scripts/validate-docs-safety.sh
-  ./scripts/smoke-test-onboarding-commands.sh
-  ```
+ ```bash
+./scripts/validate-docs-safety.sh
+./scripts/smoke-test-onboarding-commands.sh
+ ```
 
 6. **First safe runtime check**
-  ```bash
-  hermes gateway status
-  hermes --help
-  ```
+ ```bash
+ hermes gateway status
+ hermes --help
+ ```
 
 7. **Explore v0.17.0 features (optional)**
-  - Launch the web Dashboard: `hermes dashboard` (opens on port 9119)
-  - Browse and install Skills: `hermes skills list` then `hermes skills install <name>`
-  - See the "What's New in v0.17.0" section in [README.md](../../README.md) for the full feature list.
+ - Launch the web Dashboard: `hermes dashboard` (opens on port 9119)
+ - Browse and install Skills: `hermes skills list` then `hermes skills install <name>`
+ - See the "What's New in v0.17.0" section in [README.md](../../README.md) for the full feature list.
 
 ## Expected outcomes
 

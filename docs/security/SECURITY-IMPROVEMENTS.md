@@ -77,24 +77,24 @@ All automation tools now include:
 ### Security Features
 
 1. **Access Control**
-  - Log files created with 600 permissions (owner read/write only)
-  - Secure temporary directory usage
-  - No world-readable sensitive information
+ - Log files created with 600 permissions (owner read/write only)
+ - Secure temporary directory usage
+ - No world-readable sensitive information
 
 2. **Process Safety**
-  - File locking prevents concurrent execution
-  - Stale lock detection (removes locks older than 10 minutes)
-  - Atomic operations prevent partial writes
+ - File locking prevents concurrent execution
+ - Stale lock detection (removes locks older than 10 minutes)
+ - Atomic operations prevent partial writes
 
 3. **Input Validation**
-  - All paths validated before use
-  - Environment variables properly escaped
-  - Timeout protection for external commands
+ - All paths validated before use
+ - Environment variables properly escaped
+ - Timeout protection for external commands
 
 4. **Error Recovery**
-  - Comprehensive error handling with helpful messages
-  - Cleanup functions ensure proper resource management
-  - Graceful degradation when components unavailable
+ - Comprehensive error handling with helpful messages
+ - Cleanup functions ensure proper resource management
+ - Graceful degradation when components unavailable
 
 ## Usage
 
@@ -188,9 +188,9 @@ All security improvements have been tested for:
 
 - **Config field:** `approvals.mode`
 - **Options:**
-  - `manual` (default): user approves each external action interactively
-  - `smart`: agent uses heuristics to decide when approval is needed (e.g., safe internal actions proceed, risky external actions still ask)
-  - `off`: no approval prompts (use only in trusted, sandboxed, or non-production environments)
+ - `manual` (default): user approves each external action interactively
+ - `smart`: agent uses heuristics to decide when approval is needed (e.g., safe internal actions proceed, risky external actions still ask)
+ - `off`: no approval prompts (use only in trusted, sandboxed, or non-production environments)
 - **Impact:** Controls the balance between agent autonomy and human oversight. Start with `manual` and move to `smart` only after verifying the agent's judgment.
 
 ### Credential Pools (hermes auth)

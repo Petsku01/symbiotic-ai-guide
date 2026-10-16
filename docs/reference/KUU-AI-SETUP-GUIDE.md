@@ -104,20 +104,20 @@ In your `config.yaml`, set up the agent with identity:
 
 ```json
 {
-  "agents": {
-  "list": [
-  {
-  "id": "main",
-  "name": "[AI Name]",
-  "identity": {
-  "name": "[AI Name]",
-  "emoji": "[Choose an emoji]"
-  },
-  "model": "[Your preferred model]",
-  "workspace": "[Path to workspace]"
-  }
-  ]
-  }
+ "agents": {
+ "list": [
+ {
+ "id": "main",
+ "name": "[AI Name]",
+ "identity": {
+ "name": "[AI Name]",
+ "emoji": "[Choose an emoji]"
+ },
+ "model": "[Your preferred model]",
+ "workspace": "[Path to workspace]"
+ }
+]
+ }
 }
 ```
 
@@ -127,18 +127,18 @@ Enable local memory search for continuity:
 
 ```json
 {
-  "agents": {
-  "defaults": {
-  "memorySearch": {
-  "enabled": true,
-  "provider": "local",
-  "local": {
-  "modelPath": "hf:mixedbread-ai/mxbai-embed-large-v1"
-  },
-  "fallback": "none"
-  }
-  }
-  }
+ "agents": {
+ "defaults": {
+ "memorySearch": {
+ "enabled": true,
+ "provider": "local",
+ "local": {
+ "modelPath": "hf:mixedbread-ai/mxbai-embed-large-v1"
+ },
+ "fallback": "none"
+ }
+ }
+ }
 }
 ```
 
@@ -148,14 +148,14 @@ Start with conservative permissions and expand intentionally:
 
 ```json
 {
-  "tools": {
-  "profile": "default",
-  "agentToAgent": enabled: true,
-  "exec": {
-  "security": "allowlist",
-  "ask": "always"
-  }
-  }
+ "tools": {
+ "profile": "default",
+ "agentToAgent": enabled: true,
+ "exec": {
+ "security": "allowlist",
+ "ask": "always"
+ }
+ }
 }
 ```
 
@@ -304,13 +304,13 @@ If you intentionally want broader autonomy, move to a full profile only after te
 
 ```json
 {
-  "tools": {
-  "profile": "full",
-  "exec": {
-  "security": "allowlist",
-  "ask": "on-miss"
-  }
-  }
+ "tools": {
+ "profile": "full",
+ "exec": {
+ "security": "allowlist",
+ "ask": "on-miss"
+ }
+ }
 }
 ```
 

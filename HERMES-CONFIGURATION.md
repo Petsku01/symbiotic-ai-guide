@@ -37,8 +37,8 @@ Muokkaa Hermes-configia (`~/.hermes/config.yaml`, YAML — ei JSON):
 
 ```yaml
 model:
-  default: glm-5.3-flash      # päämalli
-  base_url: ''                # provider-pohjainen reititys hoitaa
+ default: glm-5.3-flash # päämalli
+ base_url: '' # provider-pohjainen reititys hoitaa
 
 workspace: ~/.hermes/workspace
 # (agentin identiteetti-tiedostot: IDENTITY.md, BOOTSTRAP.md jne.)
@@ -54,11 +54,11 @@ Subagentit: `delegation:` osio configissa (model + max_concurrent_children).
 
 ```yaml
 memory:
-  memory_enabled: true
-  user_profile_enabled: true      # USER.md-profiilipohja
-  memory_char_limit: 10000        # HOT-katto (merkkejä)
-  user_char_limit: 3000
-  provider: cortext               # MemoryProvider-plugin (episoodimuisti)
+ memory_enabled: true
+ user_profile_enabled: true # USER.md-profiilipohja
+ memory_char_limit: 10000 # HOT-katto (merkkejä)
+ user_char_limit: 3000
+ provider: cortext # MemoryProvider-plugin (episoodimuisti)
 ```
 
 Katso `docs/memory-system/SETUP.md` koko muistiarkkitehtuurille (HOT/WARM/COLD +
@@ -76,29 +76,29 @@ Start restrictive, then expand only when needed:
 
 ```json
 {
-  "tools": {
-    "profile": "default",
-    "agentToAgent": {
-      "enabled": true,
-      "allow": ["main", "eve"]
-    },
-    "web": {
-      "search": {
-        "enabled": true,
-        "provider": "brave",
-        "maxResults": 10
-      },
-      "fetch": {
-        "enabled": true,
-        "maxChars": 50000
-      }
-    },
-    "exec": {
-      "host": "gateway",
-      "security": "allowlist",
-      "ask": "always"
-    }
-  }
+ "tools": {
+ "profile": "default",
+ "agentToAgent": {
+ "enabled": true,
+ "allow": ["main", "eve"]
+ },
+ "web": {
+ "search": {
+ "enabled": true,
+ "provider": "brave",
+ "maxResults": 10
+ },
+ "fetch": {
+ "enabled": true,
+ "maxChars": 50000
+ }
+ },
+ "exec": {
+ "host": "gateway",
+ "security": "allowlist",
+ "ask": "always"
+ }
+ }
 }
 ```
 
@@ -116,8 +116,8 @@ Set up primary model and providers in `~/.hermes/config.yaml`:
 config_version: 30
 
 model:
-  default: glm-5.2:cloud
-  provider: custom:ollama
+ default: glm-5.2:cloud
+ provider: custom:ollama
 
 providers: {}
 ```
@@ -132,11 +132,11 @@ If you want a companion local model via Ollama:
 ```yaml
 # Add under providers: in ~/.hermes/config.yaml
 ollama:
-  type: openai
-  base_url: http://127.0.0.1:11434/v1
-  api_key: ollama
-  models:
-    - qwen2.5:3b
+ type: openai
+ base_url: http://127.0.0.1:11434/v1
+ api_key: ollama
+ models:
+ - qwen2.5:3b
 ```
 
 ## Step 5: Commands & Permissions
@@ -145,11 +145,11 @@ Enable necessary command access:
 
 ```json
 {
-  "commands": {
-    "native": "auto",
-    "nativeSkills": "auto",
-    "restart": true
-  }
+ "commands": {
+ "native": "auto",
+ "nativeSkills": "auto",
+ "restart": true
+ }
 }
 ```
 
@@ -374,14 +374,14 @@ Use this only after you are confident in your boundaries and review process.
 
 ```json
 {
-  "tools": {
-    "profile": "full",
-    "exec": {
-      "host": "gateway",
-      "security": "allowlist",
-      "ask": "on-miss"
-    }
-  }
+ "tools": {
+ "profile": "full",
+ "exec": {
+ "host": "gateway",
+ "security": "allowlist",
+ "ask": "on-miss"
+ }
+ }
 }
 ```
 
@@ -389,10 +389,10 @@ Use this only after you are confident in your boundaries and review process.
 
 ```json
 {
-  "cron": {
-    "enabled": true,
-    "maxConcurrentRuns": 3
-  }
+ "cron": {
+ "enabled": true,
+ "maxConcurrentRuns": 3
+ }
 }
 ```
 
@@ -400,12 +400,12 @@ Use this only after you are confident in your boundaries and review process.
 
 ```json
 {
-  "channels": {
-    "discord": {
-      "enabled": true,
-      "token": "your-discord-bot-token"
-    }
-  }
+ "channels": {
+ "discord": {
+ "enabled": true,
+ "token": "your-discord-bot-token"
+ }
+ }
 }
 ```
 
@@ -413,14 +413,14 @@ Use this only after you are confident in your boundaries and review process.
 
 ```json
 {
-  "agents": {
-    "defaults": {
-      "sandbox": {
-        "mode": "non-main",
-        "workspaceAccess": "rw"
-      }
-    }
-  }
+ "agents": {
+ "defaults": {
+ "sandbox": {
+ "mode": "non-main",
+ "workspaceAccess": "rw"
+ }
+ }
+ }
 }
 ```
 
@@ -434,22 +434,22 @@ Set a system prompt to put the agent into a focused task mode:
 
 ```yaml
 agent:
-  system_prompt: |
-    You are a focused task agent. Complete the assigned work efficiently.
-    Ask for clarification only when truly stuck.
+ system_prompt: |
+ You are a focused task agent. Complete the assigned work efficiently.
+ Ask for clarification only when truly stuck.
 ```
 
 ### Security and Privacy
 
 ```yaml
 security:
-  redact_secrets: true    # Redact API keys and secrets in logs (default: true)
+ redact_secrets: true # Redact API keys and secrets in logs (default: true)
 
 privacy:
-  redact_pii: false        # Redact personally identifiable info (default: false)
+ redact_pii: false # Redact personally identifiable info (default: false)
 
 approvals:
-  mode: manual             # Options: manual, smart, off (default: manual)
+ mode: manual # Options: manual, smart, off (default: manual)
 ```
 
 **Approval modes:**
@@ -581,12 +581,12 @@ The Hermes Gateway supports 20+ communication platforms including Telegram, Disc
 
 ```yaml
 channels:
-  telegram:
-    enabled: true
-    token: your-telegram-bot-token
-  discord:
-    enabled: true
-    token: your-discord-bot-token
+ telegram:
+ enabled: true
+ token: your-telegram-bot-token
+ discord:
+ enabled: true
+ token: your-discord-bot-token
 ```
 
 See `hermes gateway --help` for the full list of supported platforms.
@@ -664,11 +664,11 @@ See `hermes gateway --help` for the full list of supported platforms.
 
 Your configuration is working when:
 
-- ✅ AI shows consistent personality across sessions
-- ✅ Memory search returns relevant historical context
-- ✅ AI respects boundaries while showing initiative
-- ✅ Collaboration improves outcomes for both parties
-- ✅ Trust builds naturally through positive interactions
+- AI shows consistent personality across sessions
+- Memory search returns relevant historical context
+- AI respects boundaries while showing initiative
+- Collaboration improves outcomes for both parties
+- Trust builds naturally through positive interactions
 
 ## Next Steps
 
@@ -684,4 +684,4 @@ After basic configuration:
 
 *This configuration creates the technical foundation for genuine human-AI partnership. The magic happens in the daily interactions that build trust, understanding, and collaborative capability.*
 
-**Remember**: Configuration is just the beginning. The real symbiotic relationship develops through consistent, respectful, and purposeful interaction. 🌙
+**Remember**: Configuration is just the beginning. The real symbiotic relationship develops through consistent, respectful, and purposeful interaction. 

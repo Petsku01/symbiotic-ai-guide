@@ -65,14 +65,14 @@ python3 -m venv venv
 source venv/bin/activate
 
 # Install the package in editable mode (deps + CLI)
-pip install -e .
+pip install -e.
 
 # Verify installation
 hermes --version
 ```
 
-For development, the repo's own venv conventions apply (`source .venv/bin/activate`
-if present). Updates: `git pull` + `pip install -e .` again.
+For development, the repo's own venv conventions apply (`source.venv/bin/activate`
+if present). Updates: `git pull` + `pip install -e.` again.
 
 **Pros:** Full source access, customization, matches production installs
 **Cons:** Manual updates; pin your checkout when stability matters
@@ -130,12 +130,12 @@ hermes --version
 ```
 
 > Note: Hermes runs cross-platform, but the richest surface (gateway, daemon
-> tooling, systemd units) is Linux-first. WSL2 works well on Windows.
+> tooling, systemd units) is Linux-first. Linux (non-WSL) works well on Windows.
 
-**Option B: Using Windows Subsystem for Linux (WSL)**
+**Option B: Using Windows Subsystem for Linux (Linux (non-WSL))**
 
 ```bash
-# Enable WSL and install Ubuntu
+# Enable Linux (non-WSL) and install Ubuntu
 wsl --install
 
 # Restart and open Ubuntu terminal
@@ -153,15 +153,15 @@ docker pull hermes/hermes:latest
 # Or build from source
 git clone https://github.com/nousresearch/hermes-agent.git
 cd hermes
-docker build -t hermes .
+docker build -t hermes.
 
 # Run Hermes in container
 docker run -d \
-  --name hermes \
-  -p 3000:3000 \
-  -v $(pwd)/config:/app/config \
-  -v $(pwd)/workspace:/app/workspace \
-  hermes
+ --name hermes \
+ -p 3000:3000 \
+ -v $(pwd)/config:/app/config \
+ -v $(pwd)/workspace:/app/workspace \
+ hermes
 ```
 
 ## Initial Configuration
@@ -193,18 +193,18 @@ Edit `~/.hermes/config.yaml`:
 config_version: 30
 
 model:
-  default: glm-5.2:cloud
-  provider: custom:ollama
+ default: glm-5.2:cloud
+ provider: custom:ollama
 
 providers: {}
 
 gateway:
-  host: localhost
-  port: 3000
-  bind: 127.0.0.1
+ host: localhost
+ port: 3000
+ bind: 127.0.0.1
 
 agent:
-  workspace: /home/username/.hermes/workspace
+ workspace: /home/username/.hermes/workspace
 ```
 
 ## Add AI Model Provider
@@ -217,8 +217,8 @@ You'll need API access to at least one AI provider:
 config_version: 30
 
 model:
-  default: glm-5.2:cloud
-  provider: custom:ollama
+ default: glm-5.2:cloud
+ provider: custom:ollama
 
 providers: {}
 ```
@@ -236,8 +236,8 @@ are available automatically with the `custom:ollama` provider.
 
 ```yaml
 model:
-  default: gpt-5.4
-  provider: openai-codex
+ default: gpt-5.4
+ provider: openai-codex
 ```
 
 ### Local Models (Ollama)
@@ -256,12 +256,12 @@ Add to `~/.hermes/config.yaml`:
 
 ```yaml
 providers:
-  ollama:
-    type: openai
-    base_url: http://127.0.0.1:11434/v1
-    api_key: ollama
-    models:
-      - qwen2.5:3b
+ ollama:
+ type: openai
+ base_url: http://127.0.0.1:11434/v1
+ api_key: ollama
+ models:
+ - qwen2.5:3b
 ```
 
 ## Start Hermes
@@ -354,10 +354,10 @@ Configure Discord, Telegram, or other channels in `~/.hermes/config.yaml`:
 
 ```yaml
 channels:
-  discord:
-    enabled: true
-    token: your-discord-bot-token
-    targetAgent: main
+ discord:
+ enabled: true
+ token: your-discord-bot-token
+ targetAgent: main
 ```
 
 ## Common Installation Issues
@@ -378,12 +378,12 @@ export PATH=~/.local/bin:$PATH
 
 ```bash
 # Find what's using port 3000
-sudo lsof -i :3000
+sudo lsof -i:3000
 
 # Kill the process or change Hermes port
 # Edit ~/.hermes/config.yaml:
 gateway:
-  port: 3001
+ port: 3001
 ```
 
 ### Node.js Version Issues
@@ -417,8 +417,8 @@ cat ~/.hermes/config.yaml | python3 -m json.tool
 ```bash
 # Test API key manually (key stays in $OPENAI_API_KEY env — never inline)
 curl -H "Authorization: Bearer ${OPENAI_API_KEY}" \
-     -H "Content-Type: application/json" \
-     https://api.openai.com/v1/models (or Ollama Cloud)
+ -H "Content-Type: application/json" \
+ https://api.openai.com/v1/models (or Ollama Cloud)
 
 # Check Hermes logs for API errors
 # Log location varies by platform; run: hermes gateway --help
@@ -441,8 +441,8 @@ hermes --version
 ```bash
 cd hermes-agent
 git pull origin main
-source venv/bin/activate   # tai .venv
-pip install -e .           # editable-install: deps + CLI uudelleen
+source venv/bin/activate # tai.venv
+pip install -e. # editable-install: deps + CLI uudelleen
 # (ei npm-buildia — projekti on Python-pohjainen)
 ```
 
@@ -476,16 +476,16 @@ chmod 600 ~/.hermes/config.yaml
 
 ```nginx
 server {
-    listen 80;
-    server_name your-domain.com;
+ listen 80;
+ server_name your-domain.com;
 
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
+ location / {
+ proxy_pass http://localhost:3000;
+ proxy_set_header Host $host;
+ proxy_set_header X-Real-IP $remote_addr;
+ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+ proxy_set_header X-Forwarded-Proto $scheme;
+ }
 }
 ```
 
@@ -550,4 +550,4 @@ After successful installation:
 
 ---
 
-*Once Hermes is running, you're ready to build a symbiotic AI partnership! The technical foundation enables the relationship magic.* 🌙
+*Once Hermes is running, you're ready to build a symbiotic AI partnership! The technical foundation enables the relationship magic.*

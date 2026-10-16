@@ -5,19 +5,19 @@ Jokainen väite on todistettu tuotannossa — ei suunniteltu käytäntö.
 
 ## 1. Kaksi politiikkaa samassa komponentissa = aina drift
 
-Kompressio-enginellä meillä oli triggeri (`should_compress_info` → "pakkaa") ja
-oma cache-guard (`compress()` → "skipaa jos provider-cache tekee työn ja paine < 0.85").
+Kompressio-enginellä meillä oli triggeri (`should_compress_info` "pakkaa") ja
+oma cache-guard (`compress()` "skipaa jos provider-cache tekee työn ja paine < 0.85").
 Ne ristiriitaisivat täsmälleen silloin kun triggeri laukesi (paine 0,505 < 0,85):
-host ei nähnyt skipin syytä → `attempts_exhausted`-luokitus → käyttäjä sai
+host ei nähnyt skipin syytä `attempts_exhausted`-luokitus käyttäjä sai
 "model may stop responding" -varoituksen vaikka API-kutsut onnistuivat (~50 % kapasiteetista).
 
 **Sääntö:** kun komponentin sisäinen päättäjä sanoo "tee X", sen sisäinen guard ei saa
 itsenäisesti kieltää X:tä — tai jos saa, syy on kuljettava ulos näkyvästi.
-(Korjasimme configilla: pressure_override 0.85 → 0.49 = skip vain alle trigger-kynnyksen.)
+(Korjasimme configilla: pressure_override 0.85 0.49 = skip vain alle trigger-kynnyksen.)
 
 ## 2. Väärä fix-varianteista: verify on käyttäytymistä, ei lukemista
 
-Ensiyrityksemme korjata guardia: nostaa cache-share-kynnys 0.8 → 0.98. Config-luku
+Ensiyrityksemme korjata guardia: nostaa cache-share-kynnys 0.8 0.98. Config-luku
 "toimi" (engine näki 0.98:n). Mutta aamun tapauksessa share oli **0.9993** — se ylittää
 *kaikki* kynnykset, eli fix ei olisi estänyt skipiä koskaan. Käyttäytymistesti
 (aito compress(): aamu-data + matalapainetapaus) paljasti virheen minuutissa.
@@ -28,7 +28,7 @@ tuotantodatalla ennen julistusta.
 ## 3. Offsite-backup ilman restore-testiä = ei varmistusta palautuksesta
 
 Kaksi rekonstruktiovauriota (ollama_utils.py, dream.py) johtui siitä, että backup
-ottaneen tiettyjä polkuja pois (workspace excluded → tools-moduulit katosivat).
+ottaneen tiettyjä polkuja pois (workspace excluded tools-moduulit katosivat).
 Meillä oli E2E-SHA-identtinen salattu backup **kahdesta pilvestä** — ja silti
 palautusharjoitus paljasti reikää.
 
@@ -54,7 +54,7 @@ ei vain erottimien laskemista.
 
 ## 6. Kartta ei ole identiteetti — jokaiselle mittarille as_of
 
-Episoodikanta kasvoi 5992 → 5997 riviin **yhden inventointiajon aikana** (4 min).
+Episoodikanta kasvoi 5992 5997 riviin **yhden inventointiajon aikana** (4 min).
 "Totaalinen kartoitus" ilman aikaleimoja = epätosi tunnissa. Jokaiselle mittarille:
 `as_of`: + SQL-kysely + evidence-skriptipolku.
 
@@ -62,8 +62,8 @@ Episoodikanta kasvoi 5992 → 5997 riviin **yhden inventointiajon aikana** (4 mi
 
 Kolmenlaiset vauriot jokaiselle uudelle työkalulle: (a) avain puuttuu,
 (b) snapshot tyhjä, (c) kohdehakemisto puuttuu. Punatestit löysivät:
-nimilogiikkavirhe (zstd purkautui väärään nimeen → 2 CRIT heti),
-combine-logiikan puutteen (ei-ositetut .enc-tiedostot jäävät dekryptaamatta).
+nimilogiikkavirhe (zstd purkautui väärään nimeen 2 CRIT heti),
+combine-logiikan puutteen (ei-ositetut.enc-tiedostot jäävät dekryptaamatta).
 
 ## 8. Cross-review: eri mallit, eri reitit, samat todisteet
 

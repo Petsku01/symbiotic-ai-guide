@@ -18,7 +18,7 @@ Do not update one without the other.
 For each shipped fix:
 
 - `CHANGELOG.md`: add a concise user-facing note under the correct date/version section.
-- `ISSUE-STACK.md`: mark the related issue status change (for example: Open → In Progress → Done) and include a short resolution note.
+- `ISSUE-STACK.md`: mark the related issue status change (for example: Open In Progress Done) and include a short resolution note.
 
 ## PR expectations
 

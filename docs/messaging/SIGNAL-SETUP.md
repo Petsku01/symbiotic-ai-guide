@@ -6,7 +6,7 @@ Connect Signal to Hermes for bidirectional messaging via signal-cli daemon.
 
 - A Signal account on a phone (for QR linking)
 - Hermes gateway running (`hermes gateway status`)
-- WSL2 or Linux with systemd support
+- Linux (non-WSL) or Linux with systemd support
 
 ## Architecture
 
@@ -100,7 +100,7 @@ signal-cli -u +<YOUR_PHONE> listDevices
 
 ---
 
-## Step 3: Configure Hermes .env
+## Step 3: Configure Hermes.env
 
 Add to `~/.hermes/.env`:
 
@@ -112,7 +112,7 @@ SIGNAL_HOME_CHANNEL=+<YOUR_PHONE_NUMBER>
 
 **Important:** Replace `<YOUR_PHONE_NUMBER>` with your actual phone number in international format (e.g., +358...).
 
-**Pitfall:** If `security.redact_secrets: true` is set in config.yaml, phone numbers in .env and service files may appear masked (like `+358****XXXX`). If Signal fails to connect, verify the real number is in .env. Temporarily set `redact_secrets: false`, write the number, verify with `cat ~/.hermes/.env | grep SIGNAL`, then re-enable redaction if desired.
+**Pitfall:** If `security.redact_secrets: true` is set in config.yaml, phone numbers in.env and service files may appear masked (like `+358****XXXX`). If Signal fails to connect, verify the real number is in.env. Temporarily set `redact_secrets: false`, write the number, verify with `cat ~/.hermes/.env | grep SIGNAL`, then re-enable redaction if desired.
 
 ---
 
@@ -143,7 +143,7 @@ Replace `$USER` and `<PHONE>` with your actual username and phone number.
 ```bash
 systemctl --user daemon-reload
 systemctl --user enable --now signal-cli.service
-systemctl --user status signal-cli.service  # verify "active (running)"
+systemctl --user status signal-cli.service # verify "active (running)"
 ```
 
 ---
@@ -171,8 +171,8 @@ You can also test outbound:
 ```bash
 # Send via JSON-RPC directly
 curl -s -X POST http://127.0.0.1:8080/api/v1/rpc \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"send","params":{"account":"+PHONE","message":"test","recipient":"+PHONE"},"id":1}'
+ -H "Content-Type: application/json" \
+ -d '{"jsonrpc":"2.0","method":"send","params":{"account":"+PHONE","message":"test","recipient":"+PHONE"},"id":1}'
 ```
 
 ---
@@ -199,8 +199,8 @@ curl -s -X POST http://127.0.0.1:8080/api/v1/rpc \
 
 ### Signal adapter not loaded
 
-- Missing .env vars: `grep SIGNAL ~/.hermes/.env`
-- Gateway reads env vars at startup - restart required after .env changes
+- Missing.env vars: `grep SIGNAL ~/.hermes/.env`
+- Gateway reads env vars at startup - restart required after.env changes
 - Both `SIGNAL_HTTP_URL` and `SIGNAL_ACCOUNT` must be set
 
 ### getServerGuid NullPointerException
@@ -278,7 +278,7 @@ journalctl --user -u signal-cli.service --since "1 min ago" --no-pager
 
 ```bash
 # Once Signal is confirmed working:
-hermes config edit    # Remove or comment out Discord section
+hermes config edit # Remove or comment out Discord section
 hermes gateway restart
 ```
 

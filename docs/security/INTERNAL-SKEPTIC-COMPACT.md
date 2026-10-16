@@ -45,7 +45,7 @@ When you catch yourself using these words, **stop and verify**:
 - Sample size? 5 queries
 - Untested? Edge cases, long-term reliability
 
-**Honest version:** "Test queries show improved scores (0.45 → 0.77). Limited testing - 'perfect' is overclaiming."
+**Honest version:** "Test queries show improved scores (0.45 0.77). Limited testing - 'perfect' is overclaiming."
 
 ## Why Compact?
 

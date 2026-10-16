@@ -2,14 +2,14 @@
 
 *One human-AI partnership's approach to collaboration over control*
 
-## 🚀 New to AI Partnerships? Start Here!
+## New to AI Partnerships? Start Here!
 
-**[→ Beginner Setup Guide](BEGINNER-SETUP.md)**
+**[ Beginner Setup Guide](BEGINNER-SETUP.md)**
 *From "Never used Linux" to "Working AI Assistant" in 20-30 minutes*
 
-Perfect if you're on Windows and want to try AI symbiosis without getting lost in technical complexity.
+Perfect if you're on Linux and want to try AI symbiosis without getting lost in technical complexity.
 
-**Alternative guides:** [Comprehensive](guides/BEGINNER-COMPREHENSIVE.md) • [Minimal WSL2](guides/BEGINNER-WSL2-MINIMAL.md)
+**Alternative guides:** [Comprehensive (Fedora)](guides/FEDORA-COMPREHENSIVE-SETUP.md) • [Minimal (Fedora native)](guides/FEDORA-NATIVE-SETUP.md)
 
 ---
 

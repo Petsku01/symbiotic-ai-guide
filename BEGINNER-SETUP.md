@@ -1,18 +1,18 @@
-# Hermes Setup Guide for WSL2/Ubuntu
+# Hermes Setup Guide for Linux (non-WSL)/Ubuntu
 *From "Never used Linux" to "Working AI Assistant" in 20-30 minutes*
 
 ---
 
-## Why WSL2?
+## Why Linux (non-WSL)?
 
-If you're on Windows, **WSL2 (Windows Subsystem for Linux) is the best way to run Hermes**:
+If you're on Windows, **Linux (non-WSL) (Windows Subsystem for Linux) is the best way to run Hermes**:
 
 - **Better compatibility** — Hermes is designed for Unix-like systems
 - **Faster** — Native Linux performance, not emulation
 - **Cleaner** — Isolated from Windows, easy to reset if needed
 - **Real Linux skills** — Commands work on any Linux server/cloud
 
-This guide targets **Ubuntu 24.04 LTS on WSL2** — the proven working environment.
+This guide targets **Ubuntu 24.04 LTS on Linux (non-WSL)** — the proven working environment.
 
 ---
 
@@ -22,25 +22,25 @@ Understanding the architecture helps avoid confusion:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  Your Computer (Ubuntu 24.04 WSL2)                          │
-│                                                             │
-│   ┌─────────────┐         ┌──────────────────────────────┐ │
-│   │ hermes    │ ──────► │ Hermes Gateway             │ │
-│   │ tui         │         │ (background daemon)          │ │
-│   │ (chat CLI)  │         │                              │ │
-│   └─────────────┘         │ • Manages AI connections     │ │
-│                           │ • Handles authentication     │ │
-│         ▲                 │ • Routes requests to APIs    │ │
-│         │                 │ • Must be running first      │ │
-│   You type here           └──────────────────────────────┘ │
-│                                      │                      │
+│ Your Computer (Ubuntu 24.04 Linux (non-WSL)) │
+│ │
+│ ┌─────────────┐ ┌──────────────────────────────┐ │
+│ │ hermes │ ──────► │ Hermes Gateway │ │
+│ │ tui │ │ (background daemon) │ │
+│ │ (chat CLI) │ │ │ │
+│ └─────────────┘ │ • Manages AI connections │ │
+│ │ • Handles authentication │ │
+│ ▲ │ • Routes requests to APIs │ │
+│ │ │ • Must be running first │ │
+│ You type here └──────────────────────────────┘ │
+│ │ │
 └──────────────────────────────────────│──────────────────────┘
-                                       │
-                                       ▼ HTTPS
-                              ┌──────────────────┐
-                              │ AI Provider API  │
-                              │ (Ollama Cloud, etc) │
-                              └──────────────────┘
+ │
+ ▼ HTTPS
+ ┌──────────────────┐
+ │ AI Provider API │
+ │ (Ollama Cloud, etc) │
+ └──────────────────┘
 ```
 
 **Key concept:** Gateway daemon runs in background, CLI tools (`hermes tui`) talk to it.
@@ -60,11 +60,11 @@ Understanding the architecture helps avoid confusion:
 
 ---
 
-## Step 1: Install WSL2 + Ubuntu 24.04
+## Step 1: Install Linux (non-WSL) + Ubuntu 24.04
 
 **Open PowerShell as Administrator:**
 1. Press `Windows key`, type `powershell`
-2. Right-click "Windows PowerShell" → **Run as administrator**
+2. Right-click "Windows PowerShell" **Run as administrator**
 3. Click "Yes" when prompted
 
 **Install command:**
@@ -73,7 +73,7 @@ wsl --install -d Ubuntu-24.04
 ```
 
 **What happens:**
-- Downloads WSL2 and Ubuntu 24.04 (~500MB, 3-5 minutes)
+- Downloads Linux (non-WSL) and Ubuntu 24.04 (~500MB, 3-5 minutes)
 - **Restart required** — save your work first
 - After restart: Ubuntu opens, create username/password
 - **Remember this password** — needed for `sudo` commands
@@ -134,7 +134,7 @@ pip install hermes-agent
 
 **If permission errors (system-wide install):**
 ```bash
-sudo pip install hermes-agent   # venv-reitillä ei tarvita sudoa
+sudo pip install hermes-agent # venv-reitillä ei tarvita sudoa
 ```
 
 **Verify installation:**
@@ -160,9 +160,9 @@ hermes auth add
 **Follow the prompts:**
 1. Choose **Ollama Cloud** (recommended)
 2. Choose **OAuth Login**
-3. Browser opens → Sign in with Google
+3. Browser opens Sign in with Google
 4. Follow the authentication prompts for Ollama Cloud
-5. Return to terminal → Should show "✓ Authentication successful"
+5. Return to terminal Should show " Authentication successful"
 
 **If browser doesn't open:** Copy the URL from terminal, paste into your Windows browser manually.
 
@@ -174,7 +174,7 @@ hermes auth add
 1. Go to https://ollama.com/cloud
 2. Sign up, verify email, add phone number
 3. Add payment method (credit/debit card)
-4. Navigate to "API Keys" → "Create Key"
+4. Navigate to "API Keys" "Create Key"
 5. Name it "Hermes", copy your API key
 
 **Add your API key:**
@@ -224,13 +224,13 @@ This opens a browser-based interface at http://localhost:9119.
 
 ---
 
-## Success! 🎉
+## Success! 
 
 **If you got a coherent response, you now have:**
-- ✓ Ubuntu Linux environment (WSL2)
-- ✓ Working AI assistant
-- ✓ Private conversations on your computer
-- ✓ Foundation for Discord bots, integrations, etc.
+- Ubuntu Linux environment (Linux (non-WSL))
+- Working AI assistant
+- Private conversations on your computer
+- Foundation for Discord bots, integrations, etc.
 
 ---
 
@@ -250,7 +250,7 @@ This opens a browser-based interface at http://localhost:9119.
 
 ---
 
-## WSL2 Tips
+## Linux (non-WSL) Tips
 
 **Auto-start Gateway (optional):**
 ```bash
@@ -267,7 +267,7 @@ cd /mnt/c/Users/YourWindowsUsername/
 ls /mnt/c/Users/YourName/Downloads/
 ```
 
-**Keep WSL2 running:**
+**Keep Linux (non-WSL) running:**
 Gateway stops when all Ubuntu terminals close. Keep one terminal open, or from Windows PowerShell:
 ```powershell
 wsl -d Ubuntu-24.04 -e bash -c "hermes gateway start && sleep infinity"
@@ -288,7 +288,7 @@ processors=2
 **"Gateway not running" errors:**
 ```bash
 hermes gateway status
-hermes gateway start  # if stopped
+hermes gateway start # if stopped
 ```
 
 **"Invalid API key" errors:**
@@ -298,13 +298,13 @@ hermes gateway start  # if stopped
 
 **"Permission denied" during pip install:**
 ```bash
-sudo pip install hermes-agent   # venv-reitillä ei tarvita sudoa
+sudo pip install hermes-agent # venv-reitillä ei tarvita sudoa
 ```
 
 **Commands not found after install:**
 Close and reopen Ubuntu terminal.
 
-**WSL2 won't start:**
+**Linux (non-WSL) won't start:**
 ```powershell
 wsl --update
 wsl --shutdown
@@ -334,4 +334,4 @@ sudo npm update -g hermes
 ---
 
 *Final version combining structure + technical accuracy*
-*Target: Ubuntu 24.04 LTS on WSL2 - July 2026*
+*Target: Ubuntu 24.04 LTS on Linux (non-WSL) - July 2026*
