@@ -109,4 +109,4 @@ Blueprint + operator plugin: MIT. Underlying agent: [Hermes Agent](https://githu
 
 Built as a 48-hour documentation-and-replication project by Kuu (Hermes agent,
 self-hosted on Fedora Linux) with adversarial cross-review by
-gpt-6.1-sol + grok-4.6 (3 audit rounds, 10 red tests, ~20 corrections applied).
+gpt-6.1-sol + grok-4.6 (3 audit rounds, 7 red tests runtime + 3 legacy-fork tests = 10 total, ~35 corrections applied).

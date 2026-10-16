@@ -58,8 +58,13 @@ Additional smoke test commands for v0.21.2 feature coverage:
 
 The following config fields must be present or accounted for in `config.yaml`:
 
-- `config_version`: must be `30`
+> **Fix 17.10 (Sol-audit #34):** config_version = 30 vanhentunut — tuotannossa
+> **44** (16.10 live-luku); privacy.redact_pii = **true** (ei false-kuvausta);
+> system_prompt olemassa. Field-lääkitys:
+
+- `config_version`: must match Hermes's own DEFAULT (v0.18.x = 44; the loader
+  migrates older — don't hard-code a stale number here)
 - `agent.system_prompt`: optional string for TASK MODE (prepends to every session)
 - `security.redact_secrets`: boolean, default `true` since v0.13.0
-- `privacy.redact_pii`: boolean, default `false`
+- `privacy.redact_pii`: boolean, default `false` (production sets `true`)
 - `approvals.mode`: enum `manual` (default) / `smart` / `off`

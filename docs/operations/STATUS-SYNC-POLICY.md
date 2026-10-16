@@ -27,4 +27,7 @@ PRs that ship fixes must include:
 - A changelog entry reference.
 - The corresponding issue stack status update.
 
-This is enforced in the PR checklist and docs validation checks.
+> Note (FIX 17.10, Sol-audit #33): enforcement = ihmis-PR-checklist + paikallinen
+> validate-docs-safety.sh (dokumentaatio-teksten tasolla). Ei ole automaattinen
+> runtime-valvonta joka todistaa jokaisen shipatun korjauksen — jos tarvitset
+> todisteen, aja CI:n gate-ketju + tarkista päivämäärät CHANGELOGissa.
