@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os  # FIX 17.10 (Solin täysaudit #77): KUU_SNAPSHOT_DIR/OFFSITE_STAGE env-luvut
 import re
 import subprocess
 import time

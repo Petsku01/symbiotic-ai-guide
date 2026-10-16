@@ -26,7 +26,7 @@ from pathlib import Path
 Here = Path(__file__).resolve().parent
 HERMES = Path.home() / ".hermes"
 OFFSITE_KEY = HERMES / "backup-keys" / "backup.passphrase"
-OFFSITE_WORK_ROOT = Path(os.environ.get("KUU_OFFSITE_STAGE", "/tmp/kuu-offsite-work"))
+OFFSITE_WORK_ROOT = Path(os.environ.get("KUU_OFFSITE_STAGE", "/scratch/tmp"))
 
 # tuotantopolut: EI KOSKETETA — listaan vain inventaariota varten
 # nimi-mapping: snapshotissa X.zst → palautus tuottaa plainin eri nimellä
