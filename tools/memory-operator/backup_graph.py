@@ -25,8 +25,10 @@ SCRATCH_BACKUP = HERMES / "workspace" / "tools" / "kuu-scratch-backup.sh"
 OFFSITE = HERMES / "scripts" / "kuu-offsite-backup.sh"
 OFFSITE_REPO = "github.com/YOURUSER/YOURUSER-offsite-backup"  # muuta omaan
 OFFSITE_KEY = HERMES / "backup-keys" / "backup.passphrase"
-SCRATCH_DEST = Path("/scratch/kuu-backup")
-OFFSITE_STAGE = Path("/scratch/tmp")
+        # snapshot-path: ympäristökohtainen (esim. /scratch tai /mnt/backup) —
+        # muuta arvo omaan ympäristöösi; tuotannossa meillä /scratch/kuu-backup
+SCRATCH_DEST = Path(os.environ.get("KUU_SNAPSHOT_DIR", "/scratch/kuu-backup"))
+OFFSITE_STAGE = Path(os.environ.get("KUU_OFFSITE_STAGE", "/scratch/tmp"))
 
 
 def _collect_backup() -> dict:

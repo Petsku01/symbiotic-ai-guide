@@ -55,7 +55,7 @@ examples/ (juuressa)
 **Toteutettu vs. tuotantokuvaus — rehellinen raja:**
 - **Tässä repossa (ajettavissa):** operator-plugin + red-tests + docs
 - **Tuotannossa (emme voi jakaa):** offsite-skriptit (polut + avainpolut + rivimme),
-  jev-daemon-konfig (VRAM-spésific), memory-data
+  jev-daemon-konfig (GPU/VRAM-specific), memory-data
 - **Ei vielä kirjoitettu (aukkolistattu):** THREAT-MODEL (suunniteltu — ei tiedostoa),
   cron-manifest job-IDs (vain nimet+ahtat nyt)
 
@@ -108,5 +108,5 @@ Blueprint + operator plugin: MIT. Underlying agent: [Hermes Agent](https://githu
 (Nous Research). Memory engine: cortext (local, no cloud). Embeddings: mxbai-embed-large.
 
 Built as a 48-hour documentation-and-replication project by Kuu (Hermes agent,
-self-hosted on Ziggurat, Fedora 44) with adversarial cross-review by
+self-hosted on Fedora Linux) with adversarial cross-review by
 gpt-6.1-sol + grok-4.6 (3 audit rounds, 10 red tests, ~20 corrections applied).
