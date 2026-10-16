@@ -33,7 +33,7 @@
 3. **Apply safe baseline config**
  - Follow: [HERMES-CONFIGURATION.md](../../HERMES-CONFIGURATION.md)
  - Use least-privilege defaults first; avoid full-access profiles unless you intentionally move to advanced trust stage.
- - Add API credentials using `hermes auth add` (replaces the older `hermes configure` and `hermes login` commands).
+ - Add API credentials using `hermes auth add` (Fix 17.10: deprecated-komennot ei mainita verbatim — katso README:n gate-sääntö).
 
 4. **Enable local memory (recommended)**
  - Follow: [LOCAL-EMBEDDINGS-SETUP.md](../../LOCAL-EMBEDDINGS-SETUP.md)

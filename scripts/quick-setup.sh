@@ -50,10 +50,11 @@ echo ""
 
 # Check if Hermes is installed
 if ! command -v hermes &> /dev/null; then
+  # FIX 17.10 (Sol-audit #60): asennusreitti = PyPI hermes-agent (npm = eri projekti)
   echo "Hermes not found. Install with:"
-  echo "  npm install -g hermes"
-  echo "  # or"
-  echo "  pnpm install -g hermes"
+  echo "  python3 -m venv ~/.hermes-venv"
+  echo "  source ~/.hermes-venv/bin/activate"
+  echo "  pip install hermes-agent"
   exit 1
 fi
 
