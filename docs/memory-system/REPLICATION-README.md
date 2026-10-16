@@ -33,24 +33,31 @@ also mutate what it monitors, you get a two-policy drift (our compression
 engine's trigger and its own cache-guard disagreed and the host couldn't see
 why — documented in `docs/lessons.md`).
 
-## Repo map
+## Repo map (FIX 16.10: täsmää tähän repo-on — symbiotic-ai-guide)
 
 ```
-operator/            — portable operator plugin (v0.3.0, no personal data)
-  plugin.yaml        — standalone, CLI-only, zero tools/hooks
-  __init__.py        — manifest / health / diff / verify commands
-  backup_graph.py    — V2: backup dependency-graph audit
-  restore_check.py   — V3: real restore test (temp dir, SHA-verified)
-  test_*_red.py      — 10 red tests (failure injection)
-docs/
-  ARCHITECTURE.md    — full layer map with measured sizes (as_of-stamped)
-  LESSONS.md         — 8 production lessons from a live agent
-  SETUUP.md          — step-by-step replication guide
-  THREAT-MODEL.md    — what the memory system protects against
-examples/
-  config-excerpts/   — the config.yaml sections you need (sanitised)
-  cron-manifest/     — the 35-job cron fleet (names/schedules only)
+tools/memory-operator/   — portable operator plugin (v0.3.0, no personal data)
+  plugin.yaml            — standalone, CLI-only, zero tools/hooks
+  __init__.py            — manifest / health / diff / verify commands
+  backup_graph.py        — V2: backup dependency-graph audit
+  restore_check.py       — V3: real restore test (temp dir, SHA+size verified)
+  test_*_red.py          — 7 red tests (failure injection)
+docs/memory-system/      — TÄMÄ hakemisto:
+  REPLICATION-README.md  — this file
+  ARCHITECTURE.md        — full layer map with measured sizes (as_of-stamped)
+  LESSONS.md             — 8 production lessons from a live agent
+  SETUP.md               — step-by-step replication guide
+examples/ (juuressa)
+  config.sections.yaml   — the config.yaml sections you need (sanitised)
+  cron-manifest/README.md — the 35-job cron fleet (names/schedules only)
 ```
+
+**Toteutettu vs. tuotantokuvaus — rehellinen raja:**
+- **Tässä repossa (ajettavissa):** operator-plugin + red-tests + docs
+- **Tuotannossa (emme voi jakaa):** offsite-skriptit (polut + avainpolut + rivimme),
+  jev-daemon-konfig (VRAM-spésific), memory-data
+- **Ei vielä kirjoitettu (aukkolistattu):** THREAT-MODEL (suunniteltu — ei tiedostoa),
+  cron-manifest job-IDs (vain nimet+ahtat nyt)
 
 ## Quick start (Hermes agent)
 
@@ -59,10 +66,10 @@ examples/
 hermes memory setup            # provider: cortext
 
 # 2. Context engine: drop-in jev-style compaction plugin
-#    (see docs/SETUP.md §3 for the full path + knobs)
+#    (see SETUP.md §3 for the full path + knobs)
 
-# 3. Operator plugin (this repo)
-cp -r operator/ ~/.hermes/plugins/kuu-memory-operator/
+# 3. Operator plugin (tämä repo)
+cp -r tools/memory-operator/ ~/.hermes/plugins/kuu-memory-operator/
 hermes plugins enable kuu-memory-operator
 
 # 4. Smoke test
@@ -80,7 +87,9 @@ hermes kuu-memory restore-check --audit-only
 | Episodes / signals | 5 962 / 9 029 | same |
 | DB size | 82,5 MB | os.stat |
 | HOT capacity | 7 881 / 10 000 chars (78,8 %) | read_text |
-| Restore time | **8 s for 7,02 GB** (3 artifacts, SHA-identical) | restore_check live run |
+- Restore time: **8 s for 7,02 GB** (3 artifacts, SHA-16 + size verified — see
+  the honest-gap note: full-file SHA and manifest comparison are on the
+  roadmap; current check hashes the head 5 MB of large files)
 | Red tests passing | 10/10 | failure-injection suite |
 | Cron fleet | 35 jobs (30 enabled) | jobs.json |
 

@@ -102,7 +102,15 @@ hermes cron create --name "Kuu Memory Operator Shadow" --deliver local \
 
 ## 6. Offsite-backup (2 pilveä, E2E-salattu)
 
+> **Fix 16.10 (Solin audit P1#3):** tässä repossa on operator-plugin JA sen
+> testit (tools/memory-operator/) — mutta backup-/offsite-skriptit ovat
+> tuotantokohtaisia (polut, repon nimet, avaimet sijaitsevat ympäristökohtaisesti).
+> Tämä osio = RAKENTEELLINEN malli jota ei voi ajaa sellaisenaan toisessa ympäristössä
+> — sovita polut omaan asennukseesi. Katso REPLICATION-README.md: "What's in this
+> repo vs. what stays yours".
+
 ```bash
+# TUOTANNOMALLI (meidän polut — muuta omiin):
 scripts/kuu-scratch-backup.sh   # /scratch-snapshot: SQLite backup-API + tar+zstd
 scripts/kuu-offsite-backup.sh   # salaus (AES-256-CBC PBKDF2 600k) + ositus + push
 ```
@@ -118,9 +126,10 @@ scripts/kuu-offsite-backup.sh   # salaus (AES-256-CBC PBKDF2 600k) + ositus + pu
 ## 7. Punatestaaminen
 
 ```bash
-python3 operator/test_v2_red.py   # 3 vauriota: avain/snapshot/scratch
-python3 operator/test_v3_red.py   # 3 vauriota: avain/canchain/audit-only
-python3 operator/test_health_red.py # 1 vaurio: kerääjävirhe → rc=1
+# tämä repo: tools/memory-operator/ (EI operator/ — katso REPLICATION-README)
+python3 tools/memory-operator/test_v2_red.py   # 3 vauriota: avain/snapshot/scratch
+python3 tools/memory-operator/test_v3_red.py   # 3 vauriota: avain/work-chain/audit-only
+python3 tools/memory-operator/test_health_red.py # 1 vaurio: kerääjävirhe → rc=1
 ```
 
 **10 punatestiä + 2 E2E-palautusajot (4,9 GB salattua 8 sekunnissa).**

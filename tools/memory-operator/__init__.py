@@ -230,14 +230,29 @@ def cmd_health(args: argparse.Namespace) -> int:
         mst = (HERMES / "MISTAKES.md").read_text()
         n_entries = len([l for l in mst.splitlines() if l.startswith("### ")])
         if n_entries >= 15:
+            # FIX 16.10 (Solin audit P1#5): katto täynnä = PROBLEM (exit 1),
+            # ei pelkkää ilmoitusta — kirjoitusesto = käyttökatko
             prob.append(f"MISTAKES: {n_entries}/15 katto TÄYNNÄ — uutta entryta ei voi kirjata")
+            bad = True
+        elif n_entries >= 13:
+            prob.append(f"MISTAKES: {n_entries}/15 — prune-ikkuna lähellä (30pv)")
     except Exception as e:
         prob.append(f"MISTAKES-lukuvirhe: {str(e)[:60]}")
+        bad = True
     monirivi = (L["hot"].get("separators", 0) + 1) - L["hot"].get("entries", 0)
-    if monirivi > 1:
-        prob.append(f"HOT-RAKENNE: {monirivi - 1} monirivistä lohkoa — 'entry=1 rivi' ei "
+    # FIX 16.10 (Solin audit P1#5 suuntavirhe): entries laskettu lines-separationnilla
+    # (len(lines) - count('§')) → moniriviblokkien kanssa entries YLittää erottimet.
+    # blokkeja = entries - (separators + 1) kun entries > separators + 1 —
+    # AIEMMIN: monirivi = (separators + 1) - entries → VÄÄRÄMERKINEN (negatiivinen)
+    if L["hot"].get("entries", 0) > L["hot"].get("separators", 0) + 1:
+        monirivi = L["hot"]["entries"] - (L["hot"]["separators"] + 1)
+        prob.append(f"HOT-RAKENNE: {monirivi} monirivistä lohkoa — 'entry=1 rivi' ei "
                     f"toteudu (Solin inventointi); kanoninen parseri tarvitaan")
     bad = bad or bool(errors)
+    # FIX 16.10 (Solin audit P1#5): rakenne-ongelmat = exit 1 (ei vain näkyviä)
+    # monirivityöläinen + CRON-hiljaisluku = operatiivinen tila joka vaatii toimenpidettä
+    if L["hot"].get("entries", 0) > L["hot"].get("separators", 0) + 1:
+        bad = True  # rakennepoikkeama = kanonisen parserin tarve = toimenpide
     print("HEALTH:", "PROBLEM" if bad or prob else "OK")
     for p in prob:
         print("  !", p)
