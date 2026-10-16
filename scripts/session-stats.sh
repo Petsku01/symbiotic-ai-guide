@@ -26,5 +26,5 @@ hermes security audit 2>&1 | grep -E "(Summary|critical|warn)" | head -5
 
 echo ""
 echo "Cron Jobs:"
-CRON_COUNT=$(hermes cron list 2>&1 | grep -c '"name"' || echo "0")
+CRON_COUNT=$(hermes cron list 2>&1 | grep -c '"name"' || true)
 echo "Active jobs: $CRON_COUNT"

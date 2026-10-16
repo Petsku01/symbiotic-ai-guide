@@ -117,11 +117,11 @@ collect_system_metrics() {
 
   # Journal analysis with proper error handling and timeout
   if command -v journalctl >/dev/null 2>&1; then
-  if ! slow_events_1h=$(timeout 10 journalctl --user -u hermes-gateway --since="1 hour ago" --no-pager -q 2>/dev/null | grep -c "Slow listener" || echo "0"); then
+  if ! slow_events_1h=$(timeout 10 journalctl --user -u hermes-gateway --since="1 hour ago" --no-pager -q 2>/dev/null | grep -c "Slow listener" || true); then
   slow_events_1h="0"
   fi
 
-  if ! websocket_drops_1h=$(timeout 10 journalctl --user -u hermes-gateway --since="1 hour ago" --no-pager -q 2>/dev/null | grep -c "WebSocket connection closed" || echo "0"); then
+  if ! websocket_drops_1h=$(timeout 10 journalctl --user -u hermes-gateway --since="1 hour ago" --no-pager -q 2>/dev/null | grep -c "WebSocket connection closed" || true); then
   websocket_drops_1h="0"
   fi
   else

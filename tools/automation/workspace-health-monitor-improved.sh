@@ -149,8 +149,8 @@ analyze_project_organization() {
   fi
 
   local category_count file_count
-  category_count=$(echo "$project_categories" | grep -c . || echo 0)
-  file_count=$(echo "$project_files" | grep -c . || echo 0)
+  category_count=$(echo "$project_categories" | grep -c . || true)
+  file_count=$(echo "$project_files" | grep -c . || true)
 
   echo "  TREND: Project metrics:" | tee -a "$LOG_FILE"
   echo "  Project categories: $category_count" | tee -a "$LOG_FILE"

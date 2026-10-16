@@ -170,7 +170,7 @@ execute_automation_tool() {
 
   # Extract warnings/alerts
   local warnings
-  warnings=$(echo "$tool_output" | grep -c "WARNING:\|CRITICAL:" || echo 0)
+  warnings=$(echo "$tool_output" | grep -c "WARNING:\|CRITICAL:" || true)
   if (( warnings > 0 )); then
   echo "  • Warnings/alerts detected: $warnings" | tee -a "$LOG_FILE"
   fi
@@ -241,11 +241,11 @@ generate_integrated_analysis() {
   for log_file in "${available_logs[@]}"; do
   local log_warnings log_optimizations
 
-  if log_warnings=$(grep -c "WARNING:\|CRITICAL:" "$log_file" 2>/dev/null || echo 0); then
+  if log_warnings=$(grep -c "WARNING:\|CRITICAL:" "$log_file" 2>/dev/null || true); then
   ((total_warnings += log_warnings))
   fi
 
-  if log_optimizations=$(grep -c "OK:.*optimal\|OK:.*successful" "$log_file" 2>/dev/null || echo 0); then
+  if log_optimizations=$(grep -c "OK:.*optimal\|OK:.*successful" "$log_file" 2>/dev/null || true); then
   ((total_optimizations += log_optimizations))
   fi
   done

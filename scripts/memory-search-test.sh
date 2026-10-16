@@ -31,7 +31,7 @@ for query in "${QUERIES[@]}"; do
   if echo "$RESULT" | grep -q "score"; then
   # Extract top score
   TOP_SCORE=$(echo "$RESULT" | grep -oE "score[^0-9]*[0-9]+\.[0-9]+" | head -1 | grep -oE "[0-9]+\.[0-9]+" || echo "N/A")
-  MATCHES=$(echo "$RESULT" | grep -c "path" || echo "0")
+  MATCHES=$(echo "$RESULT" | grep -c "path" || true)
   echo "  Results: $MATCHES matches, top score: $TOP_SCORE"
   else
   echo "  No results or error"
