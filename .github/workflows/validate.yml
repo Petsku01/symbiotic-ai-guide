@@ -14,13 +14,13 @@ jobs:
       HERMES_AGENT_VERSION: "0.19.0"
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0  # FIX 16.10 (Sol-audit P1#8): gitleaks skannaa KOKO historian
                           # (lyhyt checkout = historia-scannaus ei toimi)
 
       - name: Install Node.js (for JS checks)
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@39370e3970a6d050c380ff6040ec67d9a0ab0501 # v4.1.0
         with:
           node-version: "22"
 

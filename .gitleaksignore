@@ -1,10 +1,15 @@
 # .gitleaksignore — gitleaks 8.24.2 full-history fingerprints
 #
-# Konteksti: adversarial-checkin tekaistut testisamplet (scripts/run-adversarial-checks.sh
-# r.51-53: AKIA/ghp/xox-fake patternit) + kaksi historia-curl-headeria.
-# gitleaks detect --source . skannaa KAIKKI commitit — jokainen historiallinen commit
-# jossa rivit 51-53 esiintyivät tarvitsee oman fp-rivin. Tämä lista = niiden unioni.
-# (8.24.2 ei tue glob/prefix-fp:tä .gitleaksignoressa — commit-kohtainen on ainoa kielioppi.)
+# Konteksti: 8.24.2 + detect --source . skannaa KOKO historin — jokainen
+# HISTORIALLINEN commit jossa tekaistut tokenisamplet olivat rivillä 51–53
+# tarvitsee oman fp-rivin (fp = <commit-sha>:<file>:<rule>:<line>).
+# Nämä ovat TURVALLISIA: samplet = meidän adversarial-checkin tekaistut
+# placeholder-muodot (ei aitojä avaimia — testaa vain että regex-sanity
+# löytää leak-muodot). 17.10 rescan: poistettu vain 2 fp:tä joissa rivin
+# sisältö EI vastannut sample-muotoa — ne palautuvat CI-scanissä näkyviin
+# = aito läpinäkyvyys. (OPENCLAW-INSTALLATION.md = poistettu HEADistä mutta
+# historia-commit sisältää vielä curl-headerin — fp pitää sen näkymättömänä
+# KOSKA se on sama official-Homebrew-tyylinen placeholder-esimerkki.)
 6e1ecaebfa99b2244e0446456a79c5124a331fe2:scripts/run-adversarial-checks.sh:aws-access-token:51
 6e1ecaebfa99b2244e0446456a79c5124a331fe2:scripts/run-adversarial-checks.sh:github-pat:52
 6e1ecaebfa99b2244e0446456a79c5124a331fe2:scripts/run-adversarial-checks.sh:slack-bot-token:53
@@ -12,6 +17,4 @@ db364e7c8fb24326a0cb8d060cfee6437ab12c61:scripts/run-adversarial-checks.sh:aws-a
 db364e7c8fb24326a0cb8d060cfee6437ab12c61:scripts/run-adversarial-checks.sh:github-pat:52
 db364e7c8fb24326a0cb8d060cfee6437ab12c61:scripts/run-adversarial-checks.sh:slack-bot-token:53
 41a8702a3c9d444de6182b1179a9522f103d05b5:scripts/run-adversarial-checks.sh:aws-access-token:51
-41a8702a3c9d444de6182b1179a9522f103d05b5:scripts/run-adversarial-checks.sh:github-pat:52
-41a8702a3c9d444de6182b1179a9522f103d05b5:scripts/run-adversarial-checks.sh:slack-bot-token:53
 e94692777783403e9c8ac59a1ef8c2f98cb2a83b:OPENCLAW-INSTALLATION.md:curl-auth-header:459

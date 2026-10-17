@@ -104,6 +104,7 @@ hermes --version
 
 ```bash
 # Install Homebrew if not present
+# Official Homebrew installer (verified domain: raw.githubusercontent.com/Homebrew/)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Install Python and Git
